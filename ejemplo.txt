@@ -1,0 +1,93 @@
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Pagina Usuario</title>
+    <!-- Bootstrap core CSS -->
+    <link href="style/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style/main.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="/www/loginregister-master/">Live Your Dreams</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/www/loginregister-master/">Inicio
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="login.php">
+Iniciar sesión</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="registro.php">Registro</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+<section>
+<script>
+     $(function(){
+        $("input[name='file']").on("change", function(){
+            var formData = new FormData($("#uploadimage")[0]);
+            var ruta = "imagen-ajax.php";
+            $.ajax({
+                url: ruta,
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(datos)
+                {
+                    $("#respuesta").html(datos);
+                }
+            });
+        });
+     });
+</script>
+
+
+<div class="container">
+
+	<div class="row">
+
+	    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+			
+				<h2>¡Bienvenido! Irene</h2>
+				<p><a href="logout.php" class="text-success">Cerrar sesión</a></p>
+				<hr>
+				
+				
+				<form id="uploadimage" action="" method="post" enctype="multipart/form-data">
+				<input type="file" name="file" id="file" required="">
+				<div class="col-xs-6 col-md-6"><input type="submit" name="submit" value="Subir" class="btn btn-light btn-block btn-lg" tabindex="5">
+				
+				<!-- <div id="respuesta"></div> -->
+				
+				<br><br>
+				<div style="padding:30px;border:10px solid black;">
+				<span>NO TIENES IMAGENES</span>				<div>				
+				
+
+		</div>
+	</div>
+
+
+</div></form>
+
+    </div></div></div></section>
+    <!-- Bootstrap core JavaScript -->
+    <script src="javascript/jquery.min.js"></script>
+    <script src="javascript/bootstrap.bundle.min.js"></script>
+
+
+</body></html>

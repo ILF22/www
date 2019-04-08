@@ -1,59 +1,59 @@
 <?php require('includes/config.php'); 
 
-//if logged in redirect to members page
-if( $user->is_logged_in() ){ header('Location: memberpage.php'); exit(); }
+//Si ha iniciado sesión, redirija a la página de class
+if( $user->is_logged_in() ){ header('Location: paginausuarios.php'); exit(); }
 
 $resetToken = hash('SHA256', ($_GET['key']));
 
-$stmt = $db->prepare('SELECT resetToken, resetComplete FROM members WHERE resetToken = :token');
+$stmt = $db->prepare('SELECT resetToken, resetComplete FROM usuarios WHERE resetToken = :token');
 $stmt->execute(array(':token' => $resetToken));
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-//if no token from db then kill the page
+//Si no hay token de db se cae la pagina
 if(empty($row['resetToken'])){
-	$stop = 'Invalid token provided, please use the link provided in the reset email.';
+	$stop = 'El token no es válido, utiliza el enlace proporcionado en el correo electrónico de restablecimiento.';
 } elseif($row['resetComplete'] == 'Yes') {
-	$stop = 'Your password has already been changed!';
+	$stop = '¡Tu contraseña ya ha sido cambiada!';
 }
 
-//if form has been submitted process it
+//Si el formulario ha sido enviado la procesa
 if(isset($_POST['submit'])){
 
 	if (!isset($_POST['password']) || !isset($_POST['passwordConfirm']))
-		$error[] = 'Both Password fields are required to be entered';
+		$error[] = 'Ambos campos de contraseña son obligatorios para ser ingresados';
 
-	//basic validation
+	//Validacion de contraseña
 	if(strlen($_POST['password']) < 3){
-		$error[] = 'Password is too short.';
+		$error[] = 'La contraseña es demasiado corta.';
 	}
 
 	if(strlen($_POST['passwordConfirm']) < 3){
-		$error[] = 'Confirm password is too short.';
+		$error[] = 'Confirmar contraseña es muy corta.';
 	}
-
+	//Validacion de coincidencia de contraseñas
 	if($_POST['password'] != $_POST['passwordConfirm']){
-		$error[] = 'Passwords do not match.';
+		$error[] = 'Las contraseñas no coinciden.';
 	}
 
-	//if no errors have been created carry on
+	//Si no se han creado errores, continua
 	if(!isset($error)){
 
-		//hash the password
+		//Codifica la contraseña
 		$hashedpassword = $user->password_hash($_POST['password'], PASSWORD_BCRYPT);
 
 		try {
-
-			$stmt = $db->prepare("UPDATE members SET password = :hashedpassword, resetComplete = 'Yes'  WHERE resetToken = :token");
+			//Actualiza la contraseña, si se active el link enviado pasa a estado activo y cambiamos la contraseña
+			$stmt = $db->prepare("UPDATE usuarios SET password = :hashedpassword, resetComplete = 'Yes'  WHERE resetToken = :token");
 			$stmt->execute(array(
 				':hashedpassword' => $hashedpassword,
 				':token' => $row['resetToken']
 			));
 
-			//redirect to index page
+			//Redirigir a la página de índice
 			header('Location: login.php?action=resetAccount');
 			exit;
 
-		//else catch the exception and show the error.
+		//De lo contrario, capte la excepción y muestre el error.
 		} catch(PDOException $e) {
 		    $error[] = $e->getMessage();
 		}
@@ -62,10 +62,10 @@ if(isset($_POST['submit'])){
 
 }
 
-//define page title
-$title = 'Reset Account';
+//Definir el título de la página
+$title = 'Restablecer contraseña';
 
-//include header template
+//Incluir plantilla de encabezado
 require('layout/header.php'); 
 ?>
 
@@ -75,63 +75,62 @@ require('layout/header.php');
 
 	    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
 
-
+		
 	    	<?php if(isset($stop)){
-
+			//
 	    		echo "<p class='bg-danger'>$stop</p>";
 
 	    	} else { ?>
-
+				<!-- Boton de cambio de contraseña-->
 				<form role="form" method="post" action="" autocomplete="off">
-					<h2>Change Password</h2>
+					<h2>Cambio de Contraseña.</h2>
 					<hr>
 
 					<?php
-					//check for any errors
+					//Verificar si hay algún error
 					if(isset($error)){
 						foreach($error as $error){
 							echo '<p class="bg-danger">'.$error.'</p>';
 						}
 					}
 
-					//check the action
+					//Revisa la acción
 					switch ($_GET['action']) {
 						case 'active':
-							echo "<h2 class='bg-success'>Your account is now active you may now log in.</h2>";
+							echo "<h2 class='bg-success'>Su cuenta ahora está activa, ahora puede iniciar sesión.</h2>";
 							break;
 						case 'reset':
-							echo "<h2 class='bg-success'>Please check your inbox for a reset link.</h2>";
+							echo "<h2 class='bg-success'>Introduce la nueva contraseña.</h2>";
 							break;
 					}
 					?>
-
+					<!--Cuadros para introducir la nueva contraseña-->
 					<div class="row">
 						<div class="col-xs-6 col-sm-6 col-md-6">
 							<div class="form-group">
-								<input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password" tabindex="1">
+								<input type="password" name="password" id="password" class="form-control input-lg" placeholder="Contraseña" tabindex="1">
 							</div>
 						</div>
 						<div class="col-xs-6 col-sm-6 col-md-6">
 							<div class="form-group">
-								<input type="password" name="passwordConfirm" id="passwordConfirm" class="form-control input-lg" placeholder="Confirm Password" tabindex="1">
+								<input type="password" name="passwordConfirm" id="passwordConfirm" class="form-control input-lg" placeholder="Confirma Contraseña" tabindex="1">
 							</div>
 						</div>
 					</div>
 					
 					<hr>
+					<!--Boton que va a la form-->
 					<div class="row">
-						<div class="col-xs-6 col-md-6"><input type="submit" name="submit" value="Change Password" class="btn btn-primary btn-block btn-lg" tabindex="3"></div>
+						<div class="col-xs-6 col-md-6"><input type="submit" name="submit" value="Cambiar" class="btn btn-primary btn-block btn-lg" tabindex="3"></div>
 					</div>
 				</form>
 
 			<?php } ?>
 		</div>
 	</div>
-
-
 </div>
 
 <?php 
-//include header template
+//Incluir plantilla de encabezado
 require('layout/footer.php'); 
 ?>
