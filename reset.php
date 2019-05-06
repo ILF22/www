@@ -1,53 +1,53 @@
 <?php require('includes/config.php');
 
-//if logged in redirect to members page
-if( $user->is_logged_in() ){ header('Location: memberpage.php'); exit(); }
+//Si ha iniciado sesión, redirija a la página de class
+if( $user->is_logged_in() ){ header('Location: paginausuarios.php'); exit(); }
 
-//if form has been submitted process it
+//Si el formulario ha sido enviado, lo procesa
 if(isset($_POST['submit'])){
 
-	//Make sure all POSTS are declared
-	if (!isset($_POST['email'])) $error[] = "Please fill out all fields";
+	//Asegúrese de que todos los POSTS estén declarados
+	if (!isset($_POST['email'])) $error[] = "Por favor rellene todos los campos";
 
 
-	//email validation
+	//Validación de correo electrónico
 	if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
-	    $error[] = 'Please enter a valid email address';
+	    $error[] = 'Por favor, introduce una dirección de correo electrónico válida';
 	} else {
-		$stmt = $db->prepare('SELECT email FROM members WHERE email = :email');
+		$stmt = $db->prepare('SELECT email FROM usuarios WHERE email = :email');
 		$stmt->execute(array(':email' => $_POST['email']));
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 		if(empty($row['email'])){
-			$error[] = 'Email provided is not recognised.';
+			$error[] = 'El correo electrónico proporcionado no es reconocido.';
 		}
 
 	}
 
-	//if no errors have been created carry on
+	//Si no se han creado errores continua
 	if(!isset($error)){
 
-		//create the activation code
-		$stmt = $db->prepare('SELECT password, email FROM members WHERE email = :email');
+		//Crea el código de activación
+		$stmt = $db->prepare('SELECT password, email FROM usuarios WHERE email = :email');
 		$stmt->execute(array(':email' => $_POST['email']));
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
-		$token = hash_hmac('SHA256', $user->generate_entropy(8), $row['password']);//Hash and Key the random data
-        $storedToken = hash('SHA256', ($token));//Hash the key stored in the database, the normal value is sent to the user
+		$token = hash_hmac('SHA256', $user->generate_entropy(8), $row['password']);//Codificacion y clave los datos aleatorios
+        $storedToken = hash('SHA256', ($token));//Codifica la clave almacenada en la base de datos, el valor normal se envía al usuario
 
 		try {
-
-			$stmt = $db->prepare("UPDATE members SET resetToken = :token, resetComplete='No' WHERE email = :email");
+			//Si es necesario restaurar la contraseña se mandara el enlace para restaurarla
+			$stmt = $db->prepare("UPDATE usuarios SET resetToken = :token, resetComplete='No' WHERE email = :email");
 			$stmt->execute(array(
 				':email' => $row['email'],
 				':token' => $storedToken
 			));
 
-			//send email
+			//Enviar correo electrónico
 			$to = $row['email'];
-			$subject = "Password Reset";
-			$body = "<p>Someone requested that the password be reset.</p>
-			<p>If this was a mistake, just ignore this email and nothing will happen.</p>
-			<p>To reset your password, visit the following address: <a href='".DIR."resetPassword.php?key=$token'>".DIR."resetPassword.php?key=$token</a></p>";
+			$subject = "Restablecimiento de contraseña";
+			$body = "<p>Alguien solicitó que se restablezca la contraseña.</p>
+			<p>Si esto fue un error, simplemente ignore este correo electrónico y no pasará nada.</p>
+			<p>Para restablecer su contraseña, visite la siguiente dirección: <a href='".DIR."resetPassword.php?key=$token&action=reset'>".DIR."resetPassword.php?key=$token&action=reset</a></p>";
 
 			$mail = new Mail();
 			$mail->setFrom(SITEEMAIL);
@@ -56,11 +56,11 @@ if(isset($_POST['submit'])){
 			$mail->body($body);
 			$mail->send();
 
-			//redirect to index page
+			//Redirigir a la página de índice.
 			header('Location: login.php?action=reset');
 			exit;
 
-		//else catch the exception and show the error.
+		//De lo contrario, capte la excepción y muestre el error.
 		} catch(PDOException $e) {
 		    $error[] = $e->getMessage();
 		}
@@ -69,10 +69,10 @@ if(isset($_POST['submit'])){
 
 }
 
-//define page title
-$title = 'Reset Account';
+//Definir el título de la página
+$title = 'Restablecer cuenta';
 
-//include header template
+//Incluir plantilla de encabezado
 require('layout/header.php');
 ?>
 
@@ -82,12 +82,12 @@ require('layout/header.php');
 
 	    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
 			<form role="form" method="post" action="" autocomplete="off">
-				<h2>Reset Password</h2>
-				<p><a href='login.php'>Back to login page</a></p>
+				<h2>Restablecer la contraseña</h2>
+				<p><a href='loginregister-master/'  class ="text-success">Volver a Inicio</a></p>
 				<hr>
 
 				<?php
-				//check for any errors
+				//Verifique cualquier error
 				if(isset($error)){
 					foreach($error as $error){
 						echo '<p class="bg-danger">'.$error.'</p>';
@@ -96,34 +96,33 @@ require('layout/header.php');
 
 				if(isset($_GET['action'])){
 
-					//check the action
+					//Verifica la acción
 					switch ($_GET['action']) {
 						case 'active':
-							echo "<h2 class='bg-success'>Your account is now active you may now log in.</h2>";
+							echo "<h2 class='bg-success'>Su cuenta ahora está activa, ahora puede iniciar sesión.</h2>";
 							break;
 						case 'reset':
-							echo "<h2 class='bg-success'>Please check your inbox for a reset link.</h2>";
+							echo "<h2 class='bg-success'>Introduzca la nueva contraseña.</h2>";
 							break;
 					}
 				}
 				?>
 
 				<div class="form-group">
+				<!--Campo para email para restaurar contraseña-->
 					<input type="email" name="email" id="email" class="form-control input-lg" placeholder="Email" value="" tabindex="1">
 				</div>
-
 				<hr>
 				<div class="row">
-					<div class="col-xs-6 col-md-6"><input type="submit" name="submit" value="Sent Reset Link" class="btn btn-primary btn-block btn-lg" tabindex="2"></div>
+				<!--Boton form que manda email para link de restauracion-->
+					<div class="col-xs-6 col-md-6"><input type="submit" name="submit" value="Enviar enlace" class="btn btn-light btn-block btn-lg" tabindex="2"></div>
 				</div>
 			</form>
 		</div>
 	</div>
-
-
 </div>
 
 <?php
-//include header template
+//Incluir plantilla de encabezado
 require('layout/footer.php');
 ?>

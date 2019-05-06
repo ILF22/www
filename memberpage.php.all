@@ -1,0 +1,92 @@
+<?php 
+require('includes/config.php'); 
+
+//Si no ha iniciado sesión, redirija a la página de inicio de sesión
+if(!$user->is_logged_in()){ header('Location: login.php'); exit(); }
+
+//define page title
+$title = 'usuarios Page';
+
+//Incluir plantilla de encabezado
+require('layout/header.php'); 
+?>
+
+<script>
+     $(function(){
+        $("input[name='file']").on("change", function(){
+            var formData = new FormData($("#uploadimage")[0]);
+            var ruta = "imagen-ajax.php";
+            $.ajax({
+                url: ruta,
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(datos)
+                {
+                    $("#respuesta").html(datos);
+                }
+            });
+        });
+     });
+</script>
+
+
+<div class="container">
+
+	<div class="row">
+
+	    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+			
+				<h2>¡Bienvenido! <?php echo htmlspecialchars($_SESSION['username'], ENT_QUOTES); ?></h2>
+				<p><a href='logout.php'  class ="text-success">Cerrar sesión</a></p>
+				<hr>
+				
+				
+				<form id="uploadimage" action="" method="post" enctype="multipart/form-data">
+				<input type="file" name="file" id="file" required />
+				<div class="col-xs-6 col-md-6"><input type="submit" name="submit" value="Subir" class="btn btn-light btn-block btn-lg" tabindex="5"/>
+				</form>
+				<!-- <div id="respuesta"></div> -->
+				
+				<br/><br/>
+				<div style="padding:30px;border:10px solid black;">
+				<?php
+				$cont = 0;
+				$stmt = $db->query("SELECT * FROM imagen WHERE memberID = ".$_SESSION['memberID']);
+				while ($row = $stmt->fetch()) {
+					//echo $row['nombre']."<br />\n";
+					echo '<img style="widht:250px;height:250px;padding:5px;border:1px solid black;" src="imagenes/'.$row['nombre'].'">'."\n";		
+					echo '<span>DESCRIPCIÓN: </span>'.$row['descripcion'];	
+					$cont++;					
+				}		
+
+				if($cont == 0)
+				{
+					echo '<span>NO TIENES IMAGENES</span>';	
+				}
+				
+					/*$directory="imagenes";
+					$dirint = dir($directory);
+					while (($archivo = $dirint->read()) !== false)
+					{
+						$extension = pathinfo($archivo, PATHINFO_EXTENSION);
+						if ( ($extension == "gif") || ($extension == "jpg") || ($extension == "png") ){
+							echo '<img style="widht:250px;height:250px;padding:5px;border:1px solid black;" src="'.$directory."/".$archivo.'">'."\n";
+						}
+					}
+					$dirint->close();*/
+				?>
+				<div>				
+				
+
+		</div>
+	</div>
+
+
+</div>
+
+<?php 
+//Incluir plantilla de encabezado
+require('layout/footer.php'); 
+?>

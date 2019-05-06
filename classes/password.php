@@ -1,55 +1,55 @@
 <?php
+//Define la encriptacion de la contraseña 
 if (!defined('PASSWORD_BCRYPT')) {
         define('PASSWORD_BCRYPT', 1);
         define('PASSWORD_DEFAULT', PASSWORD_BCRYPT);
 }
 
-Class Password {
-
+class Password {
+	//Contructor
     public function __construct() {}
 
 
     /**
-     * Hash the password using the specified algorithm
+     * Codifica la contraseña usando el algoritmo especificado
      *
-     * @param string $password The password to hash
-     * @param int    $algo     The algorithm to use (Defined by PASSWORD_* constants)
-     * @param array  $options  The options for the algorithm to use
-     *
-     * @return string|false The hashed password, or false on error.
+     * @param string $password La contraseña para codificado
+     * @param int    $algo     El algoritmo a usar (Definido por PASSWORD_ * constantes)
+     * @param array  $options Las opciones para el algoritmo
+     * @return string|false La contraseña codificada, o falsa en el error.
      */
     function password_hash($password, $algo, array $options = array()) {
         if (!function_exists('crypt')) {
-            trigger_error("Crypt must be loaded for password_hash to function", E_USER_WARNING);
+            trigger_error("Se debe cargar la criptacion para que password-hash funcione", E_USER_WARNING);
             return null;
         }
         if (!is_string($password)) {
-            trigger_error("password_hash(): Password must be a string", E_USER_WARNING);
+            trigger_error("password_hash():La contraseña debe ser una cadena", E_USER_WARNING);
             return null;
         }
         if (!is_int($algo)) {
-            trigger_error("password_hash() expects parameter 2 to be long, " . gettype($algo) . " given", E_USER_WARNING);
+            trigger_error("password_hash() espera que el parámetro 2 sea largo, " . gettype($algo) . " given", E_USER_WARNING);
             return null;
         }
         switch ($algo) {
             case PASSWORD_BCRYPT :
-                // Note that this is a C constant, but not exposed to PHP, so we don't define it here.
+                // Hay que tener en cuenta que esta es una constante C, pero no está expuesta a PHP, por lo que no la definimos aquí..
                 $cost = 10;
                 if (isset($options['cost'])) {
                     $cost = $options['cost'];
                     if ($cost < 4 || $cost > 31) {
-                        trigger_error(sprintf("password_hash(): Invalid bcrypt cost parameter specified: %d", $cost), E_USER_WARNING);
+                        trigger_error(sprintf("password_hash(): El parametro especificado no es valido: %d", $cost), E_USER_WARNING);
                         return null;
                     }
                 }
-                // The length of salt to generate
+                // La longuitud de la contraseña para generarse
                 $raw_salt_len = 16;
-                // The length required in the final serialization
+                // La longitud requerida en la serialización final
                 $required_salt_len = 22;
                 $hash_format = sprintf("$2y$%02d$", $cost);
                 break;
             default :
-                trigger_error(sprintf("password_hash(): Unknown password hashing algorithm: %s", $algo), E_USER_WARNING);
+                trigger_error(sprintf("password_hash(): Algoritmo codificado de contraseña desconocida: %s", $algo), E_USER_WARNING);
                 return null;
         }
         if (isset($options['salt'])) {
@@ -69,11 +69,11 @@ Class Password {
                 case 'array' :
                 case 'resource' :
                 default :
-                    trigger_error('password_hash(): Non-string salt parameter supplied', E_USER_WARNING);
+                    trigger_error('password_hash(): Parámetro de longuitud sin cadena', E_USER_WARNING);
                     return null;
             }
             if (strlen($salt) < $required_salt_len) {
-                trigger_error(sprintf("password_hash(): Provided salt is too short: %d expecting %d", strlen($salt), $required_salt_len), E_USER_WARNING);
+                trigger_error(sprintf("password_hash(): Si la longuitud es muy corta: %d expecting %d", strlen($salt), $required_salt_len), E_USER_WARNING);
                 return null;
             } elseif (0 == preg_match('#^[a-zA-Z0-9./]+$#D', $salt)) {
                 $salt = str_replace('+', '.', base64_encode($salt));
@@ -96,11 +96,11 @@ Class Password {
 
 
     /**
-     * Generates Entropy using the safest available method, falling back to less preferred methods depending on support
+     * Se proporciono la longuitud utilizando el metodo mas seguro disponilbe, recurriendo a otros metodos, dependiendo del soporte es demasiado corto.
      *
      * @param int $bytes
      *
-     * @return string Returns raw bytes
+     * @return string Devuelve bytes sin procesar
      */
     function generate_entropy($bytes){
         $buffer = '';
@@ -143,8 +143,8 @@ Class Password {
     }
 
     /**
-     * Get information about the password hash. Returns an array of the information
-     * that was used to generate the password hash.
+     *  Obtenga información sobre  la codificacion de la contraseña. Devuelve una matriz de la información
+	 *	 que se utilizó para generar la codificacion de contraseña.
      *
      * array(
      *    'algo' => 1,
@@ -154,9 +154,9 @@ Class Password {
      *    ),
      * )
      *
-     * @param string $hash The password hash to extract info from
+     * @param string $hash La codificacion de contraseña para extraer información
      *
-     * @return array The array of information about the hash.
+     * @return array La matriz de información sobre la codificacion
      */
     function password_get_info($hash) {
         $return = array('algo' => 0, 'algoName' => 'unknown', 'options' => array(), );
@@ -170,15 +170,15 @@ Class Password {
     }
 
     /**
-     * Determine if the password hash needs to be rehashed according to the options provided
+     * Determine si la contraseña de codificación debe actualizarse de acuerdo con las opciones
      *
-     * If the answer is true, after validating the password using password_verify, rehash it.
+     * Si la respuesta es verdadera, después de validar la contraseña usando password_verify, repítela.
      *
-     * @param string $hash    The hash to test
-     * @param int    $algo    The algorithm used for new password hashes
-     * @param array  $options The options array passed to password_hash
+     * @param string $hash    La codificaciones para probar
+     * @param int    $algo   El algoritmo utilizado para nuevas codificaciones de contraseñas
+     * @param array  $options El conjunto de opciones paso a password_hash
      *
-     * @return boolean True if the password needs to be rehashed.
+     * @return boolean Verdadero si es necesario volver a generar la contraseña.
      */
     function password_needs_rehash($hash, $algo, array $options = array()) {
         $info = password_get_info($hash);
@@ -197,16 +197,16 @@ Class Password {
     }
 
     /**
-     * Verify a password against a hash using a timing attack resistant approach
+     * Verificar una contraseña contra una codificación usando un enfoque resistente al tiempo
      *
-     * @param string $password The password to verify
-     * @param string $hash     The hash to verify against
+     * @param string $password La contraseña para verificar
+     * @param string $hash     La codificacion para verificar contra
      *
-     * @return boolean If the password matches the hash
+     * @return boolean Si la contraseña coincide con la codificacion
      */
     public function password_verify($password, $hash) {
         if (!function_exists('crypt')) {
-            trigger_error("Crypt must be loaded for password_verify to function", E_USER_WARNING);
+            trigger_error("La criptacion se debe cargar para que password_verify funcione", E_USER_WARNING);
             return false;
         }
         $ret = crypt($password, $hash);

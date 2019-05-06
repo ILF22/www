@@ -1,9 +1,9 @@
 <?php require('includes/config.php');
 
-//logout
+//Cerrar sesión
 $user->logout(); 
 
-//logged in return to index page
+//Registrado, vuleve a la pagina de indice.
 header('Location: index.php');
 exit;
 ?>

@@ -1,5 +1,6 @@
-Login Register
+Login Registro
 =============
+
 CASOS DE USO
 
 https://drive.google.com/file/d/12-OwrJK0jSpI8nY8Bkx68GVTcDA3KP05/view?usp=sharing

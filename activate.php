@@ -1,29 +1,28 @@
 <?php
 require('includes/config.php');
 
-//collect values from the url
-$memberID = trim($_GET['x']);
+//Recoger valores de la url
+$usuarioID = trim($_GET['x']);
 $active = trim($_GET['y']);
 
-//if id is number and the active token is not empty carry on
-if(is_numeric($memberID) && !empty($active)){
+//Si id es el número y el token activo no está vacío, continúa
+if(is_numeric($usuarioID) && !empty($active)){
 
-	//update users record set the active column to Yes where the memberID and active value match the ones provided in the array
-	$stmt = $db->prepare("UPDATE members SET active = 'Yes' WHERE memberID = :memberID AND active = :active");
+	//El registro de los class de actualización establece la columna activa en Sí, donde el ID de miembro y el valor activo coinciden con los que se proporcionan en la matriz
+	$stmt = $db->prepare("UPDATE usuarios SET active = 'Yes' WHERE usuarioID = :usuarioID AND active = :active");
 	$stmt->execute(array(
-		':memberID' => $memberID,
+		':usuarioID' => $usuarioID,
 		':active' => $active
 	));
 
-	//if the row was updated redirect the user
+	//Si la fila se actualizó redirigir al usuario
 	if($stmt->rowCount() == 1){
-
-		//redirect to login page
+		//Redirigir a la página de inicio de sesión
 		header('Location: login.php?action=active');
 		exit;
 
 	} else {
-		echo "Your account could not be activated."; 
+		echo "Su cuenta no pudo ser activada."; 
 	}
 	
 }

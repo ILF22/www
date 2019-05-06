@@ -1,13 +1,13 @@
 <?php
 /**
- * PHPMailer exception handler
+ * PHPMailer  excepciones
  * @package PHPMailer
  */
 
 class PhpMailerException extends \Exception
 {
     /**
-     * Prettify error message output
+     * Salida del mensaje de error
      * @return string
      */
     public function errorMessage()
