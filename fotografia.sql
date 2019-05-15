@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-05-2019 a las 23:41:06
+-- Tiempo de generación: 15-05-2019 a las 18:38:53
 -- Versión del servidor: 10.1.37-MariaDB
 -- Versión de PHP: 7.3.0
 
@@ -25,6 +25,32 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `comentarios`
+--
+
+CREATE TABLE `comentarios` (
+  `idcomentarios` int(11) NOT NULL,
+  `idUsuario` int(11) DEFAULT NULL,
+  `comentario` varchar(256) DEFAULT NULL,
+  `idfoto` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `comentarios`
+--
+
+INSERT INTO `comentarios` (`idcomentarios`, `idUsuario`, `comentario`, `idfoto`) VALUES
+(1, 5, 'HOLA', 1),
+(6, 5, 'HOLA GUAPO', 1),
+(7, 5, 'HOLA GUAPO', 1),
+(8, 5, 'HOLA GUAPO', 1),
+(9, 5, 'HOLA GUAPO', 1),
+(10, 5, 'HOLA GUAPO', 1),
+(11, 5, 'HOLA GUAPO', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `imagen`
 --
 
@@ -34,17 +60,6 @@ CREATE TABLE `imagen` (
   `nombre` varchar(255) COLLATE utf8mb4_bin NOT NULL,
   `descripcion` text COLLATE utf8mb4_bin NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-
---
--- Volcado de datos para la tabla `imagen`
---
-
-INSERT INTO `imagen` (`idfoto`, `usuarioID`, `nombre`, `descripcion`) VALUES
-(1, 1, '5.jpeg', 'Londres'),
-(2, 4, 'calderon.jpg', 'Calderon'),
-(3, 3, 'barca.jpeg', 'Pantano'),
-(4, 1, 'paisaje-2_4_732x400.jpeg', 'paisaje'),
-(5, 1, 'descarga.jpg', 'descarga');
 
 -- --------------------------------------------------------
 
@@ -88,14 +103,6 @@ CREATE TABLE `video` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Volcado de datos para la tabla `video`
---
-
-INSERT INTO `video` (`idvideo`, `usuarioID`, `nombre`, `descripcion`) VALUES
-(1, 1, 'y2mate.com - videos_cortos_de_risa_para_whatsapp_BNvUQuXgmzc_360p.mp4', 'video'),
-(2, 1, 'y2mate.com - electro_2_estado_para_whatsapp_electronica_-WKDlqpxJLw_360p.mp4', 'video2');
-
---
 -- Índices para tablas volcadas
 --
 
@@ -126,7 +133,7 @@ ALTER TABLE `video`
 -- AUTO_INCREMENT de la tabla `imagen`
 --
 ALTER TABLE `imagen`
-  MODIFY `idfoto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idfoto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
@@ -138,7 +145,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `video`
 --
 ALTER TABLE `video`
-  MODIFY `idvideo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idvideo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

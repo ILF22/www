@@ -38,6 +38,7 @@ require('layout/header.php');
 				<div class="row">
 					<div  class="col-md-10">
 						<div style="padding:30px;border:3px solid white; text-align:center;background:rgba(255,255,255,0.4)">
+							
 							<?php
 							//Selecciona todas las imagenes para mostrar del usuario que inicia sesion
 							$cont = 0;
@@ -74,7 +75,7 @@ require('layout/header.php');
 							}
 							?>
 						</div>
-						<div style="padding:30px;border:3px solid white; text-align:center;background:rgba(255,255,255,0.4)">
+								<div style="padding:30px;border:3px solid white; text-align:center;background:rgba(255,255,255,0.4)">
 							<?php
 							//Selecciona todos los videos para mostrar del usuario que inicia sesion
 							$cont = 0;
@@ -96,7 +97,7 @@ require('layout/header.php');
 								<!--Muestra la descripcion-->
 									<span><?php echo $row['descripcion']; ?></span>
 									<!--On click para borrar el video, de aqui va a la funcion confirmar  -->
-									<a onclick="confirmar(<?php echo $row['idvideo'];?>)"><img width="30px" height="30px"  src="img/app/papelera.png" alt="Papelera" /></a>
+									<a onclick="confirmar2(<?php echo $row['idvideo'];?>)"><img width="30px" height="30px"  src="img/app/papelera.png" alt="Papelera" /></a>
 								</div></br></br>
 								</div>
 								<?php
@@ -109,9 +110,8 @@ require('layout/header.php');
 								echo '<span>NO TIENES VIDEOS</span>';	
 							}
 							?>
-						</div>
-						
-						
+						</div>																		   
+	  
 					</div>
 					<!--Diseño del contenedor donde se encuentran los usuarios con cuenta activa -->
 					<div class="col-md-offset-1 col-md-2 col-xs-12 col-sm-12 users-table" style=" color:black;text-align:right;">
@@ -152,12 +152,11 @@ require('layout/header.php');
 						//echo $prueba;
 						//echo $id;
 						?>
-		<div class="col-md-offset-12 col-md-12 col-xs-12 col-sm-12 cont-table" style=" color:black;text-align:center;">
+		<div class="col-md-offset-1 col-md-2 col-xs-12 col-sm-12 users-table" style=" color:black;text-align:right;">
 			<div style="padding:30px 10px 30px 0;border:3px solid white; background:rgba(255,255,255,0.4)">
-				<h2>Contador</h2>
-				<div class="counter" data-count="150">0</div>
-				<div class="counter" id="Contttt" data-count="85">0</div>
-				<div class="counter" data-count="2200"><?php echo $visitas ?></div>
+				<h2>Visualizaciones</h2>
+				
+				<div class="" data-count="2200"><?php echo $visitas ?></div>
 				
 			</div>
 		</div>		
@@ -210,6 +209,15 @@ function cargaVisitas(){
 				return false;
 			}else{
 				location.href = "borrarimagen.php?borrar="+id;
+				return true;
+			}
+	  }
+	  function confirmar2(id){
+		  var r = confirm("¿Confirma que desea eliminar la video?");
+			if (r == false) {
+				return false;
+			}else{
+				location.href = "borrarvideo.php?borrar="+id;
 				return true;
 			}
 	  }
