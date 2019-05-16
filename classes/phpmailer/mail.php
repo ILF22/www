@@ -3,14 +3,17 @@ include('phpmailer.php');
 class Mail extends PhpMailer
 {
     // Establecer variables predeterminadas para todos los objetos nuevos
-     public $From     = 'irene.proyectosbd@gmail.com';
-     public $FromName = SITETITLE;//'Irene León'; 
+     public $SMTPDebug = 2;
+     public $SMTPAuth = true;
+     public $SMTPSecure = 'ssl';
+     public $From     = 'liveyourdreamjovellanos@gmail.com';
+     public $FromName = 'liveyourdreamjovellanos@gmail.com';
      public $Host     = 'smtp.gmail.com';
      public $Mailer   = 'smtp';
-     public $SMTPAuth = true;
-     public $Username = 'irene.proyectosbd@gmail.com';
-     public $Password = 'Bitcode@2018';
-     public $SMTPSecure = 'tls';
+     
+     public $Username = 'liveyourdreamjovellanos@gmail.com';
+     public $Password = 'liveyourdreams';
+     
     // public $WordWrap = 75;
     // public $CharSet = 'UTF-8';
 	
@@ -22,10 +25,10 @@ class Mail extends PhpMailer
     //public $SMTPAuth = true;
    // public $Username = 'enviosirene@losnaranjosdam.online';
    // public $Password = 'irene18';
-	//public $SMTPDebug = 4;
-	public $Port = 25;
+	
+	public $Port = 465;
     //public $SMTPSecure = 'tls';
-    public $WordWrap = 75;
+    //public $WordWrap = 75;
     public $CharSet = 'UTF-8';
 	//Sujeto
     public function subject($subject){
