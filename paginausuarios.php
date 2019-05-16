@@ -75,6 +75,43 @@ require('layout/header.php');
 							}
 							?>
 						</div>
+							<div style="padding:30px;border:3px solid white; text-align:center;background:rgba(255,255,255,0.4)">
+							<?php
+							//Selecciona todos los videos para mostrar del usuario que inicia sesion
+							$cont = 0;
+							$stmt = $db->query("SELECT * FROM video WHERE usuarioID = ".$_SESSION['usuarioID']);
+							while ($row = $stmt->fetch()) {
+							//Disño del video
+								$row['nombre']."<br />\n";
+								echo '<div id="todo">';
+								echo '<video style ="width:100%;height:auto;padding:5px;border:1px solid black;margin-bottom:10px" width="320" height="240" controls>';
+								echo '<source src="imagenes/'.$row['nombre'].'" type="video/mp4">';
+								echo '<source src="imagenes/'.$row['nombre'].'" type="video/avi">';
+								echo '<source src="imagenes/'.$row['nombre'].'" type="video/3gpp">';
+								echo '<source src="imagenes/'.$row['nombre'].'" type="video/mpg">';
+								echo '<source src="imagenes/'.$row['nombre'].'" type="video/mpeg">';
+								echo 'Your browser does not support the video tag.';
+								echo '</video>';
+								?>
+								<div>
+								<!--Muestra la descripcion-->
+									<span><?php echo $row['descripcion']; ?></span>
+									<!--On click para borrar el video, de aqui va a la funcion confirmar  -->
+									<a onclick="confirmar2(<?php echo $row['idvideo'];?>)"><img width="30px" height="30px"  src="img/app/papelera.png" alt="Papelera" /></a>
+								</div></br></br>
+								</div>
+								<?php
+									
+								$cont++;					
+							}		
+							//Si no tiene ningun video, muestra el siguiente mensaje
+							if($cont == 0)
+							{
+								echo '<span>NO TIENES VIDEOS</span>';	
+							}
+							?>
+						</div>																		   
+	  																				 
 					</div>
 					<!--Diseño del contenedor donde se encuentran los usuarios con cuenta activa -->
 					<div class="col-md-offset-1 col-md-2 col-xs-12 col-sm-12 users-table" style=" color:black;text-align:right;">
@@ -175,6 +212,15 @@ function cargaVisitas(){
 				return true;
 			}
 	  }
+	  function confirmar2(id){
+		  var r = confirm("¿Confirma que desea eliminar el video?");
+			if (r == false) {
+				return false;
+			}else{
+				location.href = "borrarvideo.php?borrar="+id;
+				return true;
+			}
+	  }					   
 </script>
 
 <?php 

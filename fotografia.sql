@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-05-2019 a las 17:50:55
--- Versión del servidor: 10.1.38-MariaDB
--- Versión de PHP: 5.6.40
+-- Tiempo de generación: 16-05-2019 a las 13:55:54
+-- Versión del servidor: 10.1.37-MariaDB
+-- Versión de PHP: 7.3.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -120,6 +120,19 @@ INSERT INTO `usuarios` (`usuarioID`, `username`, `password`, `email`, `active`, 
 (5, 'Aitor', '$2y$10$a3RJKLkSlH9njYZbpakGw.zFhfj5KRD5sSfwcxhgRF5wKPRf.WeWu', 'aitorsan2092@gmail.com', 'Yes', NULL, 'No', 14),
 (14, 'IreneN', '$2y$10$1jojffb8rGJsqbrcqv1WeOsCvQQZZ6N0voB14oNoGcnZHbORPPbhS', 'irene.leonfernandez@colegio-losnaranjos.com', 'Yes', NULL, 'No', NULL);
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `video`
+--
+
+CREATE TABLE `video` (
+  `idvideo` int(11) NOT NULL,
+  `usuarioID` int(11) NOT NULL,
+  `nombre` varchar(255) COLLATE utf8_bin NOT NULL,
+  `descripcion` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
 --
 -- Índices para tablas volcadas
 --
@@ -144,6 +157,12 @@ ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`usuarioID`);
 
 --
+-- Indices de la tabla `video`
+--
+ALTER TABLE `video`
+  ADD PRIMARY KEY (`idvideo`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -157,13 +176,19 @@ ALTER TABLE `comentarios`
 -- AUTO_INCREMENT de la tabla `imagen`
 --
 ALTER TABLE `imagen`
-  MODIFY `idfoto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idfoto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
   MODIFY `usuarioID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT de la tabla `video`
+--
+ALTER TABLE `video`
+  MODIFY `idvideo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
