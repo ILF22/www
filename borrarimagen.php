@@ -10,5 +10,5 @@ if($sentencia->execute()){
 }else{
 	//Si no se ha podido eliminar mandanda el siguiente mensaje
 	echo "No se ha podido eliminar la imagen";
-}
+} 
 ?>	
