@@ -67,15 +67,13 @@ require('layout/header.php');
 								//echo "<img src='imagenes/".$row['nombre']."' alt='imagen' width='100' heigth='100'/><br/>";
 									
 								$cont++;					
-							}		
-							//Si no tiene ninguna imagen, muestra el siguiente mensaje
-							if($cont == 0)
-							{
-								echo '<span>NO TIENES IMAGENES</span>';	
-							}
-							?>
-						</div>
-							<div style="padding:30px;border:3px solid white; text-align:center;background:rgba(255,255,255,0.4)">
+								}		
+								//Si no tiene ninguna imagen, muestra el siguiente mensaje
+								if($cont == 0)
+								{
+									echo '<span>NO TIENES IMAGENES</span>';	
+								}
+								?>
 							<?php
 							//Selecciona todos los videos para mostrar del usuario que inicia sesion
 							$cont = 0;
@@ -110,7 +108,10 @@ require('layout/header.php');
 								echo '<span>NO TIENES VIDEOS</span>';	
 							}
 							?>
-						</div>																		   
+						</div>	
+
+
+
 	  																				 
 					</div>
 					<!--Diseño del contenedor donde se encuentran los usuarios con cuenta activa -->
@@ -178,29 +179,7 @@ function cargaVisitas(){
 }
 </script>	
 <script>
-     /*$(function(){
-        $("input[name='file']").on("change", function(){
-		
-     });*/
-
-	/*$('#uploadimage').submit(function (e) {
-			var formData = new FormData($("#uploadimage")[0]);
-            var ruta = "imagen-ajax.php";
-            $.ajax({
-                url: ruta,
-                type: "POST",
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function(datos)
-                {
-					$("#respuesta").html(datos);
-                },
-				error: function(result) {
-                    console.log("Error "+result);
-                }
-            });
-	  });*/
+     
 	  
 	  //Funcion para borrar imagen.
 	  function confirmar(id){

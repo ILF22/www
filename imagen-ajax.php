@@ -18,23 +18,7 @@
 	        if($size < 5000*3500){
 				if($width < 5000 || $height < 3500){
 					if($width > 60 || $height > 60){
-						// **************************************** SUBIDA IMAGEN BASE64 ****************************************
-						// Este es el archivo temporal:
-						//$imagen_temporal = $_FILES['file']['tmp_name'];
-						// Este es el tipo de archivo:
-						//$tipo = $_FILES['file']['type'];
-						//Tamaño
-						//$foto_size= $_FILES["file"]["size"];
-						/*Reconversion de la imagen para meter en la tabla abrimos el fichero temporal en modo lectura "r" y binaria "b"*/
-						//$f1= fopen($imagen_temporal,"rb");
-						# Leemos el fichero completo limitando la lectura al tamaño del fichero
-						//$foto_reconvertida = fread($f1, $foto_size);
-						/* Anteponemos "\" a las comillas que pudiera contener el fichero para evitar que sean interpretadas como final de cadena.*/
-						//$foto_reconvertida = base64_encode($foto_reconvertida);
-						//cerrar el fichero temporal
-						//fclose($f1);		
-						// **************************************** FIN SUBIDA IMAGEN BASE64 ****************************************
-		
+						
 						//INSERT EN TABLA fotos idusuario, desc, nombre
 						$sentencia = $db->prepare("INSERT INTO imagen (usuarioID, nombre,  descripcion) VALUES (:usuarioID, :nombre, lower(:descripcion))");
 		

@@ -54,6 +54,9 @@ if( isset($_SESSION['usuarioID'])){
 					</div>
 			</form>
 				<li class="nav-item">
+					<a class="nav-link" href="http://localhost/www/wsChat/client/">Chat</a>
+				</li>
+				<li class="nav-item">
 				  <a class="nav-link" href="logout.php">Cerrar sesión</a>
 				</li>
 				<li class="nav-item">
