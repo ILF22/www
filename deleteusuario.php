@@ -185,14 +185,14 @@ window.onload = function() {
 		var password = document.getElementById("password").value;
 		
 		if(username == null || username == '' || username.length == 0){
-			location.href = 'loginregister-master/paginausuarios.php';
+			location.href = 'paginausuarios.php';
 		}else if(password == null || password == '' || password.length == 0){
-			location.href = 'loginregister-master/paginausuarios.php';
+			location.href = 'www/paginausuarios.php';
 		}else{
 			//document.getElementById('myForm').type = 'submit';
 			document.getElementById('btnaceptar').style.display = "block";
 			document.getElementById("myForm").method = "post";
-			document.getElementById("myForm").action = "loginregister-master/delete.php";
+			document.getElementById("myForm").action = "delete.php";
 			document.getElementById("btnaceptar").click();
 			document.getElementById('btnaceptar').style.display = "none";			
 		}
