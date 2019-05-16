@@ -174,6 +174,45 @@ require('layout/header.php');
 
 			</div>
 		</div>
+		<div class="col-xs-12 col-sm-12 col-md-12 col-sm-offset-12 col-md-offset-12 mt-5">
+				<div class="row">
+					<div  class="col-md-10">
+					<!--Definimos el color y la opacidad de este -->	
+						<div style="padding:30px;border:3px solid white; text-align:center;background:rgba(255,255,255,0.4)">
+						<!--Hacemos la consulta para mostrar todo los videos del usuario seleccionado-->	
+							<?php
+							$id=$_GET['id'];
+							$cont = 0;
+							$stmt = $db->query("SELECT * FROM video WHERE usuarioID = ".$id);
+							while ($row = $stmt->fetch()) {
+								//Definimos el diseño de las video
+								echo '<div id="todo">';
+								echo '<video style ="width:100%;height:auto;padding:5px;border:1px solid black;margin-bottom:10px" width="320" height="240" controls>';
+								echo '<source src="imagenes/'.$row['nombre'].'" type="video/mp4">';
+								echo '<source src="imagenes/'.$row['nombre'].'" type="video/avi">';
+								echo '<source src="imagenes/'.$row['nombre'].'" type="video/3gpp">';
+								echo '<source src="imagenes/'.$row['nombre'].'" type="video/mpg">';
+								echo '<source src="imagenes/'.$row['nombre'].'" type="video/mpeg">';
+								echo 'Your browser does not support the video tag.';
+								echo '</video>';
+								
+								//Mostramos la descripcion del video
+								echo '<br/><br/>'.$row['descripcion'].'<br/><br/>';	
+								$cont++;					
+							}		
+							//Si el usuario no tiene videos se muestra el siguiente mensaje
+							if($cont == 0)
+							{
+								echo '<span>ESTE USUARIO NO TIENE VIDEOS</span>';	
+							}
+							?>
+							
+
+						</div>
+					</div>
+					
+				</div>
+			</div>
 	</div>
 	<script>
 		var botonPulsado;
