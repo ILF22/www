@@ -32,7 +32,7 @@
           <ul class="navbar-nav ml-auto">
 			
             <!--<li class="nav-item active">
-              <a class="nav-link" href="/www/loginregister-master/">Inicio
+              <a class="nav-link" href="/www/">Inicio
                 <span class="sr-only">(current)</span>
               </a>
             </li>-->
