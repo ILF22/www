@@ -18,8 +18,7 @@ define('DBNAME','fotografia');
 //define('DBNAME','webfotografia');
 
 //Dirección de la aplicación
-//define( 'DIR', 'https://www.losnaranjosdam.online/2dam/irene/www/loginregister-master/' );
-define( 'DIR', 'http://localhost:8080/' );
+define( 'DIR', 'http://localhost:8080/www' );
 define('SITEEMAIL','liveyourdreamjovellanos@gmail.com');
 
 try {
