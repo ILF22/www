@@ -75,7 +75,7 @@ require('layout/header.php');
 							}
 							?>
 						</div>
-								<div style="padding:30px;border:3px solid white; text-align:center;background:rgba(255,255,255,0.4)">
+							<div style="padding:30px;border:3px solid white; text-align:center;background:rgba(255,255,255,0.4)">
 							<?php
 							//Selecciona todos los videos para mostrar del usuario que inicia sesion
 							$cont = 0;
@@ -111,7 +111,7 @@ require('layout/header.php');
 							}
 							?>
 						</div>																		   
-	  
+	  																				 
 					</div>
 					<!--Diseño del contenedor donde se encuentran los usuarios con cuenta activa -->
 					<div class="col-md-offset-1 col-md-2 col-xs-12 col-sm-12 users-table" style=" color:black;text-align:right;">
@@ -213,14 +213,14 @@ function cargaVisitas(){
 			}
 	  }
 	  function confirmar2(id){
-		  var r = confirm("¿Confirma que desea eliminar la video?");
+		  var r = confirm("¿Confirma que desea eliminar el video?");
 			if (r == false) {
 				return false;
 			}else{
 				location.href = "borrarvideo.php?borrar="+id;
 				return true;
 			}
-	  }
+	  }					   
 </script>
 
 <?php 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-05-2019 a las 18:38:53
+-- Tiempo de generación: 16-05-2019 a las 13:55:54
 -- Versión del servidor: 10.1.37-MariaDB
 -- Versión de PHP: 7.3.0
 
@@ -58,8 +58,41 @@ CREATE TABLE `imagen` (
   `idfoto` int(11) NOT NULL,
   `usuarioID` int(11) NOT NULL,
   `nombre` varchar(255) COLLATE utf8mb4_bin NOT NULL,
-  `descripcion` text COLLATE utf8mb4_bin NOT NULL
+  `descripcion` text COLLATE utf8mb4_bin NOT NULL,
+  `likes` int(11) DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Volcado de datos para la tabla `imagen`
+--
+
+INSERT INTO `imagen` (`idfoto`, `usuarioID`, `nombre`, `descripcion`, `likes`) VALUES
+(1, 1, '5.jpeg', 'Londres', 1),
+(2, 4, 'calderon.jpg', 'Calderon', 0),
+(3, 3, 'barca.jpeg', 'Pantano', 0),
+(4, 1, 'perri.jpg.jpg', 'perro', 1),
+(5, 1, 'wood-3271749_640.jpg', 'mesa', 1),
+(6, 5, 'wood-3271749_640.jpg', 'mesa2', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `likes`
+--
+
+CREATE TABLE `likes` (
+  `idlikes_usuarios` int(11) NOT NULL,
+  `idlikes_imagenes` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `likes`
+--
+
+INSERT INTO `likes` (`idlikes_usuarios`, `idlikes_imagenes`) VALUES
+(5, 5),
+(5, 4),
+(5, 1);
 
 -- --------------------------------------------------------
 
@@ -83,11 +116,9 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`usuarioID`, `username`, `password`, `email`, `active`, `resetToken`, `resetComplete`, `visitas`) VALUES
-(1, 'Irene', '$2y$10$R6A3yNvjcoAg.kL8vHE7gexs1zkH7WTTZNR8JbfcEhhahZHX6Qn.G', 'irene.leon95@gmail.com', 'Yes', NULL, 'No', 3),
-(2, 'IreneBitcode', '$2y$10$J0yf3ofA1KZsgUDODBToFOE9yADiPA6kGmN94CN/WoMue5jGRnm8e', 'irene.leon@bitcode.com', 'Yes', NULL, 'No', 2),
-(3, 'IreneClase', '$2y$10$Q.bRTg6WmQ9aszCHSd1N0ez.tOPT1c5xMxe/j/F88HmapcUaz57p6', 'irene.leonfernandez@colegio-losnaranjos.com', 'Yes', NULL, 'No', 1),
-(4, 'JulioBitcode', '$2y$10$6yyPb7FYtZLeqsmFBTP0.O925NjLgm3PpR1tvNBIUsCleS3U2/5Fy', 'julio.mena@bitcode.com', 'Yes', NULL, 'No', 0),
-(5, 'Aitor', '$2y$10$a3RJKLkSlH9njYZbpakGw.zFhfj5KRD5sSfwcxhgRF5wKPRf.WeWu', 'aitorsan2092@gmail.com', 'Yes', NULL, 'No', 15);
+(1, 'Irene', '$2y$10$R6A3yNvjcoAg.kL8vHE7gexs1zkH7WTTZNR8JbfcEhhahZHX6Qn.G', 'irene.leon95@gmail.com', 'Yes', NULL, 'No', 84),
+(5, 'Aitor', '$2y$10$a3RJKLkSlH9njYZbpakGw.zFhfj5KRD5sSfwcxhgRF5wKPRf.WeWu', 'aitorsan2092@gmail.com', 'Yes', NULL, 'No', 14),
+(14, 'IreneN', '$2y$10$1jojffb8rGJsqbrcqv1WeOsCvQQZZ6N0voB14oNoGcnZHbORPPbhS', 'irene.leonfernandez@colegio-losnaranjos.com', 'Yes', NULL, 'No', NULL);
 
 -- --------------------------------------------------------
 
@@ -105,6 +136,12 @@ CREATE TABLE `video` (
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `comentarios`
+--
+ALTER TABLE `comentarios`
+  ADD PRIMARY KEY (`idcomentarios`);
 
 --
 -- Indices de la tabla `imagen`
@@ -130,22 +167,28 @@ ALTER TABLE `video`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `comentarios`
+--
+ALTER TABLE `comentarios`
+  MODIFY `idcomentarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
 -- AUTO_INCREMENT de la tabla `imagen`
 --
 ALTER TABLE `imagen`
-  MODIFY `idfoto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idfoto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `usuarioID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `usuarioID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `video`
 --
 ALTER TABLE `video`
-  MODIFY `idvideo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idvideo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

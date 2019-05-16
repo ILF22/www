@@ -20,7 +20,7 @@ define('DBNAME','fotografia');
 //Dirección de la aplicación
 //define( 'DIR', 'https://www.losnaranjosdam.online/2dam/irene/www/loginregister-master/' );
 define( 'DIR', 'http://localhost:8080/' );
-define('SITEEMAIL','irene.proyectosbd@gmail.com');
+define('SITEEMAIL','liveyourdreamjovellanos@gmail.com');
 
 try {
 

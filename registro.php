@@ -80,9 +80,13 @@ if(isset($_POST['submit'])){
 			//Enviar correo electrónico
 			$to = $_POST['email'];
 			$subject = "Confirmación de registro";
-			$body = "<p>Gracias por registrarte.</p>
+/*			$body = "<p>Gracias por registrarte.</p>
 			<p>Para activar tu cuenta pulsa en el siguiente enlace: <a href='".DIR."activate.php?x=$id&y=$activasion'>".DIR."activate.php?x=$id&y=$activasion</a></p>
+			<p>Saludos</p>";*/
+            $body = "<p>Gracias por registrarte.</p>
+			<p>Para activar tu cuenta pulsa en el siguiente enlace: <a href='localhost/www/activate.php?x=$id&y=$activasion'>".DIR."activate.php?x=$id&y=$activasion</a></p>
 			<p>Saludos</p>";
+
 
 			$mail = new Mail();
 			$mail->setFrom(SITEEMAIL);
