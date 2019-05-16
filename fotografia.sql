@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.8.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-05-2019 a las 13:55:54
--- Versión del servidor: 10.1.37-MariaDB
--- Versión de PHP: 7.3.0
+-- Tiempo de generación: 16-05-2019 a las 17:58:32
+-- Versión del servidor: 10.1.32-MariaDB
+-- Versión de PHP: 7.1.17
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -47,6 +47,19 @@ INSERT INTO `comentarios` (`idcomentarios`, `idUsuario`, `comentario`, `idfoto`)
 (9, 5, 'HOLA GUAPO', 1),
 (10, 5, 'HOLA GUAPO', 1),
 (11, 5, 'HOLA GUAPO', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `comentariosv`
+--
+
+CREATE TABLE `comentariosv` (
+  `idcomentarios` int(11) NOT NULL,
+  `idUsuario` int(11) DEFAULT NULL,
+  `comentario` int(11) DEFAULT NULL,
+  `idvideo` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -97,6 +110,17 @@ INSERT INTO `likes` (`idlikes_usuarios`, `idlikes_imagenes`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `likesv`
+--
+
+CREATE TABLE `likesv` (
+  `idlikes_usuarios` int(11) NOT NULL,
+  `idlikes_video` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `usuarios`
 --
 
@@ -118,7 +142,8 @@ CREATE TABLE `usuarios` (
 INSERT INTO `usuarios` (`usuarioID`, `username`, `password`, `email`, `active`, `resetToken`, `resetComplete`, `visitas`) VALUES
 (1, 'Irene', '$2y$10$R6A3yNvjcoAg.kL8vHE7gexs1zkH7WTTZNR8JbfcEhhahZHX6Qn.G', 'irene.leon95@gmail.com', 'Yes', NULL, 'No', 84),
 (5, 'Aitor', '$2y$10$a3RJKLkSlH9njYZbpakGw.zFhfj5KRD5sSfwcxhgRF5wKPRf.WeWu', 'aitorsan2092@gmail.com', 'Yes', NULL, 'No', 14),
-(14, 'IreneN', '$2y$10$1jojffb8rGJsqbrcqv1WeOsCvQQZZ6N0voB14oNoGcnZHbORPPbhS', 'irene.leonfernandez@colegio-losnaranjos.com', 'Yes', NULL, 'No', NULL);
+(14, 'IreneN', '$2y$10$1jojffb8rGJsqbrcqv1WeOsCvQQZZ6N0voB14oNoGcnZHbORPPbhS', 'irene.leonfernandez@colegio-losnaranjos.com', 'Yes', NULL, 'No', NULL),
+(19, 'Prueba123', '$2y$10$VstFf6HFZHC2edIvQ7V3tub4vmyGl7vi.vtxxj/1utWEzlw6QjMja', '2_web9_18@iesjovellanos.org', 'Yes', NULL, 'No', NULL);
 
 -- --------------------------------------------------------
 
@@ -130,8 +155,16 @@ CREATE TABLE `video` (
   `idvideo` int(11) NOT NULL,
   `usuarioID` int(11) NOT NULL,
   `nombre` varchar(255) COLLATE utf8_bin NOT NULL,
-  `descripcion` text COLLATE utf8_bin NOT NULL
+  `descripcion` text COLLATE utf8_bin NOT NULL,
+  `likes` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Volcado de datos para la tabla `video`
+--
+
+INSERT INTO `video` (`idvideo`, `usuarioID`, `nombre`, `descripcion`, `likes`) VALUES
+(1, 1, 'Double Exposure - 22368.mp4', 'electro', NULL);
 
 --
 -- Índices para tablas volcadas
@@ -141,6 +174,12 @@ CREATE TABLE `video` (
 -- Indices de la tabla `comentarios`
 --
 ALTER TABLE `comentarios`
+  ADD PRIMARY KEY (`idcomentarios`);
+
+--
+-- Indices de la tabla `comentariosv`
+--
+ALTER TABLE `comentariosv`
   ADD PRIMARY KEY (`idcomentarios`);
 
 --
@@ -173,6 +212,12 @@ ALTER TABLE `comentarios`
   MODIFY `idcomentarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
+-- AUTO_INCREMENT de la tabla `comentariosv`
+--
+ALTER TABLE `comentariosv`
+  MODIFY `idcomentarios` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `imagen`
 --
 ALTER TABLE `imagen`
@@ -182,13 +227,13 @@ ALTER TABLE `imagen`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `usuarioID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `usuarioID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `video`
 --
 ALTER TABLE `video`
-  MODIFY `idvideo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idvideo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

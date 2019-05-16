@@ -31,7 +31,8 @@ require('layout/header.php');
 			<hr>
 			<!--Boton volver para ir a la pagina anterior-->
 			<div class="row mt-5">
-				<div class="col-xs-6 col-md-6"><a class="btn btn-light btn-block btn-lg" tabindex="5" href="paginausuarios.php">Volver</a></div>
+				<div class="col-xs-6 col-md-6"><a class="btn btn-light btn-block btn-lg" 
+				tabindex="5" href="paginausuarios.php">Volver</a></div>
 			</div>
 
 			<div id="respuesta"></div>
@@ -51,19 +52,13 @@ require('layout/header.php');
 						$stmt = $db->query("SELECT * FROM imagen WHERE usuarioID = " . $id);
 						while ($row = $stmt->fetch()) {
 							//Definimos el diseño de las imagenes
-							echo '<img style="width:100%;height:auto;padding:5px;border:1px solid black;" src="imagenes/' . $row['nombre'] . '">' . "\n";
+							echo '<img style="width:100%;height:auto;padding:5px;border:1px solid black;" 
+							src="imagenes/' . $row['nombre'] . '">' . "\n";
 
 
 							//header("Content-type: image/png");
 							//Definimos el nombre
 							$foto = $row['nombre'];
-							//Decodificamos $Base64Img codificada en base64.
-							//$Base64Img = base64_decode($foto);
-							//escribimos la información obtenida en un archivo llamado
-							//imagen.png para que se cree la imagen correctamente
-							//file_put_contents('imagenes/'.$row['nombre'], $Base64Img);   
-							//echo "<img src='imagenes/".$row['nombre']."' alt='imagen' width='100' heigth='100'/><br/>";
-
 
 							//Mostramos la descripcion de la foto
 							echo '<br/><br/>' . $row['descripcion'] . '<br/><br/>';
@@ -117,7 +112,8 @@ require('layout/header.php');
 													echo '<li>';
 														echo '<div class="commentText">';
 															echo "<p class='nombre'>";
-															$resultado2 = $db->query("SELECT username from usuarios WHERE usuarioID = ".$row2['idUsuario']);
+															$resultado2 = $db->query(
+																"SELECT username from usuarios WHERE usuarioID = ".$row2['idUsuario']);
 															while ($row3 = $resultado2->fetch()) {
 																echo $row3['username'];
 															}
@@ -127,7 +123,8 @@ require('layout/header.php');
 														echo ": " .$row2['comentario']."</p>";
 
 														if($_SESSION['usuarioID'] == $row2['idUsuario']){
-															echo "<button id='".$row2['idcomentarios']."' type='buttom' class='eliminarComentario'>Eliminar</button>";
+															echo "<button id='".$row2['idcomentarios']."' type='buttom' 
+															class='eliminarComentario'>Eliminar</button>";
 														}
 														
 														
@@ -154,13 +151,6 @@ require('layout/header.php');
 						</div>';
 
 
-
-
-
-
-
-
-
 						}
 						//Si el usuario no tiene fotos se muestra el siguiente mensaje
 						if ($cont == 0) {
@@ -174,6 +164,7 @@ require('layout/header.php');
 
 			</div>
 		</div>
+		<!--VIDEO---->
 		<div class="col-xs-12 col-sm-12 col-md-12 col-sm-offset-12 col-md-offset-12 mt-5">
 				<div class="row">
 					<div  class="col-md-10">
@@ -222,6 +213,7 @@ require('layout/header.php');
 				botonPulsado = this;
 				var idImagen = $(botonPulsado).attr('id');
 				var idUsuario = $('#idusuario').html();
+				var idVideo = $(botonPulsado).attr('id');
 				
 
 				var nombrePerfil = $('#idNombre').html();
@@ -232,6 +224,13 @@ require('layout/header.php');
 					url: "likes.php?id=" + idImagen + "&accion=annadirlikes",
 				}).done(function(resultado) {
 					cargarLikes(idImagen);
+					
+				});
+				$.ajax({
+					type: "POST",
+					url: "likesV.php?id=" + idVideo + "&accion=annadirlikesV",
+				}).done(function(resultado) {
+					cargarLikes(idVideo);
 					
 				});
 			})
@@ -260,32 +259,6 @@ require('layout/header.php');
 
 	</script>
 </div>
-<script>
-	/*$(function(){
-        $("input[name='file']").on("change", function(){
-		
-     });*/
-
-	/*$('#uploadimage').submit(function (e) {
-			var formData = new FormData($("#uploadimage")[0]);
-            var ruta = "imagen-ajax.php";
-            $.ajax({
-                url: ruta,
-                type: "POST",
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function(datos)
-                {
-					$("#respuesta").html(datos);
-                },
-				error: function(result) {
-                    console.log("Error "+result);
-                }
-            });
-	  });*/
-</script>
-
 <?php
 //Incluir plantilla de encabezado
 require('layout/footer.php');
