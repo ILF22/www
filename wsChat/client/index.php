@@ -2,9 +2,12 @@
 <html>
 
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <title>WebSocket Chat</title>
     <link type="text/css" rel="stylesheet" href="style.css" />
     <script src="websocket_client.js"></script>
+    <script src="scroll.js"></script>
+
 
 </head>
 
@@ -17,7 +20,7 @@
                         <span class="online_icon"></span>
                     </div>
                     <div class="user_info">
-                        <span>Chat A3PF</span>
+                        <span>Live your dreams Chat</span>
                     </div>
                 </div>
 
@@ -42,7 +45,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> 
 </body>
 
 </html>
