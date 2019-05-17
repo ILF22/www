@@ -80,14 +80,17 @@ require('layout/header.php');
 
 
 
-					echo'		<div class="detailBox">
-							<div class="titleBox">
-							  <label>Comentarios</label>
-							</div>
+					echo'<div class="detailBox">
 							<div class="commentBox">
-								<p class="taskDescription">Últimos comentarios.</p>
+								<p class="taskDescription"> Comentarios.</p>
 							</div>
 							<div class="actionBox">
+								<div style=" background: rgba(255,255,255,0.8);
+								border: 3px solid white;
+								width: 100%;
+								height: 110px;
+								overflow: auto;
+								text-align:left;">
 								<ul class="commentList">';
 								$var3 = $idDelaFoto;
 										
@@ -110,8 +113,10 @@ require('layout/header.php');
 										if($resultado = $db->query("SELECT * from comentarios WHERE idfoto = $idDelaFoto")) {
 											while ($row2 = $resultado->fetch()) {
 													echo '<li>';
-														echo '<div class="commentText">';
-															echo "<p class='nombre'>";
+														echo '<div class="commentText" style="display: flex;
+														position: relative;
+														align-items: end;">';
+															echo "<p class='nombre' style='margin-top:6px;'>";
 															$resultado2 = $db->query(
 																"SELECT username from usuarios WHERE usuarioID = ".$row2['idUsuario']);
 															while ($row3 = $resultado2->fetch()) {
@@ -124,7 +129,7 @@ require('layout/header.php');
 
 														if($_SESSION['usuarioID'] == $row2['idUsuario']){
 															echo "<button id='".$row2['idcomentarios']."' type='buttom' 
-															class='eliminarComentario'>Eliminar</button>";
+															class='comment-ico btn btn-light like eliminarComentario'><img style='height: 39px; margin-bottom: 10px;' src='img/app/remove.png'></button>";
 														}
 														
 														
@@ -140,10 +145,10 @@ require('layout/header.php');
 											echo "Falló la sentencia"; 
 										}
 									
-							echo'	</ul>
+							echo'	</ul></div>
 								<form class="form-inline" role="form" action="#" method="post">
 									<div class="form-group">
-										<textarea class="form-control" maxlength="128" name="comentario" placeHolder="Escriba aquí su comentario máximo 128 caracteres"></textarea>
+										<textarea class="form-control" maxlength="128" name="comentario" placeHolder="Añadir comentario."></textarea>
 										<input type="submit" class="btn btn-dark" name="submit'.$var3.'" value="Añadir">
 									</div>
 								</form>
@@ -164,7 +169,7 @@ require('layout/header.php');
 
 			</div>
 		</div>
-		<!--VIDEO---->
+		<!--------------------------------VIDEO----------------------------------------------->
 		<div class="col-xs-12 col-sm-12 col-md-12 col-sm-offset-12 col-md-offset-12 mt-5">
 				<div class="row">
 					<div  class="col-md-10">
@@ -188,9 +193,103 @@ require('layout/header.php');
 								echo '</video>';
 								
 								//Mostramos la descripcion del video
-								echo '<br/><br/>'.$row['descripcion'].'<br/><br/>';	
-								$cont++;					
+								echo '<br/><br/>'.$row['descripcion'].'<br/><br/>';
+
+								echo '<button type="button" id="' . $row['idvideo'] . '" class="comment-ico btn btn-light likeVideo" style="height: 39px; margin-bottom: 10px;"><img src="img/app/heart.png">';
+								$idVD = $row['idvideo'];
+								
+								echo '<div style=" position: relative;
+							bottom: 25px;" class="contadorLikes">';
+
+										$stmt2 = $db->query("SELECT likes FROM video WHERE idvideo =" . $row['idvideo']);
+										$contenedor = [];
+										while ($row = $stmt2->fetch()) {
+											array_push($contenedor, $row['likes']);
+										}
+										echo $contenedor[0];
+							echo '</div></button>';
+							
+								$cont++;
+
+								/*COMENTARIO VIDEO*/
+								
+								echo'<div class="detailBox">
+							<div class="commentBox">
+								<p class="taskDescription"> Comentarios.</p>
+							</div>
+							<div class="actionBox">
+								<div style=" background: rgba(255,255,255,0.8);
+								border: 3px solid white;
+								width: 100%;
+								height: 110px;
+								overflow: auto;
+								text-align:left;">
+								<ul class="commentList">';
+								$var3 = $idVD;
+										
+										if(isset($_POST["submitV".$var3]))  {
+											$idUsuario =  $_SESSION['usuarioID'];
+											$comentarioV = $_POST['comentarioV'];
+											echo $comentarioV.'COMENTARIO SAL';
+											//preparamos stmt
+											$stmt3 = $db->prepare("INSERT INTO comentariosv (idUsuario, comentario, idvideo) VALUES (:varV1, :varV2, :varV3)");
+											$stmt3->bindParam(':varV1', $var1);
+											$stmt3->bindParam(':varV2', $var2);
+											$stmt3->bindParam(':varV3', $var3);
+											$var1 = $idUsuario;
+											$var2 = $comentarioV;
+											$var3 = $idVD;
+
+											$stmt3->execute();
+									
+										}
+
+										if($resultado3 = $db->query("SELECT * from comentariosv WHERE idvideo =$idVD")) {
+											while ($row2 = $resultado3->fetch()) {
+													echo '<li>';
+														echo '<div class="commentText" style="display: flex;
+														position: relative;
+														align-items: end;">';
+															echo "<p class='nombre' style='margin-top:6px;'>";
+															$resultado4 = $db->query(
+																"SELECT username from usuarios WHERE usuarioID = ".$row2['idUsuario']);
+															while ($row3 = $resultado4->fetch()) {
+																echo $row3['username'];
+															}
+															
+															
+															
+														echo ": " .$row2['comentario']."</p>";
+
+														if($_SESSION['usuarioID'] == $row2['idUsuario']){
+															echo "<button id='".$row2['idcomentarios']."' type='buttom' 
+															class='comment-ico btn btn-light like eliminarComentario'><img style='height: 39px; margin-bottom: 10px;' src='img/app/remove.png'></button>";
+														}
+														
+														
+														
+														
+														
+														
+														echo '</div>';
+													echo '</li>';
+												
+											}
+										}else {
+											echo "Falló la sentencia"; 
+										}
+									
+							echo'	</ul></div>
+								<form class="form-inline" role="form" action="#" method="post">
+									<div class="form-group">
+										<textarea class="form-control" maxlength="128" name="comentarioV" placeHolder="Añadir comentario."></textarea>
+										<input type="submit" class="btn btn-dark" name="submitV'.$var3.'" value="Añadir">
+									</div>
+								</form>
+							</div>
+						</div>';					
 							}		
+
 							//Si el usuario no tiene videos se muestra el siguiente mensaje
 							if($cont == 0)
 							{
@@ -218,7 +317,6 @@ require('layout/header.php');
 				botonPulsado = this;
 				var idImagen = $(botonPulsado).attr('id');
 				var idUsuario = $('#idusuario').html();
-				var idVideo = $(botonPulsado).attr('id');
 				
 
 				var nombrePerfil = $('#idNombre').html();
@@ -229,13 +327,6 @@ require('layout/header.php');
 					url: "likes.php?id=" + idImagen + "&accion=annadirlikes",
 				}).done(function(resultado) {
 					cargarLikes(idImagen);
-					
-				});
-				$.ajax({
-					type: "POST",
-					url: "likesV.php?id=" + idVideo + "&accion=annadirlikesV",
-				}).done(function(resultado) {
-					cargarLikes(idVideo);
 					
 				});
 			})
@@ -251,6 +342,23 @@ require('layout/header.php');
 					
 				});
 			})
+			$('.likeVideo').click(function() {
+				botonPulsado = this;
+				var idVideo = $(botonPulsado).attr('id');
+				var idUsuario = $('#idusuario').html();
+	
+
+				var nombrePerfil = $('#idNombre').html();
+				var idPerfil = $('#idPerfil').html();
+
+				$.ajax({
+					type: "POST",
+					url: "likesV.php?id=" + idVideo + "&accion=annadirlikes",
+				}).done(function(resultado) {
+					cargarLikesVideo(idVideo);
+					
+				});
+			})
 		})
 
 		function cargarLikes(idImagen) {
@@ -261,6 +369,16 @@ require('layout/header.php');
 				$(botonPulsado).children('div').html(resultado);
 			});
 		}
+		
+		function cargarLikesVideo(idVideo) {
+			$.ajax({
+				type: "POST",
+				url: "likesV.php?id=" + idVideo + "&accion=cargarLikesV",
+			}).done(function(resultado) {
+				$(botonPulsado).children('div').html(resultado);
+			});
+		}
+		
 
 	</script>
 </div>

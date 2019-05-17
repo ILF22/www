@@ -2,9 +2,11 @@
 require('includes/config.php'); 
 
 $accion = $_REQUEST['accion'];
-if($accion == 'annadirlikesV'){
+if($accion == 'annadirlikes'){
     $id = $_SESSION['usuarioID'];
     $idVideo = $_REQUEST['id'];
+
+    echo $id. $idVideo;
 
     //Comprobar like
     $stmt = $db->query("SELECT idlikes_usuarios FROM likesv WHERE idlikes_usuarios = $id AND idlikes_video = $idVideo");
@@ -17,7 +19,7 @@ if($accion == 'annadirlikesV'){
         $stmt = $db->prepare("DELETE FROM likesv WHERE idlikes_usuarios = $id AND idlikes_video = $idVideo");
         $stmt->execute();
 
-        $db->query("UPDATE video SET likesv = likesv -1 WHERE idvideo = " . $idVideo . ";");
+        $db->query("UPDATE video SET likes = likes -1 WHERE idvideo = " . $idVideo . ";");
     } else {
         $stmt = $db->prepare("INSERT INTO fotografia.likesv VALUES (:var1,:var2);");		
         $stmt->bindParam(':var1', $var1);
@@ -28,15 +30,15 @@ if($accion == 'annadirlikesV'){
         $stmt->execute();
 
         //Sumar like a video
-        $db->query("UPDATE video SET likesv = likesv +1 WHERE idvideo = " . $idVideo . ";");
+        $db->query("UPDATE video SET likes = likes +1 WHERE idvideo = " . $idVideo . ";");
     }
     
 } elseif($accion == 'cargarLikesV'){
     $idVideo = $_REQUEST['id'];
-    $stmt = $db->query("SELECT likesv FROM video WHERE idvideo = $idVideo");
+    $stmt = $db->query("SELECT likes FROM video WHERE idvideo = $idVideo");
     $contenedor = [];
     while ($row = $stmt->fetch()) {
-        echo $row['likesv'];
+        echo $row['likes'];
     }
 
 }
