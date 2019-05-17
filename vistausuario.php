@@ -201,8 +201,6 @@ require('layout/header.php');
 							//Visitas Contador
 							if($_SESSION['usuarioID']!= $id){
 								$stmt = $db->query("UPDATE usuarios SET visitas = visitas +1 WHERE usuarioID = " . $id . ";");
-							}else{
-								echo 'Estoy  aqui';
 							}
 							?>
 
