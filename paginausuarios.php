@@ -182,6 +182,17 @@ require('layout/header.php');
 //						}
 						?>
 						</div>
+						<div style="padding:10px 10px 10px 0;border:3px solid white; background:rgba(255,255,255,0.4)">
+							<form id="form2" name="form2" method="get" action="">
+								<div class="input-group bg-dark search-bar">
+									<input type="text" class="form-control search-input" placeholder="Buscar..." aria-label="Buscar..." aria-describedby="basic-addon2" name="buscar">
+									<div class="input-group-append search-button">
+										<input type="image" onclick="confirmarBusqueda2()" name="submit" width="30px" height="30px"  src="img/app/lupa.png" class="btn btn-secondary btn-block btn-lg" tabindex="5">
+										<!--<span class="input-group-text" id="basic-addon2"><img width="30px" height="30px"  src="img/lupa.png" alt="Lupa" /></span>-->
+									</div>
+								</div>
+							</form>
+						</div>
 					</div>
 				</div>
 		</div>
@@ -250,7 +261,20 @@ function cargaVisitas(){
 				location.href = "borrarvideo.php?borrar="+id;
 				return true;
 			}
-	  }					   
+	  }	
+	  function confirmarBusqueda2(){
+				<!--Verifica si el campo esta vacio, o es igual a nulo, o la longuitud es 0-->
+				var x = document.forms['form2']['buscar'].value;
+				if ( x == null || x == '' || x.length == 0 ) {
+					alert('Introduce una palabra para buscar.');
+					return false;
+				}else
+				{
+					document.getElementById('form2').action = 'resultado2.php';
+					document.form2.submit(); 
+				}				
+					
+			}	  
 </script>
 
 <?php 
