@@ -130,7 +130,7 @@ require('layout/header.php');
 			<form action="#" autocomplete="off" id="myForm">
 				<h2>Eliminar cuenta</h2>
 				<!-- Estable el nombre de la sesion iniciada -->
-				<p class ="text-danger">¿Estas seguro de que quieres eliminar la cuenta <?php echo  $_SESSION['username'] ?>?  </p>
+				<p class ="text-danger">¿Estas seguro de que quieres eliminar la cuenta <?php echo  $_SESSION['username'] ?> <a href='paginausuarios.php'  class ="text-success">Vuelve a tu perfil</a></p>
 				<hr>
 
 				<?php

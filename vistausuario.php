@@ -39,7 +39,7 @@ require('layout/header.php');
 		</div>
 		<div class="col-xs-12 col-sm-12 col-md-12 col-sm-offset-12 col-md-offset-12 mt-5">
 			<div class="row">
-				<div class="col-md-10">
+				<div class="col-md-12">
 					<!--Definimos el color y la opacidad de este -->
 					<div style="padding:30px;border:3px solid white; text-align:center;background:rgba(255,255,255,0.4)">
 						<p id="idusuario" style="display:none;"><?php echo $_SESSION['usuarioID'] ?> </p>
@@ -80,7 +80,7 @@ require('layout/header.php');
 
 
 
-					echo'<div class="detailBox">
+					echo'<div class="detailBox" style="marrgin-bottom:10px;">
 							<div class="commentBox">
 								<p class="taskDescription"> Comentarios.</p>
 							</div>
@@ -129,7 +129,7 @@ require('layout/header.php');
 
 														if($_SESSION['usuarioID'] == $row2['idUsuario']){
 															echo "<button id='".$row2['idcomentarios']."' type='buttom' 
-															class='comment-ico btn btn-light like eliminarComentario'><img style='height: 39px; margin-bottom: 10px;' src='img/app/remove.png'></button>";
+															class='comment-ico btn btn-light eliminarComentario'><br><img style='height: 39px; margin-bottom: 10px;' src='img/app/remove.png'></button>";
 														}
 														
 														
@@ -145,15 +145,15 @@ require('layout/header.php');
 											echo "Falló la sentencia"; 
 										}
 									
-							echo'	</ul></div>
+							echo'	</ul>
 								<form class="form-inline" role="form" action="#" method="post">
 									<div class="form-group">
-										<textarea class="form-control" maxlength="128" name="comentario" placeHolder="Añadir comentario."></textarea>
+									<input type="text" class="form-control" maxlength="128" name="comentario" placeHolder="Añadir comentario.">
 										<input type="submit" class="btn btn-dark" name="submit'.$var3.'" value="Añadir">
 									</div>
 								</form>
 							</div>
-						</div>';
+						</div></div>';
 
 
 						}
@@ -201,9 +201,9 @@ require('layout/header.php');
 								echo '<div style=" position: relative;
 							bottom: 25px;" class="contadorLikes">';
 
-										$stmt2 = $db->query("SELECT likes FROM video WHERE idvideo =" . $row['idvideo']);
+										$stmt4 = $db->query("SELECT likes FROM video WHERE idvideo =" . $row['idvideo']);
 										$contenedor = [];
-										while ($row = $stmt2->fetch()) {
+										while ($row = $stmt4->fetch()) {
 											array_push($contenedor, $row['likes']);
 										}
 										echo $contenedor[0];
@@ -230,17 +230,16 @@ require('layout/header.php');
 										if(isset($_POST["submitV".$var3]))  {
 											$idUsuario =  $_SESSION['usuarioID'];
 											$comentarioV = $_POST['comentarioV'];
-											echo $comentarioV.'COMENTARIO SAL';
 											//preparamos stmt
-											$stmt3 = $db->prepare("INSERT INTO comentariosv (idUsuario, comentario, idvideo) VALUES (:varV1, :varV2, :varV3)");
-											$stmt3->bindParam(':varV1', $var1);
-											$stmt3->bindParam(':varV2', $var2);
-											$stmt3->bindParam(':varV3', $var3);
+											$stmt5 = $db->prepare("INSERT INTO comentariosv (idUsuario, comentario, idvideo) VALUES (:varV1, :varV2, :varV3)");
+											$stmt5->bindParam(':varV1', $var1);
+											$stmt5->bindParam(':varV2', $var2);
+											$stmt5->bindParam(':varV3', $var3);
 											$var1 = $idUsuario;
 											$var2 = $comentarioV;
 											$var3 = $idVD;
 
-											$stmt3->execute();
+											$stmt5->execute();
 									
 										}
 
@@ -263,7 +262,7 @@ require('layout/header.php');
 
 														if($_SESSION['usuarioID'] == $row2['idUsuario']){
 															echo "<button id='".$row2['idcomentarios']."' type='buttom' 
-															class='comment-ico btn btn-light like eliminarComentario'><img style='height: 39px; margin-bottom: 10px;' src='img/app/remove.png'></button>";
+															class='comment-ico btn btn-light eliminarComentarioV'><img style='height: 39px; margin-bottom: 10px;' src='img/app/remove.png'></button>";
 														}
 														
 														
@@ -339,6 +338,7 @@ require('layout/header.php');
 					url: "comentario.php?idComentario=" + idComentario + "&accion=eliminarcomentario",
 				}).done(function(resultado) {
 					console.log(resultado);
+					location.reload();
 					
 				});
 			})
@@ -356,6 +356,18 @@ require('layout/header.php');
 					url: "likesV.php?id=" + idVideo + "&accion=annadirlikes",
 				}).done(function(resultado) {
 					cargarLikesVideo(idVideo);
+					
+				});
+			})
+			
+			$('.eliminarComentarioV').click(function(){
+				botonEliminarPulsado = this;
+				var idComentarioV = $(botonEliminarPulsado).attr('id');
+				$.ajax({
+					type: "POST",
+					url: "comentarioV.php?idComentarioV=" + idComentarioV + "&accion=eliminarcomentarioV",
+				}).done(function(resultado) {
+					location.reload();
 					
 				});
 			})
