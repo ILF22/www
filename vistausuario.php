@@ -147,7 +147,7 @@ require('layout/header.php');
 											echo "Falló la sentencia"; 
 										}
 									
-							echo'	</ul>
+							echo'	</ul></div>
 								<form class="form-inline" role="form" action="#" method="post">
 									<div class="form-group">
 									<input type="text" class="form-control" maxlength="128" name="comentario" placeHolder="Añadir comentario.">
@@ -155,7 +155,7 @@ require('layout/header.php');
 									</div>
 								</form>
 							</div>
-						</div></div>';
+						</div>';
 
 
 						}
@@ -284,7 +284,7 @@ require('layout/header.php');
 							echo'	</ul></div>
 								<form class="form-inline" role="form" action="#" method="post">
 									<div class="form-group">
-										<textarea class="form-control" maxlength="128" name="comentarioV" placeHolder="Añadir comentario."></textarea>
+									<input type="text" class="form-control" maxlength="128" name="comentario" placeHolder="Añadir comentario.">
 										<input type="submit" class="btn btn-dark" name="submitV'.$var3.'" value="Añadir">
 									</div>
 								</form>
