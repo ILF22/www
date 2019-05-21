@@ -51,8 +51,9 @@ require('layout/header.php');
 						$cont = 0;
 						$stmt = $db->query("SELECT * FROM imagen WHERE usuarioID = " . $id);
 						while ($row = $stmt->fetch()) {
+
 							//Definimos el diseño de las imagenes
-							echo '<img style="width:100%;height:auto;padding:5px;border:1px solid black;" 
+							echo '<img style="width:100%;height:auto;padding:5px;border:1px solid black;" id="'. $row['idfoto'].'" class="foto"
 							src="imagenes/' . $row['nombre'] . '">' . "\n";
 
 
@@ -91,7 +92,7 @@ require('layout/header.php');
 								height: 110px;
 								overflow: auto;
 								text-align:left;">
-								<ul class="commentList">';
+								<ul class="commentList" id="ul'.$idDelaFoto.'">';
 								$var3 = $idDelaFoto;
 										
 										if(isset($_POST["submit".$var3]))  {
@@ -128,7 +129,8 @@ require('layout/header.php');
 														echo ": " .$row2['comentario']."</p>";
 
 														if($_SESSION['usuarioID'] == $row2['idUsuario']){
-															echo "<button id='".$row2['idcomentarios']."' type='buttom' 
+															echo "<p id='".$idDelaFoto."' style='display:none'></p>
+															<button id='".$row2['idcomentarios']."' type='buttom' 
 															class='comment-ico btn btn-light eliminarComentario'><br><img style='height: 39px; margin-bottom: 10px;' src='img/app/remove.png'></button>";
 														}
 														
@@ -224,7 +226,7 @@ require('layout/header.php');
 								height: 110px;
 								overflow: auto;
 								text-align:left;">
-								<ul class="commentList">';
+								<ul class="commentList" id="ulV'.$idVD.'">';
 								$var3 = $idVD;
 										
 										if(isset($_POST["submitV".$var3]))  {
@@ -261,7 +263,8 @@ require('layout/header.php');
 														echo ": " .$row2['comentario']."</p>";
 
 														if($_SESSION['usuarioID'] == $row2['idUsuario']){
-															echo "<button id='".$row2['idcomentarios']."' type='buttom' 
+															echo "<p id='".$idVD."' style='display:none'></p>
+															<button id='".$row2['idcomentarios']."' type='buttom' 
 															class='comment-ico btn btn-light eliminarComentarioV'><img style='height: 39px; margin-bottom: 10px;' src='img/app/remove.png'></button>";
 														}
 														
@@ -308,91 +311,8 @@ require('layout/header.php');
 				</div>
 			</div>
 	</div>
-	<script>
-		var botonPulsado;
-		var botonEliminarPulsado;
-		$(document).ready(function() {
-			$('.like').click(function() {
-				botonPulsado = this;
-				var idImagen = $(botonPulsado).attr('id');
-				var idUsuario = $('#idusuario').html();
-				
-
-				var nombrePerfil = $('#idNombre').html();
-				var idPerfil = $('#idPerfil').html();
-
-				$.ajax({
-					type: "POST",
-					url: "likes.php?id=" + idImagen + "&accion=annadirlikes",
-				}).done(function(resultado) {
-					cargarLikes(idImagen);
-					
-				});
-			})
-
-			$('.eliminarComentario').click(function(){
-				botonEliminarPulsado = this;
-				var idComentario = $(botonEliminarPulsado).attr('id');
-				$.ajax({
-					type: "POST",
-					url: "comentario.php?idComentario=" + idComentario + "&accion=eliminarcomentario",
-				}).done(function(resultado) {
-					console.log(resultado);
-					location.reload();
-					
-				});
-			})
-			$('.likeVideo').click(function() {
-				botonPulsado = this;
-				var idVideo = $(botonPulsado).attr('id');
-				var idUsuario = $('#idusuario').html();
-	
-
-				var nombrePerfil = $('#idNombre').html();
-				var idPerfil = $('#idPerfil').html();
-
-				$.ajax({
-					type: "POST",
-					url: "likesV.php?id=" + idVideo + "&accion=annadirlikes",
-				}).done(function(resultado) {
-					cargarLikesVideo(idVideo);
-					
-				});
-			})
-			
-			$('.eliminarComentarioV').click(function(){
-				botonEliminarPulsado = this;
-				var idComentarioV = $(botonEliminarPulsado).attr('id');
-				$.ajax({
-					type: "POST",
-					url: "comentarioV.php?idComentarioV=" + idComentarioV + "&accion=eliminarcomentarioV",
-				}).done(function(resultado) {
-					location.reload();
-					
-				});
-			})
-		})
-
-		function cargarLikes(idImagen) {
-			$.ajax({
-				type: "POST",
-				url: "likes.php?id=" + idImagen + "&accion=cargarLikes",
-			}).done(function(resultado) {
-				$(botonPulsado).children('div').html(resultado);
-			});
-		}
-		
-		function cargarLikesVideo(idVideo) {
-			$.ajax({
-				type: "POST",
-				url: "likesV.php?id=" + idVideo + "&accion=cargarLikesV",
-			}).done(function(resultado) {
-				$(botonPulsado).children('div').html(resultado);
-			});
-		}
-		
-
-	</script>
+	<script src="js/likes.js"></script>
+	<script src="js/eliminarComentario.js"></script>
 </div>
 <?php
 //Incluir plantilla de encabezado

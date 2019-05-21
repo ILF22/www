@@ -1,3 +1,8 @@
+
+<?php
+session_start();
+
+?>
 <!DOCTYPE html>
 <html>
 
@@ -35,7 +40,7 @@
 
                 <div id="controls" class="card-footer">
                     <div class="input-group">
-                        <input name="chatname" type="text" id="chatname" size="67" readonly>
+                        <input name="chatname" type="text" id="chatname" size="67" value="<?php echo $_SESSION['username']?>" readonly>
                         <input class="form-control type_msg" maxlength="32" name="msg" type="text" id="msg" size="63" placeholder="Escribe tu mensaje" />
                         <div class="input-group-append">
                             <input class="input-group-text send_btn" name="sendmsg" type="submit" id="sendmsg" value="Enviar" onclick="doSend(document.getElementById('msg').value)">
