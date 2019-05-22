@@ -48,7 +48,7 @@ require('layout/header.php');
 							$foto = $row['nombre'];
 
 							//Mostramos la descripcion de la foto
-							echo '<br/><br/>' . $row['descripcion'] . '<br/><br/>';
+							echo '<br/><br/>' . ucfirst($row['descripcion']) . '<br/><br/>';
 							$cont++;
 						}
 						//Si no hay imagenes se muestra el siguiente mensaje

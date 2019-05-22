@@ -68,7 +68,7 @@ require('layout/header.php');
 							?>
 							<div>
 								<!--Muestra la descripcion-->
-								<span><?php echo $row['descripcion']; ?></span>
+								<span><?php echo ucfirst($row['descripcion']); ?></span>
 								<!--On click para borrar la imagen, de aqui va a la funcion confirmar  -->
 								<a onclick="confirmar(<?php echo $row['idfoto']; ?>)"><img class="imgEliminar" src="img/app/papelera.png" alt="Papelera" /></a>
 							</div></br></br>
