@@ -32,7 +32,7 @@ function WebSocketSupport()
 }
 
 function onMessage(e) {
-    writeToScreen('<span style="color: yellow;margin-right: 30px; text-align: right;"> ' + e.data + '</span>');
+    writeToScreen('<span style="color: yellow;"> ' + e.data + '</span>');
 }
 
 function onError(e) {
