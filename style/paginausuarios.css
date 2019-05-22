@@ -18,3 +18,15 @@
     border:3px solid white; 
     background:rgba(255,255,255,0.4)
 }
+.visitas{
+    display: flex;
+    justify-content: right;
+    align-items: flex-start;
+}
+.visitas img{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.visitas p{
+    font-weight: bold;
+}

@@ -16,6 +16,7 @@ ini_set('display_errors', '1');
 						echo $title;
 					} ?></title>
 	<!-- Bootstrap core CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<link href="style/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="style/main.css">
 	<link rel="stylesheet" href="style/vistausuario.css">

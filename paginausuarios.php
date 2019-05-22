@@ -50,9 +50,10 @@ require('layout/header.php');
 							$visitas = $row['visitas'];
 						}
 						?>
-						<div>
+						<div class="visitas">
 							<img src="img/app/binoculars.png">
-							<p>Visualizaciones</p>
+							<p>Visitas</p>
+							<img src="img/app/next.png">
 							<p class="" data-count="2200"><?php echo $visitas ?></p>
 						</div>
 

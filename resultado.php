@@ -8,7 +8,7 @@ if (!$user->is_logged_in()) {
 }
 
 //define page title
-$title = 'Resultados';
+$title = 'Multimedia';
 
 //Incluir plantilla de encabezado
 require('layout/header.php');
@@ -20,7 +20,7 @@ require('layout/header.php');
 
 		<div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
 
-			<h2>Resultados de busqueda </h2>
+			<h2>Resultados de busqueda de multimedia.</h2>
 
 			<div class="row mt-5">
 				<div class="col-xs-6 col-md-6"><a class="btn btn-light btn-block btn-lg" tabindex="5" href="paginausuarios.php">Volver</a></div>
@@ -37,6 +37,7 @@ require('layout/header.php');
 						$buscar = $_GET['buscar'];
 						$cont = 0;
 						$stmt = $db->query("SELECT * FROM imagen WHERE descripcion LIKE '%" . $buscar . "%'");
+						//SELECT imagen.idfoto , imagen.usuarioID , imagen.nombre , imagen.descripcion , imagen.likes, video.idvideo, video.usuarioID, video.nombre, video.descripcion, video.likes FROM imagen, video WHERE imagen.descripcion = video.descripcion LIKE '%" . $buscar . "%' ORDER BY imagen.idfoto
 						//var_dump($buscar);
 						while ($row = $stmt->fetch()) {
 							//echo $row['nombre']."<br />\n";
