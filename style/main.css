@@ -100,13 +100,16 @@ section{
 }
 
 
-
-
-
-
-.search-bar{max-width: 300px;}
-.search-button{max-width: 60px;}
-.search-button input{    width: 55px;    height: 38px;}
+.search-bar{
+	max-width: 300px;
+}
+.search-button{
+	max-width: 60px;
+}
+.search-button input{
+	width: 55px;
+	height: 38px;
+}
 
 .item {
       display: block;
@@ -116,4 +119,17 @@ section{
 .item img {
       height: 100%;
       width: 100%;
+}
+.contenedorTodo{
+    padding:30px;
+    border:3px solid white; 
+    text-align:center;
+    background:rgba(255,255,255,0.4);
+}
+.foto{
+    width:100%;
+    height:auto;
+    padding:5px;
+    border:1px solid black;
+    margin-bottom:10px;
 }

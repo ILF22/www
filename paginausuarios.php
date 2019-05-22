@@ -63,7 +63,7 @@ require('layout/header.php');
 						while ($row = $stmt->fetch()) {
 							//Diseño de la imagen
 							$row['nombre'] . "<br />\n";
-							echo '<div id="todo"><img class="imgUsu" src="imagenes/' . $row['nombre'] . '">' . "\n";
+							echo '<div id="todo"><img class="foto" src="imagenes/' . $row['nombre'] . '">' . "\n";
 							?>
 							<div>
 								<!--Muestra la descripcion-->

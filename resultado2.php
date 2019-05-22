@@ -32,7 +32,7 @@ require('layout/header.php');
 		<div class="col-xs-12 col-sm-12 col-md-12 col-sm-offset-12 col-md-offset-12 mt-5">
 			<div class="row">
 				<div class="col-md-12">
-					<div style="padding:30px;border:3px solid white; text-align:center;background:rgba(255,255,255,0.4)">
+					<div class="contenedorTodo">
 						<?php
 						//Recogemos los datos y mostramos la imagen que se ha buscado por descripcion. 
 						$buscar = $_GET['buscar'];
