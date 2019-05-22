@@ -40,7 +40,7 @@ require('layout/header.php');
 		<div class="col-xs-12 col-sm-12 col-md-12 col-sm-offset-12 col-md-offset-12">
 			<div class="row">
 				<div class="col-md-10">
-					<div style="padding:30px;border:3px solid white; text-align:center;background:rgba(255,255,255,0.4)">
+					<div class="contenedorTodo">
 						<!--Diseño del contenedor donde se encuentra el contador -->
 						<?php
 						//Seleciona todo de los usuarios si la cuenta es activa
@@ -63,13 +63,13 @@ require('layout/header.php');
 						while ($row = $stmt->fetch()) {
 							//Diseño de la imagen
 							$row['nombre'] . "<br />\n";
-							echo '<div id="todo"><img style=" width:100%;height:auto;padding:5px;border:1px solid black;margin-bottom:10px" src="imagenes/' . $row['nombre'] . '">' . "\n";
+							echo '<div id="todo"><img class="imgUsu" src="imagenes/' . $row['nombre'] . '">' . "\n";
 							?>
 							<div>
 								<!--Muestra la descripcion-->
 								<span><?php echo $row['descripcion']; ?></span>
 								<!--On click para borrar la imagen, de aqui va a la funcion confirmar  -->
-								<a onclick="confirmar(<?php echo $row['idfoto']; ?>)"><img width="30px" height="30px" src="img/app/papelera.png" alt="Papelera" /></a>
+								<a onclick="confirmar(<?php echo $row['idfoto']; ?>)"><img class="imgEliminar" src="img/app/papelera.png" alt="Papelera" /></a>
 							</div></br></br>
 						</div>
 						<?php
@@ -89,7 +89,7 @@ require('layout/header.php');
 						//Disño del video
 						$row['nombre'] . "<br />\n";
 						echo '<div id="todo">';
-						echo '<video style ="width:100%;height:auto;padding:5px;border:1px solid black;margin-bottom:10px" width="320" height="240" controls>';
+						echo '<video class="videoUsu" controls>';
 						echo '<source src="imagenes/' . $row['nombre'] . '" type="video/mp4">';
 						echo '<source src="imagenes/' . $row['nombre'] . '" type="video/avi">';
 						echo '<source src="imagenes/' . $row['nombre'] . '" type="video/3gpp">';
@@ -102,7 +102,7 @@ require('layout/header.php');
 							<!--Muestra la descripcion-->
 							<span><?php echo $row['descripcion']; ?></span>
 							<!--On click para borrar el video, de aqui va a la funcion confirmar  -->
-							<a onclick="confirmar2(<?php echo $row['idvideo']; ?>)"><img width="30px" height="30px" src="img/app/papelera.png" alt="Papelera" /></a>
+							<a onclick="confirmar2(<?php echo $row['idvideo']; ?>)"><img class="imgEliminar" src="img/app/papelera.png" alt="Papelera" /></a>
 						</div></br></br>
 					</div>
 					<?php
@@ -115,29 +115,19 @@ require('layout/header.php');
 				}
 				?>
 			</div>
-
-
-
-
 		</div>
 		<!--Diseño del contenedor donde se encuentran los usuarios con cuenta activa -->
-		<div class="col-md-offset-1 col-md-2 col-xs-12 col-sm-12 users-table" style=" color:black;text-align:right;">
-			<div style="padding:10px 10px 10px 0;border:3px solid white; background:rgba(255,255,255,0.4)">
-				<h4>Últimos visitados</h4>
-				<?php
-				//Seleciona todo de los usuarios si la cuenta es activa
-				$stmt = $db->query("SELECT * FROM usuarios WHERE active = 'Yes'");
-				while ($row = $stmt->fetch()) {
-					$nombre = $row['username'];
-					$id = $row['usuarioID'];
-
-					if ($id != $_SESSION['usuarioID']) {
-						echo "<h4 color='green'><a href='vistausuario.php?id=$id&nombreusuario=$nombre'>$nombre</a></h4>";
-					}
-				}
-				?>
-			</div>
-			<div style="padding:10px 10px 10px 0;border:3px solid white; background:rgba(255,255,255,0.4)">
+		<div class="col-md-offset-1 col-md-2 col-xs-12 col-sm-12 users-table contenedorListas">
+		<div class="listas">
+		<form id="form2" name="form2" method="get" action="">
+					<div class="input-group bg-dark search-bar">
+						<input type="text" class="form-control search-input" placeholder="Buscar..." aria-label="Buscar..." aria-describedby="basic-addon2" name="buscar">
+						<div class="input-group-append search-button">
+							<input type="image" onclick="confirmarBusqueda2()" name="submit" width="30px" height="30px" src="img/app/lupa.png" class="btn btn-secondary btn-block btn-lg" tabindex="5">
+							<!--<span class="input-group-text" id="basic-addon2"><img width="30px" height="30px"  src="img/lupa.png" alt="Lupa" /></span>-->
+						</div>
+					</div>
+				</form>
 				<h4>Usuarios</h4>
 				<?php
 				//Seleciona todo de los usuarios si la cuenta es activa
@@ -152,7 +142,22 @@ require('layout/header.php');
 				}
 				?>
 			</div>
-			<div style="padding:10px 10px 10px 0;border:3px solid white; background:rgba(255,255,255,0.4)">
+			<div class="listas">
+				<h4>Últimos visitados</h4>
+				<?php
+				//Seleciona todo de los usuarios si la cuenta es activa
+				$stmt = $db->query("SELECT * FROM usuarios WHERE active = 'Yes'");
+				while ($row = $stmt->fetch()) {
+					$nombre = $row['username'];
+					$id = $row['usuarioID'];
+
+					if ($id != $_SESSION['usuarioID']) {
+						echo "<h4 color='green'><a href='vistausuario.php?id=$id&nombreusuario=$nombre'>$nombre</a></h4>";
+					}
+				}
+				?>
+			</div>
+			<div class="listas">
 				<h4>Top 5 visitas</h4>
 				<?php
 				//Seleciona todo de los usuarios si la cuenta es activa
@@ -167,7 +172,7 @@ require('layout/header.php');
 				}
 				?>
 			</div>
-			<div style="padding:10px 10px 10px 0;border:3px solid white; background:rgba(255,255,255,0.4)">
+			<div class="listas">
 				<h4>Top 5 fotos</h4>
 				<?php
 				//Seleciona las páginas más visitadas
@@ -175,29 +180,13 @@ require('layout/header.php');
 				while ($row = $stmt->fetch()) {
 
 					//para quitar la extension al fichero
-					//                            $nombre = pathinfo($row['nombre']);
-					//                            $nombreArch=$nombre['filename'];
 					$nombre = $row['descripcion'];
 					$id = $row['idfoto'];
 
 					$usuarioID = $row['usuarioID'];
-
-					//							if($usuarioID != $_SESSION['usuarioID']){
 					echo "<h4 color='green'><a href='vistausuario.php?id=$id&nombreusuario=$nombre'>$nombre</a></h4>";
 				}
-				//						}
 				?>
-			</div>
-			<div style="padding:10px 10px 10px 0;border:3px solid white; background:rgba(255,255,255,0.4)">
-				<form id="form2" name="form2" method="get" action="">
-					<div class="input-group bg-dark search-bar">
-						<input type="text" class="form-control search-input" placeholder="Buscar..." aria-label="Buscar..." aria-describedby="basic-addon2" name="buscar">
-						<div class="input-group-append search-button">
-							<input type="image" onclick="confirmarBusqueda2()" name="submit" width="30px" height="30px" src="img/app/lupa.png" class="btn btn-secondary btn-block btn-lg" tabindex="5">
-							<!--<span class="input-group-text" id="basic-addon2"><img width="30px" height="30px"  src="img/lupa.png" alt="Lupa" /></span>-->
-						</div>
-					</div>
-				</form>
 			</div>
 		</div>
 	</div>
@@ -254,7 +243,6 @@ require('layout/header.php');
 			document.getElementById('form2').action = 'resultado2.php';
 			document.form2.submit();
 		}
-
 	}
 </script>
 

@@ -49,9 +49,3 @@ if($user->login($username,$pass)){
 	//echo "ERROR NO BORRADO";
 	header('Location: deleteusuario.php');
 }
-
-
-
-
-	
-?>

@@ -1,7 +1,10 @@
-<?php require('includes/config.php'); 
+<?php require('includes/config.php');
 
 //Si ha iniciado sesión, redirija a la página de class
-if( $user->is_logged_in() ){ header('Location: paginausuarios.php'); exit(); }
+if ($user->is_logged_in()) {
+	header('Location: paginausuarios.php');
+	exit();
+}
 
 $resetToken = hash('SHA256', ($_GET['key']));
 
@@ -10,33 +13,33 @@ $stmt->execute(array(':token' => $resetToken));
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 //Si no hay token de db se cae la pagina
-if(empty($row['resetToken'])){
+if (empty($row['resetToken'])) {
 	$stop = 'El token no es válido, utiliza el enlace proporcionado en el correo electrónico de restablecimiento.';
-} elseif($row['resetComplete'] == 'Yes') {
+} elseif ($row['resetComplete'] == 'Yes') {
 	$stop = '¡Tu contraseña ya ha sido cambiada!';
 }
 
 //Si el formulario ha sido enviado la procesa
-if(isset($_POST['submit'])){
+if (isset($_POST['submit'])) {
 
 	if (!isset($_POST['password']) || !isset($_POST['passwordConfirm']))
 		$error[] = 'Ambos campos de contraseña son obligatorios para ser ingresados';
 
 	//Validacion de contraseña
-	if(strlen($_POST['password']) < 3){
+	if (strlen($_POST['password']) < 3) {
 		$error[] = 'La contraseña es demasiado corta.';
 	}
 
-	if(strlen($_POST['passwordConfirm']) < 3){
+	if (strlen($_POST['passwordConfirm']) < 3) {
 		$error[] = 'Confirmar contraseña es muy corta.';
 	}
 	//Validacion de coincidencia de contraseñas
-	if($_POST['password'] != $_POST['passwordConfirm']){
+	if ($_POST['password'] != $_POST['passwordConfirm']) {
 		$error[] = 'Las contraseñas no coinciden.';
 	}
 
 	//Si no se han creado errores, continua
-	if(!isset($error)){
+	if (!isset($error)) {
 
 		//Codifica la contraseña
 		$hashedpassword = $user->password_hash($_POST['password'], PASSWORD_BCRYPT);
@@ -53,34 +56,31 @@ if(isset($_POST['submit'])){
 			header('Location: login.php?action=resetAccount');
 			exit;
 
-		//De lo contrario, capte la excepción y muestre el error.
-		} catch(PDOException $e) {
-		    $error[] = $e->getMessage();
+			//De lo contrario, capte la excepción y muestre el error.
+		} catch (PDOException $e) {
+			$error[] = $e->getMessage();
 		}
-
 	}
-
 }
 
 //Definir el título de la página
 $title = 'Restablecer contraseña';
 
 //Incluir plantilla de encabezado
-require('layout/header.php'); 
+require('layout/header.php');
 ?>
 
 <div class="container">
 
 	<div class="row">
 
-	    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+		<div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
 
-		
-	    	<?php if(isset($stop)){
-			//
-	    		echo "<p class='bg-danger'>$stop</p>";
 
-	    	} else { ?>
+			<?php if (isset($stop)) {
+				//
+				echo "<p class='bg-danger'>$stop</p>";
+			} else { ?>
 				<!-- Boton de cambio de contraseña-->
 				<form role="form" method="post" action="" autocomplete="off">
 					<h2>Cambio de Contraseña.</h2>
@@ -88,9 +88,9 @@ require('layout/header.php');
 
 					<?php
 					//Verificar si hay algún error
-					if(isset($error)){
-						foreach($error as $error){
-							echo '<p class="bg-danger">'.$error.'</p>';
+					if (isset($error)) {
+						foreach ($error as $error) {
+							echo '<p class="bg-danger">' . $error . '</p>';
 						}
 					}
 
@@ -117,7 +117,7 @@ require('layout/header.php');
 							</div>
 						</div>
 					</div>
-					
+
 					<hr>
 					<!--Boton que va a la form-->
 					<div class="row">
@@ -130,7 +130,7 @@ require('layout/header.php');
 	</div>
 </div>
 
-<?php 
+<?php
 //Incluir plantilla de encabezado
-require('layout/footer.php'); 
+require('layout/footer.php');
 ?>
