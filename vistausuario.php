@@ -157,7 +157,8 @@ require('layout/header.php');
 						$stmt = $db->query("SELECT * FROM video WHERE usuarioID = " . $id);
 						while ($row = $stmt->fetch()) {
 							//Definimos el diseño de las video
-							echo '<div id="todo">';
+//							echo '<div id="todo">';
+                            echo '<div id="vd'.$row['idvideo'].'">';
 							echo '<video class="video" controls>';
 							echo '<source src="imagenes/' . $row['nombre'] . '" type="video/mp4">';
 							echo '<source src="imagenes/' . $row['nombre'] . '" type="video/avi">';

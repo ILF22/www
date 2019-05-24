@@ -64,11 +64,12 @@ require('layout/header.php');
 						while ($row = $stmt->fetch()) {
 							//Diseño de la imagen
 							$row['nombre'] . "<br />\n";
-							echo '<div id="todo"><img class="foto" src="imagenes/' . $row['nombre'] . '">' . "\n";
+                            echo '<div id="foto"><img class="foto" src="imagenes/' . $row['nombre'] . '">' . "\n";
+//                            echo '<div id="ft'.$row['idfoto'].'"><img class="foto" src="imagenes/' . $row['nombre'] . '">' . "\n";
 							?>
 							<div>
 								<!--Muestra la descripcion-->
-								<span><?php echo ucfirst($row['descripcion']); ?></span>
+								<span><?php echo ucwords($row['descripcion']); ?></span>
 								<!--On click para borrar la imagen, de aqui va a la funcion confirmar  -->
 								<a onclick="confirmar(<?php echo $row['idfoto']; ?>)"><img class="imgEliminar" src="img/app/papelera.png" alt="Papelera" /></a>
 							</div></br></br>
@@ -89,7 +90,8 @@ require('layout/header.php');
 					while ($row = $stmt->fetch()) {
 						//Disño del video
 						$row['nombre'] . "<br />\n";
-						echo '<div id="todo">';
+				        echo '<div id="todo">';
+//                        echo '<div id="vd'.$row['idvideo'].'">';
 						echo '<video class="videoUsu" controls>';
 						echo '<source src="imagenes/' . $row['nombre'] . '" type="video/mp4">';
 						echo '<source src="imagenes/' . $row['nombre'] . '" type="video/avi">';
@@ -101,7 +103,7 @@ require('layout/header.php');
 						?>
 						<div>
 							<!--Muestra la descripcion-->
-							<span><?php echo $row['descripcion']; ?></span>
+							<span><?php echo ucwords($row['descripcion']); ?></span>
 							<!--On click para borrar el video, de aqui va a la funcion confirmar  -->
 							<a onclick="confirmar2(<?php echo $row['idvideo']; ?>)"><img class="imgEliminar" src="img/app/papelera.png" alt="Papelera" /></a>
 						</div></br></br>
@@ -131,7 +133,7 @@ require('layout/header.php');
 				</form>
 				<h4>Usuarios</h4>
 				<?php
-				//Seleciona todo de los usuarios si la cuenta es activa
+				//USUARIOS
 				$stmt = $db->query("SELECT * FROM usuarios WHERE active = 'Yes'");
 				while ($row = $stmt->fetch()) {
 					$nombre = $row['username'];
@@ -146,7 +148,7 @@ require('layout/header.php');
 			<div class="listas">
 				<h4>Últimos visitados</h4>
 				<?php
-				//Seleciona todo de los usuarios si la cuenta es activa
+				//ULTIMOS VISITADOS
 				$stmt = $db->query("SELECT * FROM usuarios WHERE active = 'Yes'");
 				while ($row = $stmt->fetch()) {
 					$nombre = $row['username'];
@@ -159,9 +161,11 @@ require('layout/header.php');
 				?>
 			</div>
 			<div class="listas">
-				<h4>Top 5 visitas</h4>
+				<h4>+ Visitados</h4>
 				<?php
-				//Seleciona todo de los usuarios si la cuenta es activa
+				// TOP 5 MAS VISITADOS
+                        
+                
 				$stmt = $db->query("SELECT * FROM usuarios WHERE active = 'Yes'");
 				while ($row = $stmt->fetch()) {
 					$nombre = $row['username'];
@@ -174,19 +178,40 @@ require('layout/header.php');
 				?>
 			</div>
 			<div class="listas">
-				<h4>Top 5 fotos</h4>
+				<h4>+ Puntuados</h4>
 				<?php
-				//Seleciona las páginas más visitadas
-				$stmt = $db->query("SELECT * FROM imagen order by likes DESC LIMIT 5");
+				//MEJOR PUNTUADOS
+                $stmt = $db->query("SELECT *, 'ft' AS tipo FROM imagen UNION select *, 'vd' AS tipo from video order by likes DESC LIMIT 5");               
+                
+
 				while ($row = $stmt->fetch()) {
+
 
 					//para quitar la extension al fichero
-					$nombre = $row['descripcion'];
-					$id = $row['idfoto'];
-
+					$descripcion = ucwords($row['descripcion']);
+                    
+                    
 					$usuarioID = $row['usuarioID'];
-					echo "<h4 color='green'><a href='vistausuario.php?id=$id&nombreusuario=$nombre'>$nombre</a></h4>";
-				}
+                    $id = $row['idfoto'];
+                    
+                    $stmt2= $db->query("SELECT username from usuarios where usuarioID=".$usuarioID);
+                    $nombre=$stmt2->fetch();
+                    $nombre=$nombre['username'];
+                   
+                    if ($row['tipo']=="vd"){
+                        
+                        $id="vd".$row['idfoto'];
+                                      
+                    }                   
+               
+                     
+                    if ($nombre!=null){
+
+                        echo "<h5 color='green'><a href='vistausuario.php?id=$usuarioID&nombreusuario=$nombre/#$id'><img src='img/app/heart.png'>$descripcion ($nombre)</h5>";
+
+                    }
+                
+                }
 				?>
 			</div>
 		</div>
