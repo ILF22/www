@@ -46,7 +46,9 @@ session_start();
                             <input class="input-group-text send_btn" name="sendmsg" type="submit" id="sendmsg" value="Enviar" onclick="doSend(document.getElementById('msg').value)">
                         </div>
                     </div>
-                    <a href="../../paginausuarios.php"><button type="button" value="Volver" class="btn float-left send_btn">Volver</button></a>
+                    <div class="input-group-append">
+                        <a href="../../paginausuarios.php"><button type="button" value="Volver" class="btn float-left send_btn">Volver</button></a>
+                    </div>
                 </div>
             </div>
         </div>
