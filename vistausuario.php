@@ -17,35 +17,35 @@ require('layout/header.php');
 
 <div class="container">
 
-	<div class="row">
+    <div class="row">
 
-		<div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
 
-			<!--LLama al nombre de usuario para mostrarlo cuando entra en una de ellos-->
-			<h2>Perfil de
-				<?php
+            <!--LLama al nombre de usuario para mostrarlo cuando entra en una de ellos-->
+            <h2>Perfil de
+                <?php
 				$nombreusuario = $_GET['nombreusuario'];
 				echo htmlspecialchars($nombreusuario, ENT_QUOTES);
 				?>
-			</h2>
-			<hr>
-			<!--Boton volver para ir a la pagina anterior-->
-			<div class="row mt-5">
-				<div class="col-xs-6 col-md-6"><a class="btn btn-light btn-block btn-lg" tabindex="5" href="paginausuarios.php">Volver</a></div>
-			</div>
+            </h2>
+            <hr>
+            <!--Boton volver para ir a la pagina anterior-->
+            <div class="row mt-5">
+                <div class="col-xs-6 col-md-6"><a class="btn btn-light btn-block btn-lg" tabindex="5" href="paginausuarios.php">Volver</a></div>
+            </div>
 
-			<div id="respuesta"></div>
-		</div>
-		<div class="col-xs-12 col-sm-12 col-md-12 col-sm-offset-12 col-md-offset-12 mt-5">
-			<div class="row">
-				<div class="col-md-12">
-					<!--Definimos el color y la opacidad de este -->
-					<div class="contenedorTodo">
-						<p id="idusuario" style="display:none;"><?php echo $_SESSION['usuarioID'] ?> </p>
-						<p id="idNombre" style="display:none;"><?php echo $nombreusuario = $_GET['nombreusuario'] ?> </p>
-						<p id="idPerfil" style="display:none;"><?php echo $_GET['id'] ?> </p>
-						<!--Hacemos la consulta para mostrar todo las imagenes del usuario seleccionado-->
-						<?php
+            <div id="respuesta"></div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-sm-offset-12 col-md-offset-12 mt-5">
+            <div class="row">
+                <div class="col-md-12">
+                    <!--Definimos el color y la opacidad de este -->
+                    <div class="contenedorTodo">
+                        <p id="idusuario" style="display:none;"><?php echo $_SESSION['usuarioID'] ?> </p>
+                        <p id="idNombre" style="display:none;"><?php echo $nombreusuario = $_GET['nombreusuario'] ?> </p>
+                        <p id="idPerfil" style="display:none;"><?php echo $_GET['id'] ?> </p>
+                        <!--Hacemos la consulta para mostrar todo las imagenes del usuario seleccionado-->
+                        <?php
 						$id = $_GET['id'];
 						$cont = 0;
 						$stmt = $db->query("SELECT * FROM imagen WHERE usuarioID = " . $id);
@@ -148,10 +148,10 @@ require('layout/header.php');
 						}
 						?>
 
-						<!-----------------------------------------------------VIDEO-------------------------------------------------------------->
+                        <!-----------------------------------------------------VIDEO-------------------------------------------------------------->
 
-						<!--Hacemos la consulta para mostrar todo los videos del usuario seleccionado-->
-						<?php
+                        <!--Hacemos la consulta para mostrar todo los videos del usuario seleccionado-->
+                        <?php
 						$id = $_GET['id'];
 						$cont = 0;
 						$stmt = $db->query("SELECT * FROM video WHERE usuarioID = " . $id);
@@ -259,19 +259,19 @@ require('layout/header.php');
 						}
 						?>
 
-						<?php
+                        <?php
 						//Visitas Contador
 						if ($_SESSION['usuarioID'] != $id) {
 							$stmt = $db->query("UPDATE usuarios SET visitas = visitas +1 WHERE usuarioID = " . $id . ";");
 						}
 						?>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<script src="js/likes.js"></script>
-	<script src="js/eliminarComentario.js"></script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/likes.js"></script>
+    <script src="js/eliminarComentario.js"></script>
 </div>
 <?php
 //Incluir plantilla de encabezado
