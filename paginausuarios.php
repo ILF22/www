@@ -19,11 +19,43 @@ require('layout/header.php');
     <div class="row">
 
         <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3 mb-5">
-            <!--Muestra el nombre de la sesion con la que has iniciado-->
-            <h2>¡Bienvenido! <?php echo htmlspecialchars($_SESSION['username'], ENT_QUOTES); ?></h2>
-            <hr>
-            <!--form de la subida de la imagen -->
+            <?php
+				//Accede a los campos imagen y descripcion del usuario
+				$stmt = $db->query("SELECT imagen, descripcion FROM usuarios WHERE usuarioID = " . $_SESSION['usuarioID']);
+				while ($row = $stmt->fetch()) {
+					//Comprueba si el campo imagen esta vacio para poner o no imagen por defecto
+					if(empty($row['imagen'])){
+						$imagenP = "usuario.jpg";
+					}else{
+						$imagenP = $row['imagen'];
+					}
+					//Comprueba si el campo descripcion esta vacio para poner o no descripcion por defecto
+					if(empty($row['descripcion'])){
+						$descripcionP = "Descripcion";
+					}else{
+						$descripcionP = $row['descripcion'];
+					}
+				}
+			?>
+			<!--Muestra el perfil del usuario-->
+			<table>
+				<tr>
+					<td rowspan="2"><?php echo '<img width="150" height="150" src="imagenes/' . $imagenP . '">' . "\n"; ?></td>
+					<td><h2><?php echo htmlspecialchars($_SESSION['username'], ENT_QUOTES); ?></h2></td>
+					<td><div class="col-xs-15 col-md-15"><a class="mt-2 btn btn-light btn-block btn-lg" href="perfil.php" ><img src="img/app/config.png" alt="Config" width="50" height="50" /></a></div></td>
+				</tr>
+				<tr>
+					<td><h5><?php echo $descripcionP;?></h5></td>
+				</tr>
+			</table>
+			<!--Boton para editar perfil-->
+			
+			
+			
+			<hr>
+			<!--form de la subida de la imagen -->
             <form id="uploadimage" method="POST" action="imagen-ajax.php" enctype="multipart/form-data">
+				<h5><label>Subir imagen o video:</label></h5>
                 <input type="file" name="file" id="file" class="btn btn-light btn-block btn-sm" required />
                 <div class="row mt-3 nomargin">
                     <!--Añade la descripcion de la imagen -->
@@ -149,9 +181,8 @@ require('layout/header.php');
         </div>
         <!--Diseño del contenedor donde se encuentran los usuarios con cuenta activa -->
         <div class="col-md-offset-1 col-md-2 col-xs-12 col-sm-12 users-table contenedorListas">
-            <!--
-		<div class="listas">
-		<form id="form2" name="form2" method="get" action="">
+			<div class="listas">
+				<!--<form id="form2" name="form2" method="get" action="">
 					<div class="input-group bg-dark search-bar">
 						<input type="text" class="form-control search-input" placeholder="Buscar..." aria-label="Buscar..." aria-describedby="basic-addon2" name="buscar">
 						<div class="input-group-append search-button">
@@ -159,7 +190,7 @@ require('layout/header.php');
 
 						</div>
 					</div>
-				</form>
+				</form> -->
 				<h4>Usuarios</h4>
 				<?php
 				//USUARIOS
@@ -174,7 +205,7 @@ require('layout/header.php');
 				}
 				?>
 			</div>
--->
+
             <div class="listas">
                 <h4><img src='img/app/calendario.png'>Últimos visitados</h4>
                 <?php
@@ -292,8 +323,7 @@ require('layout/header.php');
     }
 
     function confirmarBusqueda2() {
-        <
-        !--Verifica si el campo esta vacio, o es igual a nulo, o la longuitud es 0-- >
+        <!--Verifica si el campo esta vacio, o es igual a nulo, o la longuitud es 0-- >
         var x = document.forms['form2']['buscar'].value;
         if (x == null || x == '' || x.length == 0) {
             alert('Introduce una palabra para buscar.');

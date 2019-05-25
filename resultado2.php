@@ -43,6 +43,13 @@ require('layout/header.php');
 							//echo $row['nombre']."<br />\n";
 							$nombre = $row['username'];
 							$id = $row['usuarioID'];
+							if(empty($row['imagen'])){
+								$imagen = "usuario.jpg";
+							}else{
+								$imagen = $row['imagen'];
+							}
+							
+							echo '<img width="150" height="150" src="imagenes/' . $imagen . '">' . "\n";
 							echo "<h4 color='green'><a href='vistausuario.php?id=$id&nombreusuario=$nombre'>$nombre</a></h4>";
 
 							$cont++;

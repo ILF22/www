@@ -20,14 +20,35 @@ require('layout/header.php');
     <div class="row">
 
         <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-
-            <!--LLama al nombre de usuario para mostrarlo cuando entra en una de ellos-->
-            <h2>Perfil de
-                <?php
-				$nombreusuario = $_GET['nombreusuario'];
-				echo htmlspecialchars($nombreusuario, ENT_QUOTES);
-				?>
-            </h2>
+			<?php
+				//Accede a los campos imagen y descripcion del usuario visitado
+				$stmt = $db->query("SELECT imagen, descripcion FROM usuarios WHERE usuarioID = " . $_GET['id']);
+				while ($row = $stmt->fetch()) {
+					//Comprueba si el campo imagen esta vacio para poner o no imagen por defecto
+					if(empty($row['imagen'])){
+						$imagenP = "usuario.jpg";
+					}else{
+						$imagenP = $row['imagen'];
+					}
+					//Comprueba si el campo descripcion esta vacio para poner o no descripcion por defecto
+					if(empty($row['descripcion'])){
+						$descripcionP = "Descripcion";
+					}else{
+						$descripcionP = $row['descripcion'];
+					}
+				}
+			?>
+			<!--Muestra el perfil del usuario-->
+			<table>
+				<tr>
+					<td rowspan="2"><?php echo '<div id="todo"><img width="150" height="150" src="imagenes/' . $imagenP . '">' . "\n"; ?></td>
+					<td><h2>Perfil de <?php echo htmlspecialchars($_GET['nombreusuario'], ENT_QUOTES); ?></h2></td>
+				</tr>
+				<tr>
+					<td><h5><?php echo $descripcionP;?></h5></td>
+				</tr>
+			</table>
+            
             <hr>
             <!--Boton volver para ir a la pagina anterior-->
             <div class="row mt-5">

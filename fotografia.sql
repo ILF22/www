@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0.1
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-05-2019 a las 17:58:32
--- Versión del servidor: 10.1.32-MariaDB
--- Versión de PHP: 7.1.17
+-- Tiempo de generación: 25-05-2019 a las 14:11:24
+-- Versión del servidor: 10.1.37-MariaDB
+-- Versión de PHP: 7.3.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -132,18 +132,20 @@ CREATE TABLE `usuarios` (
   `active` varchar(255) COLLATE utf8mb4_bin NOT NULL,
   `resetToken` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
   `resetComplete` varchar(3) COLLATE utf8mb4_bin DEFAULT 'No',
-  `visitas` int(11) DEFAULT NULL
+  `visitas` int(11) DEFAULT NULL,
+  `descripcion` varchar(255) COLLATE utf8mb4_bin NOT NULL,
+  `imagen` varchar(255) COLLATE utf8mb4_bin NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`usuarioID`, `username`, `password`, `email`, `active`, `resetToken`, `resetComplete`, `visitas`) VALUES
-(1, 'Irene', '$2y$10$R6A3yNvjcoAg.kL8vHE7gexs1zkH7WTTZNR8JbfcEhhahZHX6Qn.G', 'irene.leon95@gmail.com', 'Yes', NULL, 'No', 84),
-(5, 'Aitor', '$2y$10$a3RJKLkSlH9njYZbpakGw.zFhfj5KRD5sSfwcxhgRF5wKPRf.WeWu', 'aitorsan2092@gmail.com', 'Yes', NULL, 'No', 14),
-(14, 'IreneN', '$2y$10$1jojffb8rGJsqbrcqv1WeOsCvQQZZ6N0voB14oNoGcnZHbORPPbhS', 'irene.leonfernandez@colegio-losnaranjos.com', 'Yes', NULL, 'No', NULL),
-(19, 'Prueba123', '$2y$10$VstFf6HFZHC2edIvQ7V3tub4vmyGl7vi.vtxxj/1utWEzlw6QjMja', '2_web9_18@iesjovellanos.org', 'Yes', NULL, 'No', NULL);
+INSERT INTO `usuarios` (`usuarioID`, `username`, `password`, `email`, `active`, `resetToken`, `resetComplete`, `visitas`, `descripcion`, `imagen`) VALUES
+(1, 'Irene', '$2y$10$R6A3yNvjcoAg.kL8vHE7gexs1zkH7WTTZNR8JbfcEhhahZHX6Qn.G', 'irene.leon95@gmail.com', 'Yes', NULL, 'No', 84, 'Hola me llamo Irene', '082213cb0f9eabb7e6715f59ef7d322a-icono-de-perfil-de-instagram-by-vexels.png'),
+(5, 'Aitor', '$2y$10$a3RJKLkSlH9njYZbpakGw.zFhfj5KRD5sSfwcxhgRF5wKPRf.WeWu', 'aitorsan2092@gmail.com', 'Yes', NULL, 'No', 39, 'Hola me llamo Aitor', 'usuario.jpg'),
+(14, 'IreneN', '$2y$10$1jojffb8rGJsqbrcqv1WeOsCvQQZZ6N0voB14oNoGcnZHbORPPbhS', 'irene.leonfernandez@colegio-losnaranjos.com', 'Yes', NULL, 'No', NULL, '', ''),
+(19, 'Prueba123', '$2y$10$VstFf6HFZHC2edIvQ7V3tub4vmyGl7vi.vtxxj/1utWEzlw6QjMja', '2_web9_18@iesjovellanos.org', 'Yes', NULL, 'No', NULL, '', '');
 
 -- --------------------------------------------------------
 
