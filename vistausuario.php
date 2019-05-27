@@ -95,9 +95,12 @@ require('layout/header.php');
 							}
 							echo $contenedor[0];
 							echo '</div></button>';
+
 							$cont++;
 
-							echo '<div class="detailBox" >
+							/*COMENTARIO IMAGEN*/
+
+							echo '<div class="detailBox">
 							<div class="commentBox">
 								<p class="taskDescription"> Comentarios.</p>
 							</div>
@@ -191,11 +194,11 @@ require('layout/header.php');
 
 							//Mostramos la descripcion del video
 							echo '<br/><br/>' . $row['descripcion'] . '<br/><br/>';
-
-							echo '<button type="button" id="' . $row['idvideo'] . '" class="comment-ico btn btn-light likeVideo">
-							<img src="img/app/heart.png">';
 							$idVD = $row['idvideo'];
 
+							//Creamos boton like 
+							echo '<button type="button" id="' . $row['idvideo'] . '" class="comment-ico btn btn-light likeVideo"><img src="img/app/heart.png">';
+							
 							echo '<div class="contadorLikes">';
 
 							$stmt4 = $db->query("SELECT likes FROM video WHERE idvideo =" . $row['idvideo']);

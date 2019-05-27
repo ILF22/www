@@ -41,12 +41,7 @@ CREATE TABLE `comentarios` (
 
 INSERT INTO `comentarios` (`idcomentarios`, `idUsuario`, `comentario`, `idfoto`) VALUES
 (1, 5, 'HOLA', 1),
-(6, 5, 'HOLA GUAPO', 1),
-(7, 5, 'HOLA GUAPO', 1),
-(8, 5, 'HOLA GUAPO', 1),
-(9, 5, 'HOLA GUAPO', 1),
-(10, 5, 'HOLA GUAPO', 1),
-(11, 5, 'HOLA GUAPO', 1);
+(6, 5, 'HOLA GUAPO', 1);
 
 -- --------------------------------------------------------
 
@@ -57,7 +52,7 @@ INSERT INTO `comentarios` (`idcomentarios`, `idUsuario`, `comentario`, `idfoto`)
 CREATE TABLE `comentariosv` (
   `idcomentarios` int(11) NOT NULL,
   `idUsuario` int(11) DEFAULT NULL,
-  `comentario` int(11) DEFAULT NULL,
+  `comentario` varchar(256) DEFAULT NULL,
   `idvideo` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -81,8 +76,6 @@ CREATE TABLE `imagen` (
 
 INSERT INTO `imagen` (`idfoto`, `usuarioID`, `nombre`, `descripcion`, `likes`) VALUES
 (1, 1, '5.jpeg', 'Londres', 1),
-(2, 4, 'calderon.jpg', 'Calderon', 0),
-(3, 3, 'barca.jpeg', 'Pantano', 0),
 (4, 1, 'perri.jpg.jpg', 'perro', 1),
 (5, 1, 'wood-3271749_640.jpg', 'mesa', 1),
 (6, 5, 'wood-3271749_640.jpg', 'mesa2', 0);
@@ -132,7 +125,7 @@ CREATE TABLE `usuarios` (
   `active` varchar(255) COLLATE utf8mb4_bin NOT NULL,
   `resetToken` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
   `resetComplete` varchar(3) COLLATE utf8mb4_bin DEFAULT 'No',
-  `visitas` int(11) DEFAULT NULL,
+  `visitas` int(11)  DEFAULT '0',
   `descripcion` varchar(255) COLLATE utf8mb4_bin NOT NULL,
   `imagen` varchar(255) COLLATE utf8mb4_bin NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
@@ -158,7 +151,7 @@ CREATE TABLE `video` (
   `usuarioID` int(11) NOT NULL,
   `nombre` varchar(255) COLLATE utf8_bin NOT NULL,
   `descripcion` text COLLATE utf8_bin NOT NULL,
-  `likes` int(11) DEFAULT NULL
+  `likes` int(11)  DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
