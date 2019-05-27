@@ -1,32 +1,43 @@
-.imgEliminar{
+.imgEliminar {
     width: 30px;
     height: 30px;
 }
-.videoUsu{
-    width:100%;
-    height:auto;
-    padding:5px;
-    border:1px solid black;
-    margin-bottom:10px;
+
+.videoUsu {
+    width: 100%;
+    height: auto;
+    padding: 5px;
+    border: 1px solid black;
+    margin-bottom: 10px;
 }
-.contenedorListas{
-    color:black;
-    text-align:right;
+
+.contenedorListas {
+    color: black;
+    text-align: right;
 }
-.listas{
-    padding:10px 10px 10px 0;
-    border:3px solid white; 
-    background:rgba(255,255,255,0.4)
+
+.listas {
+    padding: 10px 10px 10px 0;
+    border: 3px solid white;
+    background: rgba(255, 255, 255, 0.4)
 }
-.visitas{
+
+.visitas {
     display: flex;
     justify-content: right;
     align-items: flex-start;
 }
-.visitas img{
+
+.visitas img {
     margin-left: 10px;
     margin-right: 10px;
 }
-.visitas p{
+
+.visitas p {
     font-weight: bold;
+}
+
+.imgPerfil {
+    width: 100px;
+    height: 100px;
 }

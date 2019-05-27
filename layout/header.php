@@ -64,6 +64,12 @@ ini_set('display_errors', '1');
 				<li class="nav-item">
 				  <a class=" nav-link autor">Irene Jose David</a>
 				</li>
+				<!--Boton para editar perfil-->
+				<li class="nav-item">
+					<a href="perfil.php">
+						<img class="imgConf" src="img/app/man.png" alt="Config" width="50" height="50" />
+					</a>
+				</li>
 		';
 							//Fucion de busqueda 
 							echo "<script type='text/javascript'>
