@@ -17,56 +17,63 @@ require('layout/header.php');
 
 <div class="container">
 
-    <div class="row">
+	<div class="row">
 
-        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+		<div class="col-xs-12 col-sm-12 col-md-6 col-sm-offset-2 col-md-offset-3">
+			<h2 class="perfilDe">Perfil de <?php echo htmlspecialchars($_GET['nombreusuario'], ENT_QUOTES); ?></h2>
 			<?php
-				//Accede a los campos imagen y descripcion del usuario visitado
-				$stmt = $db->query("SELECT imagen, descripcion FROM usuarios WHERE usuarioID = " . $_GET['id']);
-				while ($row = $stmt->fetch()) {
-					//Comprueba si el campo imagen esta vacio para poner o no imagen por defecto
-					if(empty($row['imagen'])){
-						$imagenP = "usuario.jpg";
-					}else{
-						$imagenP = $row['imagen'];
-					}
-					//Comprueba si el campo descripcion esta vacio para poner o no descripcion por defecto
-					if(empty($row['descripcion'])){
-						$descripcionP = "Descripcion";
-					}else{
-						$descripcionP = $row['descripcion'];
-					}
+			//Accede a los campos imagen y descripcion del usuario visitado
+			$stmt = $db->query("SELECT imagen, descripcion FROM usuarios WHERE usuarioID = " . $_GET['id']);
+			while ($row = $stmt->fetch()) {
+				//Comprueba si el campo imagen esta vacio para poner o no imagen por defecto
+				if (empty($row['imagen'])) {
+					$imagenP = "usuario.jpg";
+				} else {
+					$imagenP = $row['imagen'];
 				}
+				//Comprueba si el campo descripcion esta vacio para poner o no descripcion por defecto
+				if (empty($row['descripcion'])) {
+					$descripcionP = "Descripcion";
+				} else {
+					$descripcionP = $row['descripcion'];
+				}
+			}
 			?>
 			<!--Muestra el perfil del usuario-->
-			<table>
-				<tr>
-					<td rowspan="2"><?php echo '<div id="todo"><img width="150" height="150" src="imagenes/' . $imagenP . '">' . "\n"; ?></td>
-					<td><h2>Perfil de <?php echo htmlspecialchars($_GET['nombreusuario'], ENT_QUOTES); ?></h2></td>
-				</tr>
-				<tr>
-					<td><h5><?php echo $descripcionP;?></h5></td>
-				</tr>
-			</table>
-            
-            <hr>
-            <!--Boton volver para ir a la pagina anterior-->
-            <div class="row mt-5">
-                <div class="col-xs-6 col-md-6"><a class="btn btn-light btn-block btn-lg" tabindex="5" href="paginausuarios.php">Volver</a></div>
-            </div>
+			<div class="row">
+				<div class="col-md-12">
+					<div style="">
+						<?php echo '<img class="imgPerfil" src="imagenes/' . $imagenP . '">' . "\n"; ?>
 
-            <div id="respuesta"></div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-sm-offset-12 col-md-offset-12 mt-5">
-            <div class="row">
-                <div class="col-md-12">
-                    <!--Definimos el color y la opacidad de este -->
-                    <div class="contenedorTodo">
-                        <p id="idusuario" style="display:none;"><?php echo $_SESSION['usuarioID'] ?> </p>
-                        <p id="idNombre" style="display:none;"><?php echo $nombreusuario = $_GET['nombreusuario'] ?> </p>
-                        <p id="idPerfil" style="display:none;"><?php echo $_GET['id'] ?> </p>
-                        <!--Hacemos la consulta para mostrar todo las imagenes del usuario seleccionado-->
-                        <?php
+						<h4 class="descripcionPerfil">
+							<?php echo $descripcionP; ?>
+						</h4>
+					</div>
+				</div>
+			</div>
+
+			<hr>
+			<!--Boton volver para ir a la pagina anterior-->
+			<div class="row mt-4">
+				<div class="col-xs-12 col-md-12">
+					<a class="btn btn-light btn-block btn-lg" tabindex="5" href="paginausuarios.php">
+						Volver a mi perfil
+					</a>
+				</div>
+			</div>
+
+			<div id="respuesta"></div>
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-12 col-sm-offset-12 col-md-offset-12 mt-5">
+			<div class="row">
+				<div class="col-md-12">
+					<!--Definimos el color y la opacidad de este -->
+					<div class="contenedorTodo">
+						<p id="idusuario" style="display:none;"><?php echo $_SESSION['usuarioID'] ?> </p>
+						<p id="idNombre" style="display:none;"><?php echo $nombreusuario = $_GET['nombreusuario'] ?> </p>
+						<p id="idPerfil" style="display:none;"><?php echo $_GET['id'] ?> </p>
+						<!--Hacemos la consulta para mostrar todo las imagenes del usuario seleccionado-->
+						<?php
 						$id = $_GET['id'];
 						$cont = 0;
 						$stmt = $db->query("SELECT * FROM imagen WHERE usuarioID = " . $id);
@@ -126,7 +133,7 @@ require('layout/header.php');
 
 							if ($resultado = $db->query("SELECT * from comentarios WHERE idfoto = $idDelaFoto")) {
 								while ($row2 = $resultado->fetch()) {
-									echo '<li>';
+									echo '<li class="lista">';
 									echo '<div class="commentText">';
 									echo "<p class='nombre'>";
 									$resultado2 = $db->query(
@@ -143,7 +150,7 @@ require('layout/header.php');
 									if ($_SESSION['usuarioID'] == $row2['idUsuario']) {
 										echo "<p id='" . $idDelaFoto . "' class='pInvisible'></p>
 															<button id='" . $row2['idcomentarios'] . "' type='buttom' 
-															class='comment-ico btn btn-light eliminarComentario'>
+															class='comment-ico btn btn-light btnEliminar eliminarComentario'>
 															<br>
 															<img class='imgPapelera' src='img/app/remove.png'>
 															</button>";
@@ -158,9 +165,13 @@ require('layout/header.php');
 
 							echo '	</ul></div>
 								<form class="form-inline" role="form" action="#" method="post">
-									<div class="form-group">
-									<input type="text" class="form-control" maxlength="128" name="comentario" placeHolder="Añadir comentario.">
-										<input type="submit" class="btn btn-dark" name="submit' . $var3 . '" value="Añadir">
+									<div class="col-12 form-group" >
+										<div class="col-10">
+											<input style=" width:100%" type="text" class="form-control" maxlength="128" name="comentario" placeHolder="Añadir comentario.">
+										</div>
+										<div class="col-2">
+											<input style=" width:100%" type="submit" class="btn btn-dark" name="submit' . $var3 . '" value="Añadir">
+										</div>				
 									</div>
 								</form>
 							</div>
@@ -172,17 +183,17 @@ require('layout/header.php');
 						}
 						?>
 
-                        <!-----------------------------------------------------VIDEO-------------------------------------------------------------->
+						<!-----------------------------------------------------VIDEO-------------------------------------------------------------->
 
-                        <!--Hacemos la consulta para mostrar todo los videos del usuario seleccionado-->
-                        <?php
+						<!--Hacemos la consulta para mostrar todo los videos del usuario seleccionado-->
+						<?php
 						$id = $_GET['id'];
 						$cont = 0;
 						$stmt = $db->query("SELECT * FROM video WHERE usuarioID = " . $id);
 						while ($row = $stmt->fetch()) {
 							//Definimos el diseño de las video
-//							echo '<div id="todo">';
-                            echo '<div id="vd'.$row['idvideo'].'">';
+							//							echo '<div id="todo">';
+							echo '<div id="vd' . $row['idvideo'] . '">';
 							echo '<video class="video" controls>';
 							echo '<source src="imagenes/' . $row['nombre'] . '" type="video/mp4">';
 							echo '<source src="imagenes/' . $row['nombre'] . '" type="video/avi">';
@@ -198,7 +209,7 @@ require('layout/header.php');
 
 							//Creamos boton like 
 							echo '<button type="button" id="' . $row['idvideo'] . '" class="comment-ico btn btn-light likeVideo"><img src="img/app/heart.png">';
-							
+
 							echo '<div class="contadorLikes">';
 
 							$stmt4 = $db->query("SELECT likes FROM video WHERE idvideo =" . $row['idvideo']);
@@ -239,7 +250,7 @@ require('layout/header.php');
 
 							if ($resultado3 = $db->query("SELECT * from comentariosv WHERE idvideo =$idVD")) {
 								while ($row2 = $resultado3->fetch()) {
-									echo '<li>';
+									echo '<li clas="lista">';
 									echo '<div class="commentText">';
 									echo "<p class='nombre'>";
 									$resultado4 = $db->query(
@@ -256,7 +267,7 @@ require('layout/header.php');
 									if ($_SESSION['usuarioID'] == $row2['idUsuario']) {
 										echo "<p id='" . $idVD . "' class='pInvisible'></p>
 															<button id='" . $row2['idcomentarios'] . "' type='buttom' 
-															class='comment-ico btn btn-light eliminarComentarioV'><img class='imgPapelera' src='img/app/remove.png'></button>";
+															class='comment-ico btn btn-light btnEliminar eliminarComentarioV'><img class='imgPapelera' src='img/app/remove.png'></button>";
 									}
 
 									echo '</div>';
@@ -267,12 +278,16 @@ require('layout/header.php');
 							}
 
 							echo '	</ul></div>
-								<form class="form-inline" role="form" action="#" method="post">
-									<div class="form-group">
-									<input type="text" class="form-control" maxlength="128" name="comentarioV" placeHolder="Añadir comentario.">
-										<input type="submit" class="btn btn-dark" name="submitV' . $var3 . '" value="Añadir">
-									</div>
-								</form>
+							<form class="form-inline" role="form" action="#" method="post">
+							<div class="col-12 form-group" >
+								<div class="col-10">
+									<input style=" width:100%" type="text" class="form-control" maxlength="128" name="comentarioV" placeHolder="Añadir comentario.">
+								</div>
+								<div class="col-2">
+									<input style=" width:100%" type="submit" class="btn btn-dark" name="submitV' . $var3 . '" value="Añadir">
+								</div>				
+							</div>
+						</form>
 							</div>
 						</div>';
 						}
@@ -283,19 +298,19 @@ require('layout/header.php');
 						}
 						?>
 
-                        <?php
+						<?php
 						//Visitas Contador
 						if ($_SESSION['usuarioID'] != $id) {
 							$stmt = $db->query("UPDATE usuarios SET visitas = visitas +1 WHERE usuarioID = " . $id . ";");
 						}
 						?>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script src="js/likes.js"></script>
-    <script src="js/eliminarComentario.js"></script>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="js/likes.js"></script>
+	<script src="js/eliminarComentario.js"></script>
 </div>
 <?php
 //Incluir plantilla de encabezado

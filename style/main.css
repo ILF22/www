@@ -78,11 +78,7 @@ section {
         color: white;
         font-size: 18px;
     }
-}
-
-@media only screen and (max-width: 767px) {
     .users-table {
-        margin-top: 40px!important;
         text-align: center!important;
     }
     .users-table h2 {

@@ -18,7 +18,7 @@ require('layout/header.php');
 
     <div class="row">
 
-        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3 mb-5">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-sm-offset-2 col-md-offset-3 mb-5">
             <!--Muestra el nombre de la sesion con la que has iniciado-->
             <h2 style="font-weight: bold;">¡Bienvenido! <?php echo htmlspecialchars($_SESSION['username'], ENT_QUOTES); ?></h2>
             <?php
@@ -40,9 +40,9 @@ require('layout/header.php');
             }
             ?>
             <!--Muestra el perfil del usuario-->
-            <div class="col-md-6">
-                <div class="row" style="display: inline-block;">
-                    <div style="">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <div>
                         <?php echo '<img class="imgPerfil" src="imagenes/' . $imagenP . '">' . "\n"; ?>
                     </div>
                     <div>
@@ -51,30 +51,31 @@ require('layout/header.php');
                         </h4>
                     </div>
                 </div>
+                <hr>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <!--form de la subida de la imagen -->
+                    <form id="uploadimage" method="POST" action="imagen-ajax.php" enctype="multipart/form-data">
+                        <h5><label>Subir imagen o video:</label></h5>
+                        <input type="file" name="file" id="file" class="btn btn-light btn-block btn-sm" required />
+                        <div class="row mt-3 nomargin">
+                            <!--Añade la descripcion de la imagen -->
+                            <input type="text" name="descripcion" id="des" class="form-control col-xs-12 col-md-12 mb-3" placeholder="Descripción...">
+                        </div>
+                        <div class="row">
+                            <!--Boton de subida de la imagen-->
+                            <div class="col-xs-6 col-md-12"><input type="submit" name="submit" value="Subir" class="mt-2 btn btn-light btn-block btn-lg" tabindex="5" /></div>
+                        </div>
+                    </form>
+                    <div id="respuesta"></div>
+                </div>
             </div>
             <hr>
-            <div class="col-md-6">
-                <!--form de la subida de la imagen -->
-                <form id="uploadimage" method="POST" action="imagen-ajax.php" enctype="multipart/form-data">
-                    <h5><label>Subir imagen o video:</label></h5>
-                    <input type="file" name="file" id="file" class="btn btn-light btn-block btn-sm" required />
-                    <div class="row mt-3 nomargin">
-                        <!--Añade la descripcion de la imagen -->
-                        <input type="text" name="descripcion" id="des" class="form-control col-xs-12 col-md-12 mb-3" placeholder="Descripción...">
-                    </div>
-                    <div class="row">
-                        <!--Boton de subida de la imagen-->
-                        <div class="col-xs-6 col-md-6"><input type="submit" name="submit" value="Subir" class="mt-2 btn btn-light btn-block btn-lg" tabindex="5" /></div>
-                    </div>
-                </form>
-                <div id="respuesta"></div>
-            </div>
         </div>
 
         <!--Diseño del contenedor donde se muestran las imagenes -->
-        <div class="col-xs-2 col-sm-2 col-md-12 col-sm-offset-12 col-md-offset-12">
+        <div class="col-xs-2 col-sm-12 col-md-12 col-sm-offset-12 col-md-offset-12 mt-5">
             <div class="row">
-                <div class="col-md-offset-1 col-md-2 col-xs-14 col-sm-14 users-table contenedorListas">
+                <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 users-table contenedorListas">
                     <div class="listas">
                         <form id="form2" name="form2" method="get" action="">
                             <div class="input-group bg-dark search-bar">
@@ -102,7 +103,7 @@ require('layout/header.php');
 
 
                 </div>
-                <div class="col-md-8">
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
                     <div class="contenedorTodo">
                         <!--Diseño del contenedor donde se encuentra el contador -->
                         <?php
@@ -182,31 +183,8 @@ require('layout/header.php');
             </div>
         </div>
         <!--Diseño del contenedor donde se encuentran los usuarios con cuenta activa -->
-        <div class="col-md-offset-1 col-md-2 col-xs-12 col-sm-12 users-table contenedorListas">
-            <div class="listas">
-                <!--<form id="form2" name="form2" method="get" action="">
-					<div class="input-group bg-dark search-bar">
-						<input type="text" class="form-control search-input" placeholder="Buscar..." aria-label="Buscar..." aria-describedby="basic-addon2" name="buscar">
-						<div class="input-group-append search-button">
-							<input type="image" onclick="confirmarBusqueda2()" name="submit" width="30px" height="30px" src="img/app/lupa.png" class="btn btn-secondary btn-block btn-lg" tabindex="5">
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 users-table contenedorListas">
 
-						</div>
-					</div>
-				</form> -->
-                <h4>Usuarios</h4>
-                <?php
-                //USUARIOS
-                $stmt = $db->query("SELECT * FROM usuarios WHERE active = 'Yes'");
-                while ($row = $stmt->fetch()) {
-                    $nombre = $row['username'];
-                    $id = $row['usuarioID'];
-
-                    if ($id != $_SESSION['usuarioID']) {
-                        echo "<h4 color='green'><a href='vistausuario.php?id=$id&nombreusuario=$nombre'>$nombre</a></h4>";
-                    }
-                }
-                ?>
-            </div>
 
             <div class="listas">
                 <h4><img src='img/app/calendario.png'>Últimos visitados</h4>
@@ -280,7 +258,7 @@ require('layout/header.php');
     </div>
 </div>
 <!--Diseño del contenedor donde se encuentra el contador -->
-<div id="visitasPerfil"><?php echo $_SESSION['usuarioID'] ?></div>
+<div id="visitasPerfil" class="visitasPerfil"><?php echo $_SESSION['usuarioID']?></div>
 
 </div>
 </div>

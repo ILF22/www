@@ -1,48 +1,82 @@
-.like{
-    height: 39px; 
+.like {
+    height: 39px;
     margin-bottom: 10px;
 }
-.contadorLikes{
+
+.contadorLikes {
     position: relative;
-	bottom: 25px;
+    bottom: 25px;
 }
-.detailBox{
-    margin-bottom:10px;
+
+.detailBox {
+    margin-bottom: 10px;
 }
-.commentBox{
+
+.commentBox {
     background-color: aqua;
 }
-.cajaComent{
-    background: rgba(255,255,255,0.8);
+
+.cajaComent {
+    background: rgba(255, 255, 255, 0.8);
     border: 3px solid white;
     width: 100%;
     height: 110px;
     overflow: auto;
-    text-align:left;
+    text-align: left;
 }
-.commentText{
+
+.commentText {
     display: flex;
     position: relative;
-    align-items: end;
+    justify-content: space-between;
+    border-bottom: solid black 1px;
 }
-.nombre{
-    margin-top:6px;
+
+.nombre {
+    margin-top: 6px;
 }
-.pInvisible{
-    display:none;
+
+.pInvisible {
+    display: none;
 }
-.imgPapelera{
-    height: 39px; 
+
+.imgPapelera {
+    height: 30px;
+    margin-bottom: 10px;
+    margin-left: -5px;
+    margin-top: -42px;
+}
+
+.video {
+    width: 100%;
+    height: auto;
+    padding: 5px;
+    border: 1px solid black;
     margin-bottom: 10px;
 }
-.video{
-    width:100%;
-    height:auto;
-    padding:5px;
-    border:1px solid black;
-    margin-bottom:10px;
-}
-.likeVideo{
-    height: 39px; 
+
+.likeVideo {
+    height: 39px;
     margin-bottom: 10px;
+}
+
+.btnEliminar {
+    height: 45px;
+    width: 45px;
+    margin-left: 10px;
+    background-color: transparent;
+    border: none;
+}
+
+.lista {
+    list-style: none;
+}
+
+.descripcionPerfil {
+    font-style: italic;
+    margin-top: 10px;
+}
+
+.perfilDe {
+    font-weight: bold;
 }
