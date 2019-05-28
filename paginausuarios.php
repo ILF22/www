@@ -16,9 +16,9 @@ require('layout/header.php');
 
 <div class="container">
 
-    <div class="row">
+    <div class="row principal">
 
-        <div class="col-xs-12 col-sm-12 col-md-12 col-sm-offset-2 col-md-offset-3 mb-5">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-sm-offset-2 col-md-offset-3 mb-4">
             <!--Muestra el nombre de la sesion con la que has iniciado-->
             <h2 style="font-weight: bold;">¡Bienvenido! <?php echo htmlspecialchars($_SESSION['username'], ENT_QUOTES); ?></h2>
             <?php
@@ -40,19 +40,19 @@ require('layout/header.php');
             }
             ?>
             <!--Muestra el perfil del usuario-->
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <div class="row" style="padding:10px;">
+                <div class="col-xs-12 col-sm-12 col-md-7 col-lg-8 perfilUsu">
                     <div>
                         <?php echo '<img class="imgPerfil" src="imagenes/' . $imagenP . '">' . "\n"; ?>
                     </div>
                     <div>
-                        <h4 style="font-style:italic;">
+                        <h4 class="descrip">
                             <?php echo $descripcionP; ?>
                         </h4>
                     </div>
                 </div>
                 <hr>
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4 subida">
                     <!--form de la subida de la imagen -->
                     <form id="uploadimage" method="POST" action="imagen-ajax.php" enctype="multipart/form-data">
                         <h5><label>Subir imagen o video:</label></h5>
@@ -73,9 +73,9 @@ require('layout/header.php');
         </div>
 
         <!--Diseño del contenedor donde se muestran las imagenes -->
-        <div class="col-xs-2 col-sm-12 col-md-12 col-sm-offset-12 col-md-offset-12 mt-5">
+        <div class="col-xs-2 col-sm-12 col-md-12 col-sm-offset-12 col-md-offset-12 mt-4">
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 users-table contenedorListas">
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 users-table contenedorListas">
                     <div class="listas">
                         <form id="form2" name="form2" method="get" action="">
                             <div class="input-group bg-dark search-bar">
@@ -103,7 +103,7 @@ require('layout/header.php');
 
 
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8">
                     <div class="contenedorTodo">
                         <!--Diseño del contenedor donde se encuentra el contador -->
                         <?php
@@ -183,7 +183,7 @@ require('layout/header.php');
             </div>
         </div>
         <!--Diseño del contenedor donde se encuentran los usuarios con cuenta activa -->
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 users-table contenedorListas">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 users-table contenedorListas">
 
 
             <div class="listas">

@@ -66,7 +66,7 @@ require('layout/header.php');
 		</div>
 		<div class="col-xs-12 col-sm-12 col-md-12 col-sm-offset-12 col-md-offset-12 mt-5">
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-md-12"> 
 					<!--Definimos el color y la opacidad de este -->
 					<div class="contenedorTodo">
 						<p id="idusuario" style="display:none;"><?php echo $_SESSION['usuarioID'] ?> </p>

@@ -38,10 +38,43 @@
 }
 
 .imgPerfil {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
 }
 
 .visitasPerfil {
     display: none;
+}
+
+.perfilUsu {
+    margin-top: 30px;
+}
+
+.descrip {
+    font-style: italic;
+    margin-top: 10px;
+}
+
+.principal {
+    text-align: left;
+}
+
+.subida {
+    text-align: left;
+}
+
+@media only screen and (max-width:767px) {
+    .imgPerfil {
+        width: 250px;
+        height: 250px;
+    }
+    .principal {
+        text-align: center;
+    }
+    .subida {
+        text-align: left;
+    }
+    .descrip {
+        margin-bottom: 10px;
+    }
 }
