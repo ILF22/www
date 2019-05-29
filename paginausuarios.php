@@ -213,7 +213,7 @@ require('layout/header.php');
                     $nombre = $row['username'];
                     $id = $row['usuarioID'];
                     $nvisitas = $row['visitas'];
-                    if ($id != $_SESSION['usuarioID']) {
+                    if ($id != $_SESSION['usuarioID'] && $nvisitas>0) {
                         echo "<h5 color='green'><a href='vistausuario.php?id=$id&nombreusuario=$nombre'>$nvisitas.  $nombre</a></h5>";
                     }
                 }
@@ -246,7 +246,7 @@ require('layout/header.php');
                     }
 
 
-                    if ($nombre != null) {
+                    if ($nombre != null && $nlike >0 ) {
                         echo '<div class="contadorLikes2">';
                         echo "<h5 color='green'><a href='vistausuario.php?id=$usuarioID&nombreusuario=$nombre/#$id'>$nlike.  $descripcion ($nombre)</h5>";
                         echo '</div>';
