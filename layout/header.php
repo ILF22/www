@@ -62,8 +62,16 @@ ini_set('display_errors', '1');
 				  <a class="nav-link" href="deleteusuario.php">Eliminar cuenta</a>
 				</li>
 				<li class="nav-item">
-				  <a class=" nav-link autor">Irene Jose David</a>
-				</li>
+					<a class=" nav-link autor">Irene Jose David</a>';
+				  /*  <form id="form2" name="form2" method="get" action="">
+                            <div class="input-group bg-dark search-bar">
+                                <input type="text" class="form-control search-input" placeholder="Buscar..." aria-label="Buscar..." aria-describedby="basic-addon2" name="buscar">
+                                <div class="input-group-append search-button">
+                                    <input type="image" onclick="confirmarBusqueda2()" name="submit" width="30px" height="30px" src="img/app/lupa.png" class="btn btn-secondary btn-block btn-lg" tabindex="5">
+                                </div>
+                            </div>
+                      </form> */
+				echo '</li>
 				<!--Boton para editar perfil-->
 				<li class="nav-item">
 					<a href="perfil.php">
@@ -85,7 +93,19 @@ ini_set('display_errors', '1');
 						document.form1.submit(); 
 					}				
 					
-				}
+				} ";
+				/* function confirmarBusqueda2() {
+                    <!--Verifica si el campo esta vacio, o es igual a nulo, o la longuitud es 0-- >
+                    var x = document.forms['form2']['buscar'].value;
+                    if (x == null || x == '' || x.length == 0) {
+                        alert('Introduce una palabra para buscar.');
+                        return false;
+                    } else {
+                        document.getElementById('form2').action = 'resultado2.php';
+                        document.form2.submit();
+                    }
+                } */
+				echo "
 			  </script>";
 						} else {
 							//Si no se ha iniciado sesion muestra lo siguiente
