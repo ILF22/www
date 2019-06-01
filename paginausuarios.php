@@ -77,14 +77,14 @@ require('layout/header.php');
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 users-table contenedorListas">
                     <div class="listas">
-                        <form id="form2" name="form2" method="get" action="">
+                       <!-- <form id="form2" name="form2" method="get" action="">
                             <div class="input-group bg-dark search-bar">
                                 <input type="text" class="form-control search-input" placeholder="Buscar..." aria-label="Buscar..." aria-describedby="basic-addon2" name="buscar">
                                 <div class="input-group-append search-button">
                                     <input type="image" onclick="confirmarBusqueda2()" name="submit" width="30px" height="30px" src="img/app/lupa.png" class="btn btn-secondary btn-block btn-lg" tabindex="5">
                                 </div>
                             </div>
-                        </form>
+                        </form> -->
                         <h4>Usuarios</h4>
                         <?php
                         //USUARIOS
