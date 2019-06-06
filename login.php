@@ -69,7 +69,7 @@ require('layout/header.php');
 							echo "<h2 class='bg-success'>Su cuenta ahora está activa, ahora puede iniciar sesión.</h2>";
 							break;
 						case 'reset':
-							echo "<h2 class='bg-success'>Introduce la nueva contraseña.</h2>";
+							echo "<h2 class='bg-success'>Revise el correo para crear la nueva contraseña.</h2>";
 							break;
 						case 'resetAccount':
 							echo "<h2 class='bg-success'>La contraseña ha cambiado, ahora puede iniciar sesión.</h2>";
@@ -98,8 +98,9 @@ require('layout/header.php');
 				
 				<hr>
 				<div class="row">
-					<div class="col-xs-6 col-md-6"><input type="submit" name="submit" value="
-Iniciar sesión" class="btn btn-light btn-block btn-lg" tabindex="5"></div>
+					<div class="col-xs-6 col-md-6">
+						<input type="submit" name="submit" value="Iniciar sesión" class="btn btn-light btn-block btn-lg" tabindex="5">
+				</div>
 				</div>
 			</form>
 		</div>
