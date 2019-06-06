@@ -22,9 +22,9 @@ require('layout/header.php');
 			<!--Formulario de modificacion de imagen-->
 			<form id="uploadimage" method="POST" action="imagen_perfil.php" enctype="multipart/form-data">
 				<!--Añade la imagen-->
-				<h5><label>Para modificar la imagen del perfil:</label></h5>
+				<h5 class="subtitulo"><label>Para modificar la imagen del perfil:</label></h5>
 				
-				<input type="file" name="file" id="file" class="btn btn-light btn-block btn-sm" required />
+				<input type="file" name="file" id="file" class=" btn-block " required />
 				<div class="row mt-3 nomargin"></div>
 				<div class="row">
 					<!--Boton de modificacion de la imagen-->
@@ -35,7 +35,7 @@ require('layout/header.php');
 			<br><hr><br/>
 			<!--Formulario de modificacion de descripcion-->
 			<form id="uploadimage" method="POST" action="descripcion_perfil.php" enctype="multipart/form-data">
-				<h5><label>Para modificar la descripcion del perfil:</label></h5>
+				<h5 class="subtitulo"><label>Para modificar la descripcion del perfil:</label></h5>
 				<div class="row mt-3 nomargin">
 					<!--Añade la descripcion -->
 					<input type="text" name="descripcion" id="des" class="form-control col-xs-12 col-md-12 mb-3" placeholder="Descripción..."  />
