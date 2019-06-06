@@ -21,6 +21,7 @@ ini_set('display_errors', '1');
 	<link rel="stylesheet" href="style/main.css">
 	<link rel="stylesheet" href="style/vistausuario.css">
 	<link rel="stylesheet" href="style/paginausuarios.css">
+	<link rel="stylesheet" href="style/perfil.css">
 
 	<script src="javascript/jquery.min.js"></script>
 	<script src="javascript/bootstrap.bundle.min.js"></script>
