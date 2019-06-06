@@ -77,7 +77,7 @@ require('layout/header.php');
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 users-table contenedorListas">
                     <div class="listas">
-                       <!-- <form id="form2" name="form2" method="get" action="">
+                        <!-- <form id="form2" name="form2" method="get" action="">
                             <div class="input-group bg-dark search-bar">
                                 <input type="text" class="form-control search-input" placeholder="Buscar..." aria-label="Buscar..." aria-describedby="basic-addon2" name="buscar">
                                 <div class="input-group-append search-button">
@@ -152,14 +152,14 @@ require('layout/header.php');
                             $row['nombre'] . "<br />\n";
                             echo '<div id="foto"><img class="foto" src="imagenes/' . $row['nombre'] . '">' . "\n";
                             ?>
-                            <div>
-                                <!--Muestra la descripcion-->
-                                <span><?php echo ucwords($row['descripcion']); ?></span>
-                                <!--On click para borrar la imagen, de aqui va a la funcion confirmar  -->
-                                <a onclick="confirmar(<?php echo $row['idfoto']; ?>)"><img class="imgEliminar" src="img/app/papelera.png" alt="Papelera" /></a>
-                            </div></br></br>
-                        </div>
-                        <?php
+                        <div>
+                            <!--Muestra la descripcion-->
+                            <span><?php echo ucwords($row['descripcion']); ?></span>
+                            <!--On click para borrar la imagen, de aqui va a la funcion confirmar  -->
+                            <a onclick="confirmar(<?php echo $row['idfoto']; ?>)"><img class="imgEliminar" src="img/app/papelera.png" alt="Papelera" /></a>
+                        </div></br></br>
+                    </div>
+                    <?php
 
                         $contft++;
 
@@ -176,15 +176,15 @@ require('layout/header.php');
                         echo 'Your browser does not support the video tag.';
                         echo '</video>';
                         ?>
-                        <div>
-                            <!--Muestra la descripcion-->
-                            <span><?php echo ucwords($row['descripcion']); ?></span>
-                            <!--On click para borrar el video, de aqui va a la funcion confirmar  -->
-                            <a onclick="confirmar2(<?php echo $row['idfoto']; ?>)"><img class="imgEliminar" src="img/app/papelera.png" alt="Papelera" /></a>
-                        </div></br></br>
-                    </div>
-                    $contvd++;
-                    <?php               
+                    <div>
+                        <!--Muestra la descripcion-->
+                        <span><?php echo ucwords($row['descripcion']); ?></span>
+                        <!--On click para borrar el video, de aqui va a la funcion confirmar  -->
+                        <a onclick="confirmar2(<?php echo $row['idfoto']; ?>)"><img class="imgEliminar" src="img/app/papelera.png" alt="Papelera" /></a>
+                    </div></br></br>
+                </div>
+                $contvd++;
+                <?php               
 
                 
             }
@@ -210,37 +210,29 @@ require('layout/header.php');
                         
             ?>
 
-                    <nav aria-label="...">
-                      <ul class="pagination">
-                       
+                <nav aria-label="...">
+                    <ul class="pagination">
+
                         <li class="page-item
                            <?php echo $_GET['npag']<=1? 'disabled':'' ?>">
-                         <a class="page-link" href="paginausuarios.php?npag=<?php echo $_GET['npag']-1 ?>">Anterior</a></li>
-                            
-                         
-<!-
--->
-                                  
+                            <a class="page-link" href="paginausuarios.php?npag=<?php echo $_GET['npag']-1 ?>">Anterior</a></li>
+
+
+
                         <?php for($i=1;$i<=$paginas;$i++): ?>
-    
-                            <li class="page-item
+
+                        <li class="page-item
                             <?php echo $_GET['npag']==$i ? 'active' : '' ?>">
                             <a class="page-link" href="paginausuarios.php?npag=<?php echo $i?>"><?php echo $i ?></a></li>
-    
-    
-                      <?php endfor ?>
-                        
-<!--                        
-                        <li class="page-item active">
-                          <span class="page-link">2<span class="sr-only">(current)</span></span>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>-->
+
+                        <?php endfor ?>
+
                         <li class="page-item
                          <?php echo $_GET['npag']>=$paginas? 'disabled':'' ?>">
-                          <a class="page-link" href="paginausuarios.php?npag=<?php echo $_GET['npag']+1 ?>">Siguiente</a>
+                            <a class="page-link" href="paginausuarios.php?npag=<?php echo $_GET['npag']+1 ?>">Siguiente</a>
                         </li>
-                      </ul>
-                    </nav>
+                    </ul>
+                </nav>
             </div>
         </div>
         <!--Diseño del contenedor donde se encuentran los usuarios con cuenta activa -->
@@ -251,20 +243,38 @@ require('layout/header.php');
                 <h4><img src='img/app/calendario.png'>Últimos visitados</h4>
                 <?php
                 //ULTIMOS VISITADOS
-                $stmt = $db->query("SELECT * FROM usuarios WHERE active = 'Yes'");
-                while ($row = $stmt->fetch()) {
-                    $nombre = $row['username'];
-                    $id = $row['usuarioID'];
+    
+    if(isset($_SESSION["historial"])){
+        
+            $historico = unserialize($_SESSION["historial"]);           
+            foreach ($historico as $valor){
 
-                    if ($id != $_SESSION['usuarioID']) {
-                        echo "<h5 color='green'><a href='vistausuario.php?id=$id&nombreusuario=$nombre'>$nombre</a></h5>";
-                    }
+                if ($id != $_SESSION['usuarioID']) {
+                    $id=$valor;
+                    $stmt = $db->query("SELECT * FROM usuarios WHERE active = 'Yes' and usuarioId=$id");
+                    while ($row = $stmt->fetch()) {
+                        $nombre = $row['username'];     
+
+                            echo "<h5 color='green'><a href='vistausuario.php?id=$id&nombreusuario=$nombre'>$nombre</a></h5>";
+
+                    }    
                 }
+
+            }            
+                    
+        }else{
+        
+            echo "<h5 color='green'>No hay registros</h5>";
+        
+    }
+        
+    
+        
                 ?>
             </div>
-           
-            
-        <div class="listas">
+
+
+            <div class="listas">
                 <h4><img src='img/app/binoculars.png'> Más Visitados</h4>
                 <?php
                 // TOP 5 MAS VISITADOS
@@ -281,8 +291,8 @@ require('layout/header.php');
                 }
                 ?>
             </div>
-            
-            
+
+
             <div class="listas">
                 <h4> <img src='img/app/heart.png'> Mejor Puntuados</h4>
                 <?php

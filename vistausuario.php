@@ -37,17 +37,21 @@ require('layout/header.php');
 				} else {
 					$descripcionP = $row['descripcion'];
 				}
-                //                echo $row['ultVisitas'];
-                
-                if ($row['ultVisitas'] != "") {                
-                    $_SESSION["historial"] = unserialize($row['ultVisitas']);
-                } else {
-                    $_SESSION["historial"] = array();
 
-                }
-                
-//               echo print_r($_SESSION["historial"]);
 			}
+            
+
+            
+                $stmt = $db->query("SELECT imagen, descripcion,ultVisitas FROM usuarios WHERE usuarioID = " . $_SESSION['usuarioID']);     $row = $stmt->fetch();
+
+                    if ($row['ultVisitas'] != "") {                
+                        $_SESSION["historial"] = unserialize($row['ultVisitas']);
+                    } else {
+                        $_SESSION["historial"] = array();
+
+                    }
+            
+            
 			?>
 			<!--Muestra el perfil del usuario-->
 			<div class="row">
@@ -306,53 +310,49 @@ require('layout/header.php');
 						if ($cont == 0) {
 							echo '<span>ESTE USUARIO NO TIENE VIDEOS</span>';
 						}
-                        $paginas=10;
+ 
+          
                         
                         ?>
 
-                    <nav aria-label="...">
-                      <ul class="pagination">
-                       
-                        <li class="page-item"><a class="page-link" 
-                            href="#">Anterior</a></li>
-                            
-                            
-                        <?php for($i=1;$i<=$paginas;$i++): ?>
-    
-                            <li class="page-item"><a class="page-link" href="vistausuario.php?id="<?php echo $_SESSION['usuarioID']?>><?php echo $i ?></a></li>
-    
-    
-                      <?php endfor ?>
-                        
-<!--                        
-                        <li class="page-item active">
-                          <span class="page-link">2<span class="sr-only">(current)</span></span>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>-->
-                        <li class="page-item">
-                          <a class="page-link" href="#">Siguiente</a>
-                        </li>
-                      </ul>
-                    </nav>
+                                     
+
+            </div>
+        </div>               
+
                     
                     
                     
 						<?php
-						//Visitas Contador
+						//Visitas Contador e historial últimos visitados
 						if ($_SESSION['usuarioID'] != $id) {           
                            
+                    
+                            array_unshift($_SESSION["historial"], $id);
+                            
+                            
+                            $nElemIni=sizeof($_SESSION["historial"]);
+                            
+                            
+                            $sindupli=array_unique($_SESSION["historial"]);
+                            
+                            $nElemFin=sizeof($sindupli);
+                          
+                            
 
-/*                            for($i = 0; $i < count($_SESSION["historial"]); $i++) {
-
-                                if($_SESSION["historial"][$i] !=$id) {
-
-                                    array_push($_SESSION["historial"], $id);
-
-
-                                }        
-                            }*/
-                            array_push($_SESSION["historial"], $id);
-                            $historialseri = serialize($_SESSION["historial"]);
+                            
+                            if ($nElemFin>3){
+                                
+                                array_pop($sindupli);
+                                
+                            }
+                            
+                            
+                            $_SESSION["historial"]=$sindupli;                           
+                            
+                            
+                            $historialseri = serialize($_SESSION["historial"]);                          
+                                                        
                             $_SESSION["historial"]=$historialseri;                                    
 
 							$stmt = $db->query("UPDATE usuarios SET visitas = visitas +1 WHERE usuarioID = " . $id . ";");
