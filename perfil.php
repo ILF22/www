@@ -24,7 +24,13 @@ require('layout/header.php');
 				<!--Añade la imagen-->
 				<h5 class="subtitulo"><label>Para modificar la imagen del perfil:</label></h5>
 				
-				<input type="file" name="file" id="file" class=" btn-block " required />
+				<input type="file" name="file" id="file" required />
+				<label for="file" class="seleccionImg">
+					<i class="material-icons">
+						add_photo_alternate
+					</i> &nbsp;
+					Selecciona una imagen.
+				</label>
 				<div class="row mt-3 nomargin"></div>
 				<div class="row">
 					<!--Boton de modificacion de la imagen-->

@@ -12,6 +12,8 @@ ini_set('display_errors', '1');
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<link rel="icon" type="image/png" href="img/app/camaratrans.png" />
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 	<title><?php if (isset($title)) {
 						echo $title;
 					} ?></title>

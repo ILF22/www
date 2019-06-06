@@ -56,7 +56,13 @@ require('layout/header.php');
                     <!--form de la subida de la imagen -->
                     <form id="uploadimage" method="POST" action="imagen-ajax.php" enctype="multipart/form-data">
                         <h5><label>Subir imagen o video:</label></h5>
-                        <input type="file" name="file" id="file" class="btn btn-light btn-block btn-sm" required />
+                        <input type="file" name="file" id="file" required />
+                            <label for="file" class="seleccionImgP">
+                                <i class="material-icons">
+                                    add_photo_alternate
+                                </i> &nbsp;
+                                Selecciona una imagen.
+                            </label>
                         <div class="row mt-3 nomargin">
                             <!--Añade la descripcion de la imagen -->
                             <input type="text" name="descripcion" id="des" class="form-control col-xs-12 col-md-12 mb-3" placeholder="Descripción...">
@@ -75,35 +81,7 @@ require('layout/header.php');
         <!--Diseño del contenedor donde se muestran las imagenes -->
         <div class="col-xs-2 col-sm-12 col-md-12 col-sm-offset-12 col-md-offset-12 mt-4">
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 users-table contenedorListas">
-                    <div class="listas">
-                        <!-- <form id="form2" name="form2" method="get" action="">
-                            <div class="input-group bg-dark search-bar">
-                                <input type="text" class="form-control search-input" placeholder="Buscar..." aria-label="Buscar..." aria-describedby="basic-addon2" name="buscar">
-                                <div class="input-group-append search-button">
-                                    <input type="image" onclick="confirmarBusqueda2()" name="submit" width="30px" height="30px" src="img/app/lupa.png" class="btn btn-secondary btn-block btn-lg" tabindex="5">
-                                </div>
-                            </div>
-                        </form> -->
-                        <h4>Usuarios</h4>
-                        <?php
-                        //USUARIOS
-                        $stmt = $db->query("SELECT * FROM usuarios WHERE active = 'Yes'");
-                        while ($row = $stmt->fetch()) {
-                            $nombre = $row['username'];
-                            $id = $row['usuarioID'];
-
-                            if ($id != $_SESSION['usuarioID']) {
-                                echo "<h4 color='green'><a href='vistausuario.php?id=$id&nombreusuario=$nombre'>$nombre</a></h4>";
-                            }
-                        }
-                        ?>
-                    </div>
-
-
-
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8">
+                <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
                     <div class="contenedorTodo">
                         <!--Diseño del contenedor donde se encuentra el contador -->
                         <?php
@@ -126,11 +104,7 @@ require('layout/header.php');
                             if($_GET['npag']==""){
                                 header('Location:paginausuarios.php?npag=1');
                             }
-                        
- 
 
-                                
-    
                         //Selecciona todas las imagenes para mostrar del usuario que inicia sesion
                         $contft = 0;
                         $contvd = 0;
@@ -236,7 +210,7 @@ require('layout/header.php');
             </div>
         </div>
         <!--Diseño del contenedor donde se encuentran los usuarios con cuenta activa -->
-        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 users-table contenedorListas">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 users-table contenedorListas">
 
 
             <div class="listas">

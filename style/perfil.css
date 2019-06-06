@@ -5,3 +5,19 @@
 .subtitulo{
  font-size: 1.6em;
 }
+input[type="file"]{
+    display: none;
+}
+.seleccionImg{
+    height: 60px;
+    width: auto;
+    border: solid 1px black;
+    background: rgba(255, 255, 255, 0.6);
+    margin: auto;
+    font-size: 24px;
+    text-align: center;
+    padding-right: 12px;
+    padding-top: 10px;
+    padding-left: 12px;
+    font-weight: bold;
+}
