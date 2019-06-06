@@ -35,7 +35,8 @@ require('layout/header.php');
 					<div >
 						<?php
 						//Recogemos los datos y mostramos la imagen que se ha buscado por descripcion. 
-						$buscar = strtoupper($_GET['buscar']);
+						$buscar = trim(strtoupper($_GET['buscar']));
+                        if ($buscar!=""){
 						$cont = 0;
 				      //$stmt = $db->query("SELECT * FROM imagen WHERE descripcion LIKE '%" . $buscar);
                        $stmt = $db->query("SELECT * FROM imagen WHERE UPPER(descripcion) LIKE '%" . $buscar . "%'");
@@ -96,10 +97,18 @@ require('layout/header.php');
 
 							$cont++;
 						}
+                            
 						//Si no hay imagenes se muestra el siguiente mensaje
 						if ($cont == 0) {
 							echo '<span>NO HAY RESULTADOS</span>';
 						}
+                            
+                        }else{
+                            echo '<span>vacio</span>';
+                            
+                        }
+                            
+                            
 						?>
 					</div>
 					</div>
