@@ -84,7 +84,7 @@ input[type="file"]{
 }
 .seleccionImgP{
     height: 60px;
-    width: auto;
+    width: 100%;
     border: solid 1px black;
     background: rgba(255, 255, 255, 0.6);
     margin: auto;
@@ -94,4 +94,19 @@ input[type="file"]{
     padding-top: 10px;
     padding-left: 12px;
     font-weight: bold;
+}
+@media only screen and (max-width:991px) {
+    .seleccionImgP{
+        height: 60px;
+        width: 100%;
+        border: solid 1px black;
+        background: rgba(255, 255, 255, 0.6);
+        margin: auto;
+        font-size: 17px;
+        text-align: center;
+        padding-right: 12px;
+        padding-top: 10px;
+        padding-left: 12px;
+        font-weight: bold;
+    }
 }
