@@ -189,11 +189,7 @@ require('layout/header.php');
                 }
                       
             }
-                                
-                                
-
-                        
-                    
+                                      
                         
             ?>
 
@@ -227,43 +223,41 @@ require('layout/header.php');
 
 
             <div class="listas">
-                <h4><img src='img/app/calendario.png'>Últimos visitados</h4>
-                <?php
+                <h4><img src='img/app/calendario.png'> Tus últimos visitados</h4>
+    <?php
                 //ULTIMOS VISITADOS
     
-    if(isset($_SESSION["historial"])){
+        if(isset($_SESSION["historial"])){
         
          
-            $historico = $_SESSION["historial"];           
-            foreach ($historico as $valor){
-                    $id=$valor;
-                if ($id != $_SESSION['usuarioID']) {
-                    
-                    $stmt = $db->query("SELECT * FROM usuarios WHERE active = 'Yes' and usuarioId=$id");
-                    while ($row = $stmt->fetch()) {
-                        $nombre = $row['username'];     
+                    $historico = $_SESSION["historial"];           
+                    foreach ($historico as $valor){
+                            $id=$valor;
+                        if ($id != $_SESSION['usuarioID']) {
 
-                            echo "<h5 color='green'><a href='vistausuario.php?id=$id&nombreusuario=$nombre'>$nombre</a></h5>";
+                            $stmt = $db->query("SELECT * FROM usuarios WHERE active = 'Yes' and usuarioId=$id");
+                            while ($row = $stmt->fetch()) {
+                                $nombre = $row['username'];     
 
-                    }    
-                }
+                                    echo "<h5 color='green'><a href='vistausuario.php?id=$id&nombreusuario=$nombre'>$nombre</a></h5>";
 
-            }            
+                            }    
+                        }
+
+                    }            
                     
         }else{
         
             echo "<h5 color='green'>No hay registros</h5>";
         
-    }
+        }       
         
-    
-        
-                ?>
+    ?>
             </div>
 
 
             <div class="listas">
-                <h4><img src='img/app/binoculars.png'> Más Visitados</h4>
+                <h4><img src='img/app/binoculars.png'> Usuarios más visitados</h4>
                 <?php
                 // TOP 5 MAS VISITADOS
 
@@ -282,7 +276,7 @@ require('layout/header.php');
 
 
             <div class="listas">
-                <h4> <img src='img/app/heart.png'> Mejor Puntuados</h4>
+                <h4> <img src='img/app/heart.png'> Publicaciones mejor puntuadas</h4>
                 <?php
                 //MEJOR PUNTUADOS
                 $stmt = $db->query("SELECT *, 'ft' AS tipo FROM imagen UNION select *, 'vd' AS tipo from video order by likes DESC LIMIT 5");

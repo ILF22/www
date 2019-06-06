@@ -35,11 +35,11 @@ require('layout/header.php');
 					<div >
 						<?php
 						//Recogemos los datos y mostramos la imagen que se ha buscado por descripcion. 
-						$buscar = $_GET['buscar'];
+						$buscar = strtoupper($_GET['buscar']);
 						$cont = 0;
-						$stmt = $db->query("SELECT * FROM imagen WHERE descripcion LIKE '%" . $buscar . "%'");
-						//SELECT imagen.idfoto , imagen.usuarioID , imagen.nombre , imagen.descripcion , imagen.likes, video.idvideo, video.usuarioID, video.nombre, video.descripcion, video.likes FROM imagen, video WHERE imagen.descripcion = video.descripcion LIKE '%" . $buscar . "%' ORDER BY imagen.idfoto
-						//var_dump($buscar);
+				      //$stmt = $db->query("SELECT * FROM imagen WHERE descripcion LIKE '%" . $buscar);
+                       $stmt = $db->query("SELECT * FROM imagen WHERE UPPER(descripcion) LIKE '%" . $buscar . "%'");
+
 						while ($row = $stmt->fetch()) {
 							//echo $row['nombre']."<br />\n";
 							echo '<img class="foto" src="imagenes/' . $row['nombre'] . '">' . "\n";
@@ -57,7 +57,7 @@ require('layout/header.php');
 					<div >
 						<?php 
 						//Video
-						$stmt = $db->query("SELECT * FROM video WHERE descripcion LIKE '%" . $buscar . "%'");
+						$stmt = $db->query("SELECT * FROM video WHERE UPPER(descripcion) LIKE '%" . $buscar . "%'");
 						while ($row = $stmt->fetch()) {
 							//echo $row['nombre']."<br />\n";
 							echo '<video class="videoUsu" controls>';
@@ -79,7 +79,7 @@ require('layout/header.php');
 					<div >
 						<?php
 						//Usuarios
-						$stmt = $db->query("SELECT * FROM usuarios WHERE username LIKE '%" . $buscar . "%'");
+						$stmt = $db->query("SELECT * FROM usuarios WHERE UPPER(username) LIKE '%" . $buscar . "%'");
 						//var_dump($buscar);
 						while ($row = $stmt->fetch()) {
 							//echo $row['nombre']."<br />\n";
