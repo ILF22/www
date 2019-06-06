@@ -122,14 +122,30 @@ require('layout/header.php');
                         </div>
 
                         <?php
+    
+                            if($_GET['npag']==""){
+                                header('Location:paginausuarios.php?npag=1');
+                            }
+                        
+ 
+
+                                
+    
                         //Selecciona todas las imagenes para mostrar del usuario que inicia sesion
                         $contft = 0;
                         $contvd = 0;
 //                        $stmt = $db->query("SELECT * FROM imagen WHERE usuarioID = " . $_SESSION['usuarioID']);
                         $stmt = $db->query("SELECT *, 'ft' AS tipo FROM imagen UNION select *, 'vd' AS tipo from video WHERE usuarioID = " . $_SESSION['usuarioID']);
-                        
+                        $numReg=$stmt->rowCount();
+                        $multporPag=2;
+                        $paginas=ceil($numReg/$multporPag);                        
+                        $iniciar=($_GET['npag']-1)*$multporPag;
+                    
+                                $stmt2 = $db->query("SELECT *, 'ft' AS tipo FROM imagen UNION select *, 'vd' AS tipo from video WHERE usuarioID = " .$_SESSION['usuarioID'] .' LIMIT '.$iniciar.','.$multporPag);                             
                                 
-                  while ($row = $stmt->fetch()) {
+                                
+                                
+                  while ($row = $stmt2->fetch()) {
                             //Diseño de la imagen
                             
                         if ($row['tipo']=="ft"){
@@ -150,8 +166,7 @@ require('layout/header.php');
                             }else{
 
                             $row['nombre'] . "<br />\n";
-                                    echo '<div id="todo">';
-                                    //                        echo '<div id="vd'.$row['idvideo'].'">';
+                        echo '<div id="todo">';
                         echo '<video class="videoUsu" controls>';
                         echo '<source src="imagenes/' . $row['nombre'] . '" type="video/mp4">';
                         echo '<source src="imagenes/' . $row['nombre'] . '" type="video/avi">';
@@ -191,20 +206,26 @@ require('layout/header.php');
                                 
 
                         
-                        $paginas=10;
+                    
                         
             ?>
 
                     <nav aria-label="...">
                       <ul class="pagination">
                        
-                        <li class="page-item"><a class="page-link" 
-                            href="#">Anterior</a></li>
+                        <li class="page-item
+                           <?php echo $_GET['npag']<=1? 'disabled':'' ?>">
+                         <a class="page-link" href="paginausuarios.php?npag=<?php echo $_GET['npag']-1 ?>">Anterior</a></li>
                             
-                            
+                         
+<!-
+-->
+                                  
                         <?php for($i=1;$i<=$paginas;$i++): ?>
     
-                            <li class="page-item"><a class="page-link" href="vistausuario.php?id="<?php echo $_SESSION['usuarioID']?>><?php echo $i ?></a></li>
+                            <li class="page-item
+                            <?php echo $_GET['npag']==$i ? 'active' : '' ?>">
+                            <a class="page-link" href="paginausuarios.php?npag=<?php echo $i?>"><?php echo $i ?></a></li>
     
     
                       <?php endfor ?>
@@ -214,8 +235,9 @@ require('layout/header.php');
                           <span class="page-link">2<span class="sr-only">(current)</span></span>
                         </li>
                         <li class="page-item"><a class="page-link" href="#">3</a></li>-->
-                        <li class="page-item">
-                          <a class="page-link" href="#">Siguiente</a>
+                        <li class="page-item
+                         <?php echo $_GET['npag']>=$paginas? 'disabled':'' ?>">
+                          <a class="page-link" href="paginausuarios.php?npag=<?php echo $_GET['npag']+1 ?>">Siguiente</a>
                         </li>
                       </ul>
                     </nav>
