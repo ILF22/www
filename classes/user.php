@@ -48,6 +48,7 @@ class User extends Password{
 	//Cierra sesion
 	public function logout(){
 		session_destroy();
+        $_SESSION = [];
 	}
 	//Si se ha iniciado sesion 
 	public function is_logged_in(){
