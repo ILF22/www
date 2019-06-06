@@ -23,7 +23,7 @@ require('layout/header.php');
 			<h2 class="perfilDe">Perfil de <?php echo htmlspecialchars($_GET['nombreusuario'], ENT_QUOTES); ?></h2>
 			<?php
 			//Accede a los campos imagen y descripcion del usuario visitado
-			$stmt = $db->query("SELECT imagen, descripcion FROM usuarios WHERE usuarioID = " . $_GET['id']);
+			$stmt = $db->query("SELECT imagen, descripcion,ultVisitas FROM usuarios WHERE usuarioID = " . $_GET['id']);
 			while ($row = $stmt->fetch()) {
 				//Comprueba si el campo imagen esta vacio para poner o no imagen por defecto
 				if (empty($row['imagen'])) {
@@ -37,6 +37,16 @@ require('layout/header.php');
 				} else {
 					$descripcionP = $row['descripcion'];
 				}
+                //                echo $row['ultVisitas'];
+                
+                if ($row['ultVisitas'] != "") {                
+                    $_SESSION["historial"] = unserialize($row['ultVisitas']);
+                } else {
+                    $_SESSION["historial"] = array();
+
+                }
+                
+//               echo print_r($_SESSION["historial"]);
 			}
 			?>
 			<!--Muestra el perfil del usuario-->
@@ -296,12 +306,59 @@ require('layout/header.php');
 						if ($cont == 0) {
 							echo '<span>ESTE USUARIO NO TIENE VIDEOS</span>';
 						}
-						?>
+                        $paginas=10;
+                        
+                        ?>
 
+                    <nav aria-label="...">
+                      <ul class="pagination">
+                       
+                        <li class="page-item"><a class="page-link" 
+                            href="#">Anterior</a></li>
+                            
+                            
+                        <?php for($i=1;$i<=$paginas;$i++): ?>
+    
+                            <li class="page-item"><a class="page-link" href="vistausuario.php?id="<?php echo $_SESSION['usuarioID']?>><?php echo $i ?></a></li>
+    
+    
+                      <?php endfor ?>
+                        
+<!--                        
+                        <li class="page-item active">
+                          <span class="page-link">2<span class="sr-only">(current)</span></span>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>-->
+                        <li class="page-item">
+                          <a class="page-link" href="#">Siguiente</a>
+                        </li>
+                      </ul>
+                    </nav>
+                    
+                    
+                    
 						<?php
 						//Visitas Contador
-						if ($_SESSION['usuarioID'] != $id) {
+						if ($_SESSION['usuarioID'] != $id) {           
+                           
+
+/*                            for($i = 0; $i < count($_SESSION["historial"]); $i++) {
+
+                                if($_SESSION["historial"][$i] !=$id) {
+
+                                    array_push($_SESSION["historial"], $id);
+
+
+                                }        
+                            }*/
+                            array_push($_SESSION["historial"], $id);
+                            $historialseri = serialize($_SESSION["historial"]);
+                            $_SESSION["historial"]=$historialseri;                                    
+
 							$stmt = $db->query("UPDATE usuarios SET visitas = visitas +1 WHERE usuarioID = " . $id . ";");
+                            $stmt = $db->query("UPDATE usuarios set ultVisitas = '$historialseri' WHERE usuarioID = " .$_SESSION['usuarioID']. ";");
+                       
+                            
 						}
 						?>
 					</div>

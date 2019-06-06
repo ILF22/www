@@ -123,10 +123,16 @@ require('layout/header.php');
 
                         <?php
                         //Selecciona todas las imagenes para mostrar del usuario que inicia sesion
-                        $cont = 0;
-                        $stmt = $db->query("SELECT * FROM imagen WHERE usuarioID = " . $_SESSION['usuarioID']);
-                        while ($row = $stmt->fetch()) {
+                        $contft = 0;
+                        $contvd = 0;
+//                        $stmt = $db->query("SELECT * FROM imagen WHERE usuarioID = " . $_SESSION['usuarioID']);
+                        $stmt = $db->query("SELECT *, 'ft' AS tipo FROM imagen UNION select *, 'vd' AS tipo from video WHERE usuarioID = " . $_SESSION['usuarioID']);
+                        
+                                
+                  while ($row = $stmt->fetch()) {
                             //Diseño de la imagen
+                            
+                        if ($row['tipo']=="ft"){
                             $row['nombre'] . "<br />\n";
                             echo '<div id="foto"><img class="foto" src="imagenes/' . $row['nombre'] . '">' . "\n";
                             ?>
@@ -139,22 +145,13 @@ require('layout/header.php');
                         </div>
                         <?php
 
-                        $cont++;
-                    }
-                    //Si no tiene ninguna imagen, muestra el siguiente mensaje
-                    if ($cont == 0) {
-                        echo '<span>NO TIENES IMAGENES</span>';
-                    }
-                    ?>
-                    <?php
-                    //Selecciona todos los videos para mostrar del usuario que inicia sesion
-                    $cont = 0;
-                    $stmt = $db->query("SELECT * FROM video WHERE usuarioID = " . $_SESSION['usuarioID']);
-                    while ($row = $stmt->fetch()) {
-                        //Disño del video
-                        $row['nombre'] . "<br />\n";
-                        echo '<div id="todo">';
-                        //                        echo '<div id="vd'.$row['idvideo'].'">';
+                        $contft++;
+
+                            }else{
+
+                            $row['nombre'] . "<br />\n";
+                                    echo '<div id="todo">';
+                                    //                        echo '<div id="vd'.$row['idvideo'].'">';
                         echo '<video class="videoUsu" controls>';
                         echo '<source src="imagenes/' . $row['nombre'] . '" type="video/mp4">';
                         echo '<source src="imagenes/' . $row['nombre'] . '" type="video/avi">';
@@ -168,18 +165,60 @@ require('layout/header.php');
                             <!--Muestra la descripcion-->
                             <span><?php echo ucwords($row['descripcion']); ?></span>
                             <!--On click para borrar el video, de aqui va a la funcion confirmar  -->
-                            <a onclick="confirmar2(<?php echo $row['idvideo']; ?>)"><img class="imgEliminar" src="img/app/papelera.png" alt="Papelera" /></a>
+                            <a onclick="confirmar2(<?php echo $row['idfoto']; ?>)"><img class="imgEliminar" src="img/app/papelera.png" alt="Papelera" /></a>
                         </div></br></br>
                     </div>
-                    <?php
+                    $contvd++;
+                    <?php               
 
-                    $cont++;
-                }
-                //Si no tiene ningun video, muestra el siguiente mensaje
-                if ($cont == 0) {
+                
+            }
+                      
+            //Si no tiene ningun video, muestra el siguiente mensaje
+                if ($contvd == 0) {
                     echo '<span>NO TIENES VIDEOS</span>';
                 }
-                ?>
+                if ($contft == 0) {
+                    echo '<span>NO TIENES FOTOS</span>';
+                }
+                
+                if ($contvd == 0 && $contft == 0) {
+                    echo '<span>NO TIENES NINGÚN FICHERO MULTIMEDIA</span>';
+                }
+                      
+            }
+                                
+                                
+
+                        
+                        $paginas=10;
+                        
+            ?>
+
+                    <nav aria-label="...">
+                      <ul class="pagination">
+                       
+                        <li class="page-item"><a class="page-link" 
+                            href="#">Anterior</a></li>
+                            
+                            
+                        <?php for($i=1;$i<=$paginas;$i++): ?>
+    
+                            <li class="page-item"><a class="page-link" href="vistausuario.php?id="<?php echo $_SESSION['usuarioID']?>><?php echo $i ?></a></li>
+    
+    
+                      <?php endfor ?>
+                        
+<!--                        
+                        <li class="page-item active">
+                          <span class="page-link">2<span class="sr-only">(current)</span></span>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>-->
+                        <li class="page-item">
+                          <a class="page-link" href="#">Siguiente</a>
+                        </li>
+                      </ul>
+                    </nav>
             </div>
         </div>
         <!--Diseño del contenedor donde se encuentran los usuarios con cuenta activa -->
@@ -201,11 +240,12 @@ require('layout/header.php');
                 }
                 ?>
             </div>
-            <div class="listas">
+           
+            
+        <div class="listas">
                 <h4><img src='img/app/binoculars.png'> Más Visitados</h4>
                 <?php
                 // TOP 5 MAS VISITADOS
-
 
                 $stmt = $db->query("SELECT * FROM usuarios WHERE active = 'Yes'");
 
@@ -219,6 +259,8 @@ require('layout/header.php');
                 }
                 ?>
             </div>
+            
+            
             <div class="listas">
                 <h4> <img src='img/app/heart.png'> Mejor Puntuados</h4>
                 <?php
@@ -227,15 +269,11 @@ require('layout/header.php');
 
 
                 while ($row = $stmt->fetch()) {
-
-
                     //para quitar la extension al fichero
                     $descripcion = ucwords($row['descripcion']);
                     $usuarioID = $row['usuarioID'];
                     $id = $row['idfoto'];
                     $nlike = $row['likes'];
-
-                    //QUITAR LA LLAMADA A BBDD Y CAMBIAR LA PRIMERA SELECT!!!!!!!!!!!!!!
 
                     $stmt2 = $db->query("SELECT username from usuarios where usuarioID=" . $usuarioID);
                     $nombre = $stmt2->fetch();

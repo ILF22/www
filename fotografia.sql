@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-05-2019 a las 14:11:24
--- Versión del servidor: 10.1.37-MariaDB
--- Versión de PHP: 7.3.0
+-- Tiempo de generación: 06-06-2019 a las 14:52:23
+-- Versión del servidor: 10.1.28-MariaDB
+-- Versión de PHP: 7.1.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -41,7 +41,8 @@ CREATE TABLE `comentarios` (
 
 INSERT INTO `comentarios` (`idcomentarios`, `idUsuario`, `comentario`, `idfoto`) VALUES
 (1, 5, 'HOLA', 1),
-(6, 5, 'HOLA GUAPO', 1);
+(6, 5, 'HOLA GUAPO', 1),
+(7, 1, 'hola', 6);
 
 -- --------------------------------------------------------
 
@@ -96,9 +97,9 @@ CREATE TABLE `likes` (
 --
 
 INSERT INTO `likes` (`idlikes_usuarios`, `idlikes_imagenes`) VALUES
-(5, 5),
 (5, 4),
-(5, 1);
+(5, 1),
+(5, 5);
 
 -- --------------------------------------------------------
 
@@ -110,6 +111,13 @@ CREATE TABLE `likesv` (
   `idlikes_usuarios` int(11) NOT NULL,
   `idlikes_video` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `likesv`
+--
+
+INSERT INTO `likesv` (`idlikes_usuarios`, `idlikes_video`) VALUES
+(5, 1);
 
 -- --------------------------------------------------------
 
@@ -125,20 +133,21 @@ CREATE TABLE `usuarios` (
   `active` varchar(255) COLLATE utf8mb4_bin NOT NULL,
   `resetToken` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
   `resetComplete` varchar(3) COLLATE utf8mb4_bin DEFAULT 'No',
-  `visitas` int(11)  DEFAULT '0',
+  `visitas` int(11) DEFAULT '0',
   `descripcion` varchar(255) COLLATE utf8mb4_bin NOT NULL,
-  `imagen` varchar(255) COLLATE utf8mb4_bin NOT NULL
+  `imagen` varchar(255) COLLATE utf8mb4_bin NOT NULL,
+  `ultVisitas` longtext CHARACTER SET utf8 COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`usuarioID`, `username`, `password`, `email`, `active`, `resetToken`, `resetComplete`, `visitas`, `descripcion`, `imagen`) VALUES
-(1, 'Irene', '$2y$10$R6A3yNvjcoAg.kL8vHE7gexs1zkH7WTTZNR8JbfcEhhahZHX6Qn.G', 'irene.leon95@gmail.com', 'Yes', NULL, 'No', 84, 'Hola me llamo Irene', '082213cb0f9eabb7e6715f59ef7d322a-icono-de-perfil-de-instagram-by-vexels.png'),
-(5, 'Aitor', '$2y$10$a3RJKLkSlH9njYZbpakGw.zFhfj5KRD5sSfwcxhgRF5wKPRf.WeWu', 'aitorsan2092@gmail.com', 'Yes', NULL, 'No', 39, 'Hola me llamo Aitor', 'usuario.jpg'),
-(14, 'IreneN', '$2y$10$1jojffb8rGJsqbrcqv1WeOsCvQQZZ6N0voB14oNoGcnZHbORPPbhS', 'irene.leonfernandez@colegio-losnaranjos.com', 'Yes', NULL, 'No', NULL, '', ''),
-(19, 'Prueba123', '$2y$10$VstFf6HFZHC2edIvQ7V3tub4vmyGl7vi.vtxxj/1utWEzlw6QjMja', '2_web9_18@iesjovellanos.org', 'Yes', NULL, 'No', NULL, '', '');
+INSERT INTO `usuarios` (`usuarioID`, `username`, `password`, `email`, `active`, `resetToken`, `resetComplete`, `visitas`, `descripcion`, `imagen`, `ultVisitas`) VALUES
+(1, 'Irene', '$2y$10$R6A3yNvjcoAg.kL8vHE7gexs1zkH7WTTZNR8JbfcEhhahZHX6Qn.G', 'irene.leon95@gmail.com', 'Yes', NULL, 'No', 105, 'Hola me llamo Irene', '082213cb0f9eabb7e6715f59ef7d322a-icono-de-perfil-de-instagram-by-vexels.png', 'a:3:{i:0;s:1:\"5\";i:1;s:1:\"1\";i:2;s:1:\"5\";}'),
+(5, 'Aitor', '$2y$10$a3RJKLkSlH9njYZbpakGw.zFhfj5KRD5sSfwcxhgRF5wKPRf.WeWu', 'aitorsan2092@gmail.com', 'Yes', NULL, 'No', 75, 'Hola me llamo Aitor', 'usuario.jpg', 'a:2:{i:0;s:1:\"5\";i:1;s:1:\"1\";}'),
+(14, 'IreneN', '$2y$10$1jojffb8rGJsqbrcqv1WeOsCvQQZZ6N0voB14oNoGcnZHbORPPbhS', 'irene.leonfernandez@colegio-losnaranjos.com', 'Yes', NULL, 'No', NULL, '', '', ''),
+(19, 'Prueba123', '$2y$10$VstFf6HFZHC2edIvQ7V3tub4vmyGl7vi.vtxxj/1utWEzlw6QjMja', '2_web9_18@iesjovellanos.org', 'Yes', NULL, 'No', NULL, '', '', '');
 
 -- --------------------------------------------------------
 
@@ -151,15 +160,8 @@ CREATE TABLE `video` (
   `usuarioID` int(11) NOT NULL,
   `nombre` varchar(255) COLLATE utf8_bin NOT NULL,
   `descripcion` text COLLATE utf8_bin NOT NULL,
-  `likes` int(11)  DEFAULT '0'
+  `likes` int(11) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
---
--- Volcado de datos para la tabla `video`
---
-
-INSERT INTO `video` (`idvideo`, `usuarioID`, `nombre`, `descripcion`, `likes`) VALUES
-(1, 1, 'Double Exposure - 22368.mp4', 'electro', NULL);
 
 --
 -- Índices para tablas volcadas
@@ -204,7 +206,7 @@ ALTER TABLE `video`
 -- AUTO_INCREMENT de la tabla `comentarios`
 --
 ALTER TABLE `comentarios`
-  MODIFY `idcomentarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idcomentarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `comentariosv`
