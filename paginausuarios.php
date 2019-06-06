@@ -37,6 +37,19 @@ require('layout/header.php');
                 } else {
                     $descripcionP = $row['descripcion'];
                 }
+                
+                
+                $stmt = $db->query("SELECT imagen, descripcion,ultVisitas FROM usuarios WHERE usuarioID = " . $_SESSION['usuarioID']);     $row = $stmt->fetch();
+
+                    if ($row['ultVisitas'] != "") {                
+                        $_SESSION["historial"] = unserialize($row['ultVisitas']);
+                    } else {
+                        $_SESSION["historial"] = array();
+
+                    }
+                
+                
+                
             }
             ?>
             <!--Muestra el perfil del usuario-->
@@ -220,11 +233,12 @@ require('layout/header.php');
     
     if(isset($_SESSION["historial"])){
         
-            $historico = unserialize($_SESSION["historial"]);           
+         
+            $historico = $_SESSION["historial"];           
             foreach ($historico as $valor){
-
-                if ($id != $_SESSION['usuarioID']) {
                     $id=$valor;
+                if ($id != $_SESSION['usuarioID']) {
+                    
                     $stmt = $db->query("SELECT * FROM usuarios WHERE active = 'Yes' and usuarioId=$id");
                     while ($row = $stmt->fetch()) {
                         $nombre = $row['username'];     

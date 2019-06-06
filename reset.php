@@ -49,7 +49,7 @@ if (isset($_POST['submit'])) {
 			$subject = "Restablecimiento de contraseña";
 			$body = "<p>Alguien solicitó que se restablezca la contraseña.</p>
 			<p>Si esto fue un error, simplemente ignore este correo electrónico y no pasará nada.</p>
-			<p>Para restablecer su contraseña, visite la siguiente dirección: <a href='" . DIR . "/resetPassword.php?key=$token&action=reset'>" . DIR . "resetPassword.php?key=$token&action=reset</a></p>";
+			<p>Para restablecer su contraseña, visite la siguiente dirección: <a href='localhost/www/resetPassword.php?key=$token&action=reset'>localhost/www/resetPassword.php?key=$token&action=reset</a></p>";
 
 			$mail = new Mail();
 			$mail->setFrom(SITEEMAIL);
