@@ -135,7 +135,7 @@ require('layout/header.php');
 		<div class="row">
 			<div class="col-lg-6">
 				<form role="form" method="post" action="" autocomplete="off">
-					<h2>Por favor regístrese</h2>
+					<h2>Regístrese</h2>
 					<p>¿Ya eres usuario? <a href='login.php' class="text-success">Iniciar sesión</a></p>
 					<hr>
 

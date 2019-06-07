@@ -25,6 +25,7 @@ ini_set('display_errors', '1');
 	<link rel="stylesheet" href="style/paginausuarios.css">
 	<link rel="stylesheet" href="style/perfil.css">
 	<link rel="stylesheet" href="style/resultado.css">
+	<link rel="stylesheet" href="style/resetPassword.css">
 
 	<script src="javascript/jquery.min.js"></script>
 	<script src="javascript/bootstrap.bundle.min.js"></script>

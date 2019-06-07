@@ -84,6 +84,7 @@ require('layout/header.php');
 				<!-- Boton de cambio de contraseña-->
 				<form role="form" method="post" action="" autocomplete="off">
 					<h2>Cambio de Contraseña.</h2>
+					<p><a href='./' class ="text-success">Volver a Inicio</a></p>
 					<hr>
 
 					<?php
@@ -105,23 +106,19 @@ require('layout/header.php');
 					}
 					?>
 					<!--Cuadros para introducir la nueva contraseña-->
-					<div class="row">
-						<div class="col-xs-6 col-sm-6 col-md-6">
 							<div class="form-group">
 								<input type="password" name="password" id="password" class="form-control input-lg" placeholder="Contraseña" tabindex="1">
 							</div>
-						</div>
-						<div class="col-xs-6 col-sm-6 col-md-6">
 							<div class="form-group">
 								<input type="password" name="passwordConfirm" id="passwordConfirm" class="form-control input-lg" placeholder="Confirma Contraseña" tabindex="1">
 							</div>
-						</div>
-					</div>
 
 					<hr>
 					<!--Boton que va a la form-->
 					<div class="row">
-						<div class="col-xs-6 col-md-6"><input type="submit" name="submit" value="Cambiar" class="btn btn-primary btn-block btn-lg" tabindex="3"></div>
+						<div class="col-xs-6 col-md-6">
+							<input type="submit" name="submit" value="Cambiar" class="btn btn-light btn-block btn-lg" tabindex="3">
+						</div>
 					</div>
 				</form>
 
