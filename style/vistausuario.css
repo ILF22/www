@@ -5,7 +5,7 @@
 
 .contadorLikes {
     position: relative;
-    bottom: 25px;
+    bottom: 28px;
 }
 
 .detailBox {
@@ -13,7 +13,7 @@
 }
 
 .commentBox {
-    background-color: aqua;
+    background: rgba(255, 255, 255, 0.6);
 }
 
 .cajaComent {
@@ -30,6 +30,7 @@
     position: relative;
     justify-content: space-between;
     border-bottom: solid black 1px;
+    margin-left: -10px;
 }
 
 .nombre {
@@ -79,4 +80,10 @@
 
 .perfilDe {
     font-weight: bold;
+}
+.formulario{
+    display: inline-block;
+}
+.posicionBoton{
+    justify-content: center:
 }

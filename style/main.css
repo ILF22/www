@@ -25,6 +25,8 @@ a {
 html,
 body {
     height: auto;
+    font-size: 20px;
+    color: black;
 }
 
 body {

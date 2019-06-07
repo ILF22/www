@@ -1,6 +1,7 @@
 .imgEliminar {
     width: 30px;
     height: 30px;
+    margin-top: -11px;
 }
 
 .videoUsu {
@@ -109,4 +110,8 @@ input[type="file"]{
         padding-left: 12px;
         font-weight: bold;
     }
+}
+.descripcionMultim{
+    font-size: 15px;
+    font-weight: bold;
 }

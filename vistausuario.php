@@ -101,7 +101,7 @@ require('layout/header.php');
 							$foto = $row['nombre'];
 
 							//Mostramos la descripcion de la foto
-							echo '<br/><br/>' . $row['descripcion'] . '<br/><br/>';
+							echo '<br/><br/>' . ucfirst ($row['descripcion']) . '<br/><br/>';
 							$idDelaFoto = $row['idfoto'];
 
 							//Creamos boton like 
@@ -178,13 +178,13 @@ require('layout/header.php');
 							}
 
 							echo '	</ul></div>
-								<form class="form-inline" role="form" action="#" method="post">
-									<div class="col-12 form-group" >
-										<div class="col-10">
-											<input style=" width:100%" type="text" class="form-control" maxlength="128" name="comentario" placeHolder="Añadir comentario.">
+								<form class="formulario" role="form" action="#" method="post">
+									<div class=" posicionBoton form-group row" >
+										<div>
+											<input  type="text" class="form-control" maxlength="128" name="comentario" placeHolder="Añadir comentario.">
 										</div>
-										<div class="col-2">
-											<input style=" width:100%" type="submit" class="btn btn-dark" name="submit' . $var3 . '" value="Añadir">
+										<div>
+											<input  type="submit" class="btn btn-dark" name="submit' . $var3 . '" value="Añadir">
 										</div>				
 									</div>
 								</form>
@@ -218,7 +218,7 @@ require('layout/header.php');
 							echo '</video>';
 
 							//Mostramos la descripcion del video
-							echo '<br/><br/>' . $row['descripcion'] . '<br/><br/>';
+							echo '<br/><br/>' . ucfirst ($row['descripcion']) . '<br/><br/>';
 							$idVD = $row['idvideo'];
 
 							//Creamos boton like 
@@ -292,13 +292,13 @@ require('layout/header.php');
 							}
 
 							echo '	</ul></div>
-							<form class="form-inline" role="form" action="#" method="post">
-							<div class="col-12 form-group" >
-								<div class="col-10">
-									<input style=" width:100%" type="text" class="form-control" maxlength="128" name="comentarioV" placeHolder="Añadir comentario.">
+							<form class="formulario" role="form" action="#" method="post">
+									<div class=" posicionBoton form-group row" >
+								<div>
+									<input type="text" class="form-control" maxlength="128" name="comentarioV" placeHolder="Añadir comentario.">
 								</div>
-								<div class="col-2">
-									<input style=" width:100%" type="submit" class="btn btn-dark" name="submitV' . $var3 . '" value="Añadir">
+								<div>
+									<input type="submit" class="btn btn-dark" name="submitV' . $var3 . '" value="Añadir">
 								</div>				
 							</div>
 						</form>

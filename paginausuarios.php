@@ -141,7 +141,7 @@ require('layout/header.php');
                             ?>
                         <div>
                             <!--Muestra la descripcion-->
-                            <span><?php echo ucwords($row['descripcion']); ?></span>
+                            <span class="descripcionMultim"><?php echo ucwords($row['descripcion']); ?></span>
                             <!--On click para borrar la imagen, de aqui va a la funcion confirmar  -->
                             <a onclick="confirmar(<?php echo $row['idfoto']; ?>)"><img class="imgEliminar" src="img/app/papelera.png" alt="Papelera" /></a>
                         </div></br></br>
@@ -163,7 +163,7 @@ require('layout/header.php');
                         echo 'Your browser does not support the video tag.';
                         echo '</video>';
                         ?>
-                    <div>
+                    <div class="descripcionMultim">
                         <!--Muestra la descripcion-->
                         <span><?php echo ucwords($row['descripcion']); ?></span>
                         <!--On click para borrar el video, de aqui va a la funcion confirmar  -->
