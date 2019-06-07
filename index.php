@@ -1,6 +1,9 @@
 <?php require('includes/config.php');
 
 //Array aleatorio para la muestra de imagenes en el carrusel
+
+$user->logout(); 
+
 $valores = array();
 $max_num = 5;
 $x = 0;
