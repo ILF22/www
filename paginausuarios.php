@@ -68,7 +68,7 @@ require('layout/header.php');
                 <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4 subida">
                     <!--form de la subida de la imagen -->
                     <form id="uploadimage" method="POST" action="imagen-ajax.php" enctype="multipart/form-data">
-                        <h5><label>Subir imagen o video:</label></h5>
+                        <h5 class="etiquetaSubir"><label>Subir imagen o video:</label></h5>
                         <input type="file" name="file" id="file" required />
                             <label for="file" class="seleccionImgP">
                                 <i class="material-icons">
@@ -194,7 +194,7 @@ require('layout/header.php');
             ?>
 
                 <nav aria-label="...">
-                    <ul class="pagination">
+                    <ul class="pagination justify-content-center" >
 
                         <li class="page-item
                            <?php echo $_GET['npag']<=1? 'disabled':'' ?>">

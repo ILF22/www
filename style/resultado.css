@@ -1,0 +1,18 @@
+.linkResultado{
+    color: rgb(66, 65, 65);
+}
+.linkResultado:hover{
+   color: rgb(104, 187, 93);
+}
+.desFoto{
+font-size: 30px;
+}
+.videoEspa{
+    margin-bottom: 5px;
+}
+.imagenEspa{
+    margin-bottom: 5px;
+}
+.usuarioEspa{
+    margin-bottom: 50px;
+}

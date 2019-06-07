@@ -31,8 +31,8 @@ require('layout/header.php');
 		<div class="col-xs-12 col-sm-12 col-md-12 col-sm-offset-12 col-md-offset-12 mt-5">
 			<div class="row">
 				<div class="col-md-12">
-					<div class="contenedorTodo">
-					<div >
+					<div class="contenedorTodo ">
+					<div class="desFoto imagenEspa" >
 						<?php
 						//Recogemos los datos y mostramos la imagen que se ha buscado por descripcion. 
 						$buscar = trim(strtoupper($_GET['buscar']));
@@ -55,7 +55,7 @@ require('layout/header.php');
 						}
 						?>
 					</div>
-					<div >
+					<div class="videoEspa">
 						<?php 
 						//Video
 						$stmt = $db->query("SELECT * FROM video WHERE UPPER(descripcion) LIKE '%" . $buscar . "%'");
@@ -77,7 +77,7 @@ require('layout/header.php');
 						}
 					?>
 					</div>
-					<div >
+					<div>
 						<?php
 						//Usuarios
 						$stmt = $db->query("SELECT * FROM usuarios WHERE UPPER(username) LIKE '%" . $buscar . "%'");
@@ -92,8 +92,7 @@ require('layout/header.php');
 								$imagen = $row['imagen'];
 							}
 							
-							echo '<img width="150" height="150" src="imagenes/' . $imagen . '">' . "\n";
-							echo "<h4 color='green'><a href='vistausuario.php?id=$id&nombreusuario=$nombre'>$nombre</a></h4>";
+							echo '<div class="usuarioEspa" ><img width="150" height="150" src="imagenes/' . $imagen . '">' . "\n"."<h4 color='green'><a class='linkResultado' href='vistausuario.php?id=$id&nombreusuario=$nombre'>$nombre</a></h4></div>";
 
 							$cont++;
 						}
