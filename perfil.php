@@ -34,7 +34,7 @@ require('layout/header.php');
 				<div class="row mt-3 nomargin"></div>
 				<div class="row">
 					<!--Boton de modificacion de la imagen-->
-					<div class="col-xs-6 col-md-6"><input type="submit" name="submit" value="Modificar" class="mt-2 btn btn-light btn-block btn-lg" tabindex="5" /></div>
+					<div class="col-xs-6 col-md-12"><input type="submit" name="submit" value="Modificar" class="mt-2 btn btn-light btn-block btn-lg" tabindex="5" /></div>
 				</div>
 			</form>
 			
@@ -48,12 +48,12 @@ require('layout/header.php');
 				</div>
 				<div class="row">
 					<!--Boton de modificacion de descripcion-->
-					<div class="col-xs-6 col-md-6"><input type="submit" name="submit" value="Modificar" class="mt-2 btn btn-light btn-block btn-lg" tabindex="5" /></div>
+					<div class="col-xs-6 col-md-12"><input type="submit" name="submit" value="Modificar" class="mt-2 btn btn-light btn-block btn-lg" tabindex="5" /></div>
 				</div>
 			</form>
 			<!--Boton volver a la pagina usuario-->
 			<div class="row mt-5">
-					<div class="col-xs-6 col-md-6"><a class="btn btn-light btn-block btn-lg" tabindex="5" href="paginausuarios.php">Volver</a></div>
+					<div class="col-xs-6 col-md-12"><a class="btn btn-light btn-block btn-lg" tabindex="5" href="paginausuarios.php">Volver</a></div>
 				</div>
 		</div>
 	</div>
