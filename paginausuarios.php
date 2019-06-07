@@ -122,14 +122,14 @@ require('layout/header.php');
                         $contft = 0;
                         $contvd = 0;
 //                        $stmt = $db->query("SELECT * FROM imagen WHERE usuarioID = " . $_SESSION['usuarioID']);
-                        $stmt = $db->query("SELECT *, 'ft' AS tipo FROM imagen UNION select *, 'vd' AS tipo from video WHERE usuarioID = " . $_SESSION['usuarioID']);
+                        $stmt = $db->query("SELECT *, 'ft' AS tipo FROM imagen WHERE usuarioID = " .$_SESSION['usuarioID'] . " UNION select *, 'vd' AS tipo from video WHERE usuarioID = " .$_SESSION['usuarioID']);
                         $numReg=$stmt->rowCount();
                         $multporPag=2;
                         $paginas=ceil($numReg/$multporPag);                        
                         $iniciar=($_GET['npag']-1)*$multporPag;
                     
-                                $stmt2 = $db->query("SELECT *, 'ft' AS tipo FROM imagen UNION select *, 'vd' AS tipo from video WHERE usuarioID = " .$_SESSION['usuarioID'] .' LIMIT '.$iniciar.','.$multporPag);                             
-                                
+                    $stmt2 = $db->query("SELECT *, 'ft' AS tipo FROM imagen WHERE usuarioID = " .$_SESSION['usuarioID'] . " UNION select *, 'vd'                        AS tipo from video WHERE usuarioID = " .$_SESSION['usuarioID'] .' LIMIT '.$iniciar.','.$multporPag);
+                             
                                 
                                 
                   while ($row = $stmt2->fetch()) {
@@ -176,23 +176,27 @@ require('layout/header.php');
                 
             }
                       
+
+                      
+            }
+            
             //Si no tiene ningun video, muestra el siguiente mensaje
                 if ($contvd == 0) {
-                    echo '<span>NO TIENES VIDEOS</span>';
+                    echo '<span>NO TIENES VIDEOS</span></br>';
                 }
                 if ($contft == 0) {
                     echo '<span>NO TIENES FOTOS</span>';
                 }
                 
-                if ($contvd == 0 && $contft == 0) {
-                    echo '<span>NO TIENES NINGÚN FICHERO MULTIMEDIA</span>';
-                }
-                      
-            }
+        
+                                
+                                
+                                
                                       
                         
             ?>
 
+               <?php if ($contvd>0 || $contft>0):?>
                 <nav aria-label="...">
                     <ul class="pagination justify-content-center" >
 
@@ -216,6 +220,7 @@ require('layout/header.php');
                         </li>
                     </ul>
                 </nav>
+                <?php endif ?>
             </div>
         </div>
         <!--Diseño del contenedor donde se encuentran los usuarios con cuenta activa -->
