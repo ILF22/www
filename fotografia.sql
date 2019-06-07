@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.8.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-06-2019 a las 14:52:23
--- Versión del servidor: 10.1.28-MariaDB
--- Versión de PHP: 7.1.11
+-- Tiempo de generación: 07-06-2019 a las 16:13:57
+-- Versión del servidor: 10.1.32-MariaDB
+-- Versión de PHP: 7.1.17
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -40,9 +40,11 @@ CREATE TABLE `comentarios` (
 --
 
 INSERT INTO `comentarios` (`idcomentarios`, `idUsuario`, `comentario`, `idfoto`) VALUES
-(1, 5, 'HOLA', 1),
-(6, 5, 'HOLA GUAPO', 1),
-(7, 1, 'hola', 6);
+(9, 5, 'Adios', 1),
+(10, 5, 'Adios', 1),
+(11, 5, 'Adios', 1),
+(12, 5, 'Adios', 1),
+(13, 5, 'Adios', 1);
 
 -- --------------------------------------------------------
 
@@ -79,7 +81,8 @@ INSERT INTO `imagen` (`idfoto`, `usuarioID`, `nombre`, `descripcion`, `likes`) V
 (1, 1, '5.jpeg', 'Londres', 1),
 (4, 1, 'perri.jpg.jpg', 'perro', 1),
 (5, 1, 'wood-3271749_640.jpg', 'mesa', 1),
-(6, 5, 'wood-3271749_640.jpg', 'mesa2', 0);
+(6, 5, 'wood-3271749_640.jpg', 'mesa2', 2),
+(8, 1, 'bbb.jpg', 'irene', 1);
 
 -- --------------------------------------------------------
 
@@ -98,8 +101,11 @@ CREATE TABLE `likes` (
 
 INSERT INTO `likes` (`idlikes_usuarios`, `idlikes_imagenes`) VALUES
 (5, 4),
+(5, 5),
 (5, 1),
-(5, 5);
+(5, 8),
+(1, 6),
+(19, 6);
 
 -- --------------------------------------------------------
 
@@ -144,10 +150,10 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`usuarioID`, `username`, `password`, `email`, `active`, `resetToken`, `resetComplete`, `visitas`, `descripcion`, `imagen`, `ultVisitas`) VALUES
-(1, 'Irene', '$2y$10$R6A3yNvjcoAg.kL8vHE7gexs1zkH7WTTZNR8JbfcEhhahZHX6Qn.G', 'irene.leon95@gmail.com', 'Yes', NULL, 'No', 105, 'Hola me llamo Irene', '082213cb0f9eabb7e6715f59ef7d322a-icono-de-perfil-de-instagram-by-vexels.png', 'a:3:{i:0;s:1:\"5\";i:1;s:1:\"1\";i:2;s:1:\"5\";}'),
-(5, 'Aitor', '$2y$10$a3RJKLkSlH9njYZbpakGw.zFhfj5KRD5sSfwcxhgRF5wKPRf.WeWu', 'aitorsan2092@gmail.com', 'Yes', NULL, 'No', 75, 'Hola me llamo Aitor', 'usuario.jpg', 'a:2:{i:0;s:1:\"5\";i:1;s:1:\"1\";}'),
+(1, 'Irene', '$2y$10$R6A3yNvjcoAg.kL8vHE7gexs1zkH7WTTZNR8JbfcEhhahZHX6Qn.G', 'irene.leon95@gmail.com', 'Yes', '0592385958c3e38b3d5fec6ba3a68954c952864ce99069e7776be28cd844ce45', 'No', 126, 'Hola me llamo Irene', '082213cb0f9eabb7e6715f59ef7d322a-icono-de-perfil-de-instagram-by-vexels.png', 'a:2:{i:0;s:1:\"5\";i:2;s:1:\"1\";}'),
+(5, 'Aitor', '$2y$10$a3RJKLkSlH9njYZbpakGw.zFhfj5KRD5sSfwcxhgRF5wKPRf.WeWu', 'aitorsan2092@gmail.com', 'Yes', NULL, 'No', 85, 'Hola me llamo Aitor', 'usuario.jpg', 'a:2:{i:0;s:1:\"1\";i:2;s:1:\"5\";}'),
 (14, 'IreneN', '$2y$10$1jojffb8rGJsqbrcqv1WeOsCvQQZZ6N0voB14oNoGcnZHbORPPbhS', 'irene.leonfernandez@colegio-losnaranjos.com', 'Yes', NULL, 'No', NULL, '', '', ''),
-(19, 'Prueba123', '$2y$10$VstFf6HFZHC2edIvQ7V3tub4vmyGl7vi.vtxxj/1utWEzlw6QjMja', '2_web9_18@iesjovellanos.org', 'Yes', NULL, 'No', NULL, '', '', '');
+(19, 'Prueba123', '$2y$10$VstFf6HFZHC2edIvQ7V3tub4vmyGl7vi.vtxxj/1utWEzlw6QjMja', '2_web9_18@iesjovellanos.org', 'Yes', NULL, 'No', NULL, '', '', 'a:2:{i:0;s:1:\"5\";i:1;s:1:\"1\";}');
 
 -- --------------------------------------------------------
 
@@ -206,7 +212,7 @@ ALTER TABLE `video`
 -- AUTO_INCREMENT de la tabla `comentarios`
 --
 ALTER TABLE `comentarios`
-  MODIFY `idcomentarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idcomentarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `comentariosv`
@@ -218,7 +224,7 @@ ALTER TABLE `comentariosv`
 -- AUTO_INCREMENT de la tabla `imagen`
 --
 ALTER TABLE `imagen`
-  MODIFY `idfoto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idfoto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
@@ -230,7 +236,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `video`
 --
 ALTER TABLE `video`
-  MODIFY `idvideo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idvideo` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
