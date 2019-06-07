@@ -7,6 +7,7 @@ session_start();
 <html>
 
 <head>
+    <link rel="icon" type="image/png" href="img/app/camaratrans.png" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <title>WebSocket Chat</title>
     <link type="text/css" rel="stylesheet" href="style.css" />
@@ -21,12 +22,16 @@ session_start();
         <div id="menu" class="card">
             <div class="card-header msg_head">
                 <div class="d-flex bd-highlight">
+                <div class="input-group-append" style="display: flex;justify-content: flex-end;">
+                        <a href="../../paginausuarios.php"><button type="button" value="Volver" class="btn float-left close_btn">Cerrar chat</button></a>
+                    </div>
                     <div class="img_cont">
                         <span class="online_icon"></span>
                     </div>
                     <div class="user_info">
                         <span>Live your dreams Chat</span>
                     </div>
+                    
                 </div>
 
                 <div class="card-body msg_card_body">
@@ -39,16 +44,14 @@ session_start();
                 </div>
 
                 <div id="controls" class="card-footer">
-                    <div class="input-group">
+                    <div class="input-group" style="display:flex;">
                         <input name="chatname" type="text" id="chatname" size="67" value="<?php echo $_SESSION['username']?>" readonly>
                         <input class="form-control type_msg" maxlength="32" name="msg" type="text" id="msg" size="63" placeholder="Escribe tu mensaje" />
                         <div class="input-group-append">
                             <input class="input-group-text send_btn" name="sendmsg" type="submit" id="sendmsg" value="Enviar" onclick="doSend(document.getElementById('msg').value)">
                         </div>
                     </div>
-                    <div class="input-group-append">
-                        <a href="../../paginausuarios.php"><button type="button" value="Volver" class="btn float-left send_btn">Volver</button></a>
-                    </div>
+                    
                 </div>
             </div>
         </div>
