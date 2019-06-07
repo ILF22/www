@@ -89,7 +89,8 @@ ini_set('display_errors', '1');
 				function confirmarBusqueda(){
 					<!--Verifica si el campo esta vacio, o es igual a nulo, o la longuitud es 0-->
 					var x = document.forms['form1']['buscar'].value;
-					if ( x == null || x == '' || x.length == 0 ) {
+                    var y=x.trim();
+					if ( y == null || y == '' || y.length == 0 ) {
 						alert('Introduce una palabra para buscar.');
 						return false;
 					}else
