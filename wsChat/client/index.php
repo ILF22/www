@@ -23,7 +23,7 @@ session_start();
             <div class="card-header msg_head">
                 <div class="d-flex bd-highlight">
                 <div class="input-group-append" style="display: flex;justify-content: flex-end;">
-                        <a href="../../paginausuarios.php"><button type="button" value="Volver" class="btn float-left close_btn">Cerrar chat</button></a>
+                        <a href="../../paginausuarios.php"><button type="button" value="Volver" class="btn float-left close_btn"><img class="imgCerrar" src="../../img/app/cerrar.png" alt="Papelera" /></button></a>
                     </div>
                     <div class="img_cont">
                         <span class="online_icon"></span>

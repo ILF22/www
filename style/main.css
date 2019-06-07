@@ -75,6 +75,7 @@ section {
     z-index: 100000;
 }
 
+
 @media only screen and (max-width: 991px) {
     .users-table a {
         /*color: white;*/
@@ -123,8 +124,8 @@ section {
 }
 
 .search-button input {
-    width: 55px;
-    height: 38px;
+    height: 47px;
+    width: 65px;
 }
 
 .imgConf {

@@ -51,8 +51,8 @@ ini_set('display_errors', '1');
 			<form id="form1" name="form1" method="get" action="">
 					<div class="input-group bg-dark search-bar">
 					  <input type="text" class="form-control search-input" placeholder="Buscar..." aria-label="Buscar..." aria-describedby="basic-addon2" name="buscar">
-					  <div class="input-group-append search-button">
-					  <input type="image" onclick="confirmarBusqueda()" name="submit" width="30px" height="30px"  src="img/app/lupa.png" class="btn btn-secondary btn-block btn-lg" tabindex="5">
+					  <div class="input-group-append search-button ">
+					  <input type="image" onclick="confirmarBusqueda()" name="submit" width="30px" height="30px"  src="img/app/lupa.png" class="btn btn-secondary btn-block btn-lg " tabindex="5">
 						<!--<span class="input-group-text" id="basic-addon2"><img width="30px" height="30px"  src="img/lupa.png" alt="Lupa" /></span>-->
 					  </div>
 					</div>

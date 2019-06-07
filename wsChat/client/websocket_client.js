@@ -32,7 +32,7 @@ function WebSocketSupport()
 }
 
 function onMessage(e) {
-    writeToScreen('<span style="color: yellow;"> ' + e.data + '</span>');
+    writeToScreen('<span style="color: greenyellow;"> ' + e.data + '</span>');
 }
 
 function onError(e) {
@@ -63,6 +63,8 @@ function doSend(message) {
 
     $("#chatbox > p:last-child").css({
         "background-color" : "rgb(250,128,114,0.5)",
+        "width":"96%",
+        "text-align":"right",
     });
 }
 

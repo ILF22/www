@@ -16,12 +16,13 @@ html {
     justify-content: center;
 }
 #chatbox {
-    width: 100%;
+    width: 92%;
     height:245px; 
     width: auto;
     padding: 12px;  
     border-radius: 5px; 
     overflow-x: hidden;
+    font-size: 20px;
 }
 #chatname {
     display: none;
@@ -79,6 +80,9 @@ html {
     color: white !important;
     height: 60px !important;
     width: 100%;
+    padding-left: 10px;
+    border-radius: 15px 0 0 15px;
+    font-size: 20px;
 }
 
 .type_msg:focus {
@@ -102,6 +106,7 @@ html {
     cursor: pointer;
     width: 105px;
     height: 98%;
+    font-size: 20px;
 }
 .close_btn {
     border-radius: 15px 15px  !important;
@@ -109,8 +114,12 @@ html {
     border: 0 !important;
     color: white !important;
     cursor: pointer;
-    width: 105px;
-    height: 42px;
+    width: 38px;
+    height: 38px;
+}
+.imgCerrar{
+    width: 25px;
+    height: 25px;
 }
 
 .search_btn {
@@ -152,6 +161,7 @@ html {
     position: relative;
     height: 70px;
     width: 70px;
+    margin-top: -30px;
 }
 
 .img_cont_msg {
